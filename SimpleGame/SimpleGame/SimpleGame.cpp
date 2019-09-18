@@ -10,8 +10,6 @@ but WITHOUT ANY WARRANTY.
 
 #include "stdafx.h"
 #include <iostream>
-#include "Dependencies\glew.h"
-#include "Dependencies\freeglut.h"
 
 #include "GameMgr.h"
 
@@ -63,6 +61,9 @@ int main(int argc, char **argv)
 
 	gameMgr = new GameMgr{};
 
+	// callback 함수에는 global한 함수만 대입가능
+	// gameMgr->renderScene()은 this가 숨은 인자로 존재.
+	// 따라서, void형 인자를 받는 callback함수를 인자로 받는 glutDisplayFunc()에 인자로 전달 불가.
 	glutDisplayFunc(RenderScene);
 	glutIdleFunc(Idle);
 	glutKeyboardFunc(KeyInput);

@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "GameMgr.h"
 #include "Renderer.h"
-#include "Dependencies\freeglut.h"
 
 GameMgr::GameMgr()
 {

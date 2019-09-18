@@ -9,6 +9,7 @@ private:
 public:
 	GameMgr();
 	~GameMgr();
+
 	void renderScene();
 };
 
