@@ -5,4 +5,8 @@
 #include "Dependencies\freeglut.h"
 
 #include <stdio.h>
+#include <iostream>
 #include <tchar.h>
+
+constexpr int wndSizeX{ 500 };
+constexpr int wndSizeY{ 500 };

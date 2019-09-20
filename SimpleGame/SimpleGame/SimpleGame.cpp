@@ -9,8 +9,6 @@ but WITHOUT ANY WARRANTY.
 */
 
 #include "stdafx.h"
-#include <iostream>
-
 #include "GameMgr.h"
 
 GameMgr* gameMgr{};
@@ -32,6 +30,7 @@ void MouseInput(int button, int state, int x, int y)
 
 void KeyInput(unsigned char key, int x, int y)
 {
+	gameMgr->testKeyInput(key);
 	RenderScene();
 }
 
@@ -46,7 +45,7 @@ int main(int argc, char **argv)
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(0, 0);
-	glutInitWindowSize(500, 500);
+	glutInitWindowSize(wndSizeX, wndSizeY);
 	glutCreateWindow("Game Software Engineering KPU");
 
 	glewInit();
@@ -61,9 +60,6 @@ int main(int argc, char **argv)
 
 	gameMgr = new GameMgr{};
 
-	// callback 함수에는 global한 함수만 대입가능
-	// gameMgr->renderScene()은 this가 숨은 인자로 존재.
-	// 따라서, void형 인자를 받는 callback함수를 인자로 받는 glutDisplayFunc()에 인자로 전달 불가.
 	glutDisplayFunc(RenderScene);
 	glutIdleFunc(Idle);
 	glutKeyboardFunc(KeyInput);
@@ -72,7 +68,7 @@ int main(int argc, char **argv)
 
 	glutMainLoop();
 
-	if (!gameMgr)
+	if (gameMgr)
 	{
 		delete gameMgr;
 		gameMgr = nullptr;
