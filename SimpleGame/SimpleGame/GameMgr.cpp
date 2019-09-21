@@ -3,15 +3,13 @@
 #include "Renderer.h"
 #include "GameObj.h"
 
+GameMgr* GameMgr::instance{};
+
 GameMgr::GameMgr()
 {
 	// Initialize Renderer
 	renderer = new Renderer{ wndSizeX, wndSizeY };
 	if (!renderer->IsInitialized()) { std::cout << "Renderer could not be initialized.. \n"; }
-
-	// test
-	//for (float i = 0; i < 3; ++i)
-	//	addObject({ 20 * i,20 * i,20 * i }, { 20, 20, 20 }, { 1, 0, 0, 1 });
 }
 
 GameMgr::~GameMgr()
@@ -21,6 +19,12 @@ GameMgr::~GameMgr()
 		delete renderer;
 		renderer = nullptr;
 	}
+}
+
+GameMgr* GameMgr::getInstance()
+{
+	if (!instance) instance = new GameMgr{};
+	return instance;
 }
 
 void GameMgr::renderScene()
@@ -39,8 +43,6 @@ void GameMgr::renderScene()
 			renderer->DrawSolidRect(loc.posX, loc.posY, loc.posZ, size.sizeX,
 				color.colorR, color.colorG, color.colorB, color.colorA);
 		}
-
-	glutSwapBuffers();	// double buffering
 }
 
 int GameMgr::addObject(ObjLocation loc, ObjSize size, ObjColor color)
@@ -65,7 +67,7 @@ int GameMgr::addObject(ObjLocation loc, ObjSize size, ObjColor color)
 
 void GameMgr::deleteObject(int idx)
 {
-	if (idx < 0) { std::cout << "Negative idx does not allowed. \n"; return; }
+	if (idx < 0) { std::cout << "negative idx is not allow. \n"; return; }
 	if (idx >= MAX_OBJECT) { std::cout << "Idx exceeds MAX_OBJECT \n"; return; }
 	if (obj[idx])
 	{
@@ -76,8 +78,13 @@ void GameMgr::deleteObject(int idx)
 
 void GameMgr::testKeyInput(unsigned char c)
 {
+	static float loc{};
+
 	if (c == 'a')
-		addObject({0, 0, 0}, { 20, 20, 20 }, { 1, 0, 0, 1 });
+	{
+		addObject({ 20 * loc, 20 * loc, 0 }, { 20, 20, 20 }, { 1, 0, 0, 1 });
+		if(loc < MAX_OBJECT) ++loc;
+	}
 
 	if (c == 'd')
 	{
@@ -85,6 +92,7 @@ void GameMgr::testKeyInput(unsigned char c)
 			if (obj[i])
 			{
 				deleteObject(i);
+				--loc;
 				break;
 			}
 	}

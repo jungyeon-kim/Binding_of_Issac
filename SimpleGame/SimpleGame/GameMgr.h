@@ -7,16 +7,18 @@ struct ObjColor;
 class Renderer;
 class GameObj;
 
-class GameMgr
+class GameMgr	// Singleton
 {
 private:
 	static constexpr int MAX_OBJECT{ 10 };
+	static GameMgr* instance;
 	Renderer* renderer{};
 	GameObj* obj[MAX_OBJECT]{};
-public:
+private:
 	GameMgr();
 	~GameMgr();
-
+public:
+	static GameMgr* getInstance();
 	void renderScene();
 	int addObject(ObjLocation loc, ObjSize size, ObjColor color);
 	void deleteObject(int idx);

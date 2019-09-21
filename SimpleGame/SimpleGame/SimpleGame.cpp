@@ -16,6 +16,8 @@ GameMgr* gameMgr{};
 void RenderScene(void)
 {
 	gameMgr->renderScene();
+
+	glutSwapBuffers();	// double buffering
 }
 
 void Idle(void)
@@ -58,7 +60,7 @@ int main(int argc, char **argv)
 		std::cout << "GLEW 3.0 not supported\n ";
 	}
 
-	gameMgr = new GameMgr{};
+	gameMgr = GameMgr::getInstance();
 
 	glutDisplayFunc(RenderScene);
 	glutIdleFunc(Idle);
@@ -67,12 +69,6 @@ int main(int argc, char **argv)
 	glutSpecialFunc(SpecialKeyInput);
 
 	glutMainLoop();
-
-	if (gameMgr)
-	{
-		delete gameMgr;
-		gameMgr = nullptr;
-	}
 
     return 0;
 }
