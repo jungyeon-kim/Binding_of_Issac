@@ -3,22 +3,21 @@
 #include "Renderer.h"
 #include "GameObj.h"
 
+#include <memory>
+
+using namespace std;
+
 GameMgr* GameMgr::instance{};
 
 GameMgr::GameMgr()
 {
 	// Initialize Renderer
-	renderer = new Renderer{ wndSizeX, wndSizeY };
-	if (!renderer->IsInitialized()) { std::cout << "Renderer could not be initialized.. \n"; }
+	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
+	if (!renderer->IsInitialized()) { cout << "Renderer could not be initialized.. \n"; }
 }
 
 GameMgr::~GameMgr()
 {
-	if (renderer)
-	{
-		delete renderer;
-		renderer = nullptr;
-	}
 }
 
 GameMgr* GameMgr::getInstance()
@@ -55,9 +54,9 @@ int GameMgr::addObject(ObjLocation loc, ObjSize size, ObjColor color)
 			idx = i;
 			break;
 		}
-	if (idx == -1) { std::cout << "Object is full. \n"; return -1; }
+	if (idx == -1) { cout << "Object is full. \n"; return -1; }
 
-	obj[idx] = new GameObj{};
+	obj[idx] = make_unique<GameObj>();
 	obj[idx]->setLocation(loc);
 	obj[idx]->setSize(size);
 	obj[idx]->setColor(color);
@@ -67,13 +66,9 @@ int GameMgr::addObject(ObjLocation loc, ObjSize size, ObjColor color)
 
 void GameMgr::deleteObject(int idx)
 {
-	if (idx < 0) { std::cout << "negative idx is not allow. \n"; return; }
-	if (idx >= MAX_OBJECT) { std::cout << "Idx exceeds MAX_OBJECT \n"; return; }
-	if (obj[idx])
-	{
-		delete obj[idx];
-		obj[idx] = nullptr;
-	}
+	if (idx < 0) { cout << "negative idx is not allow. \n"; return; }
+	if (idx >= MAX_OBJECT) { cout << "Idx exceeds MAX_OBJECT \n"; return; }
+	if (obj[idx]) obj[idx].reset();
 }
 
 void GameMgr::testKeyInput(unsigned char c)

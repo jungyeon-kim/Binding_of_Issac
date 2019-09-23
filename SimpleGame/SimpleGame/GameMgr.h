@@ -12,8 +12,8 @@ class GameMgr	// Singleton
 private:
 	static constexpr int MAX_OBJECT{ 10 };
 	static GameMgr* instance;
-	Renderer* renderer{};
-	GameObj* obj[MAX_OBJECT]{};
+	std::unique_ptr<Renderer> renderer{};
+	std::unique_ptr<GameObj> obj[MAX_OBJECT]{};
 private:
 	GameMgr();
 	~GameMgr();
