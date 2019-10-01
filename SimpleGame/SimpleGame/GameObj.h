@@ -1,24 +1,36 @@
 #pragma once
 
-struct ObjLocation { float posX{}, posY{}, posZ{}; };
-struct ObjSize { float sizeX{}, sizeY{}, sizeZ{}; };
-struct ObjColor { float colorR{}, colorG{}, colorB{}, colorA{}; };
+struct ObjPos { float x{ -1 }, y{ -1 }, z{ -1 }; };
+struct ObjVel { float x{ -1 }, y{ -1 }, z{ -1 }; };
+struct ObjAcc { float x{ -1 }, y{ -1 }, z{ -1 }; };
+struct ObjVol { float x{ -1 }, y{ -1 }, z{ -1 }; };
+struct ObjCol { float r{ -1 }, g{ -1 }, b{ -1 }, a{ -1 }; };
+struct ObjWt { float wt{ -1 }; };
 
 class GameObj
 {
 private:
-	ObjLocation objLoc{};
-	ObjSize objSize{};
-	ObjColor objColor{};
+	ObjPos objPos{};
+	ObjVel objVel{};
+	ObjAcc objAcc{};
+	ObjVol objVol{};
+	ObjCol objCol{};
+	ObjWt objWt{};
 public:
 	GameObj();
 	~GameObj();
 
-	ObjLocation getLocation() const;
-	ObjSize getSize() const;
-	ObjColor getColor() const;
-	void setLocation(const ObjLocation& loc);
-	void setSize(const ObjSize& size);
-	void setColor(const ObjColor& color);
+	ObjPos getPos() const;
+	ObjVel getVel() const;
+	ObjAcc getAcc() const;
+	ObjVol getVol() const;
+	ObjCol getCol() const;
+	ObjWt getWt() const;
+	void setPos(const ObjPos& pos);
+	void setVel(const ObjVel& vel);
+	void setAcc(const ObjAcc& acc);
+	void setVol(const ObjVol& vol);
+	void setCol(const ObjCol& color);
+	void setWt(const ObjWt& wt);
 };
 

@@ -1,8 +1,14 @@
 #pragma once
 
-struct ObjLocation;
-struct ObjSize;
-struct ObjColor;
+//struct ObjLocation;
+//struct ObjSize;
+
+struct ObjPos;
+struct ObjVel;
+struct ObjAcc;
+struct ObjVol;
+struct ObjCol;
+struct ObjWt;
 
 class Renderer;
 class GameObj;
@@ -20,7 +26,7 @@ private:
 public:
 	static GameMgr* getInstance();
 	void renderScene();
-	int addObject(const ObjLocation& loc, const ObjSize& size, const ObjColor& color);
+	int addObject(const ObjPos& loc, const ObjVol& size, const ObjCol& col);
 	void deleteObject(int idx);
 	void testKeyInput(unsigned char c);
 };

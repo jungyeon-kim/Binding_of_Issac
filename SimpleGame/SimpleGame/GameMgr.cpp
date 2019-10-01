@@ -35,16 +35,16 @@ void GameMgr::renderScene()
 	for (int i = 0; i < MAX_OBJECT; ++i)
 		if (obj[i])
 		{
-			ObjLocation loc{ obj[i]->getLocation() };
-			ObjSize size{ obj[i]->getSize() };
-			ObjColor color{ obj[i]->getColor() };
+			ObjPos pos{ obj[i]->getPos() };
+			ObjVol vol{ obj[i]->getVol() };
+			ObjCol col{ obj[i]->getCol() };
 
-			renderer->DrawSolidRect(loc.posX, loc.posY, loc.posZ, size.sizeX,
-				color.colorR, color.colorG, color.colorB, color.colorA);
+			renderer->DrawSolidRect(pos.x, pos.y, pos.z, vol.x,
+				col.r, col.g, col.b, col.a);
 		}
 }
 
-int GameMgr::addObject(const ObjLocation& loc, const ObjSize& size, const ObjColor& color)
+int GameMgr::addObject(const ObjPos& pos, const ObjVol& vol, const ObjCol& col)
 {
 	int idx{ -1 };
 
@@ -57,9 +57,9 @@ int GameMgr::addObject(const ObjLocation& loc, const ObjSize& size, const ObjCol
 	if (idx == -1) { cout << "Object is full. \n"; return idx; }
 
 	obj[idx] = make_unique<GameObj>();
-	obj[idx]->setLocation(loc);
-	obj[idx]->setSize(size);
-	obj[idx]->setColor(color);
+	obj[idx]->setPos(pos);
+	obj[idx]->setVol(vol);
+	obj[idx]->setCol(col);
 	
 	return idx;
 }
