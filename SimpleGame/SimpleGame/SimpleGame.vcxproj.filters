@@ -25,6 +25,9 @@
     <Filter Include="소스 파일\Renderer">
       <UniqueIdentifier>{9208c3ad-cd24-400c-b921-35b2d8884355}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Struct">
+      <UniqueIdentifier>{44489fc7-e2e8-4e31-b69c-d33c5d4f2449}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -44,6 +47,12 @@
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>소스 파일\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Vec.h">
+      <Filter>헤더 파일\Struct</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>헤더 파일\Struct</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

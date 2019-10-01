@@ -35,16 +35,16 @@ void GameMgr::renderScene()
 	for (int i = 0; i < MAX_OBJECT; ++i)
 		if (obj[i])
 		{
-			ObjPos pos{ obj[i]->getPos() };
-			ObjVol vol{ obj[i]->getVol() };
-			ObjCol col{ obj[i]->getCol() };
+			Vector pos{ obj[i]->getPos() };
+			Vector vol{ obj[i]->getVol() };
+			Color col{ obj[i]->getCol() };
 
 			renderer->DrawSolidRect(pos.x, pos.y, pos.z, vol.x,
 				col.r, col.g, col.b, col.a);
 		}
 }
 
-int GameMgr::addObject(const ObjPos& pos, const ObjVol& vol, const ObjCol& col)
+int GameMgr::addObject(const Vector& pos, const Vector& vol, const Color& col)
 {
 	int idx{ -1 };
 
@@ -77,7 +77,7 @@ void GameMgr::testKeyInput(unsigned char c)
 
 	if (c == 'a')
 	{
-		addObject({ 20 * loc, 20 * loc, 0 }, { 20, 20, 20 }, { 1, 0, 0, 1 });
+		addObject({ 20 * loc, 20 * loc, 0 }, { 20, 20, 20}, { 1, 0, 0, 1 });
 		if(loc < MAX_OBJECT) ++loc;
 	}
 
