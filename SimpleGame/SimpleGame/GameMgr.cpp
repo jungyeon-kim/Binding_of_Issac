@@ -44,7 +44,7 @@ void GameMgr::renderScene()
 		}
 }
 
-int GameMgr::addObject(ObjLocation loc, ObjSize size, ObjColor color)
+int GameMgr::addObject(const ObjLocation& loc, const ObjSize& size, const ObjColor& color)
 {
 	int idx{ -1 };
 
@@ -54,19 +54,19 @@ int GameMgr::addObject(ObjLocation loc, ObjSize size, ObjColor color)
 			idx = i;
 			break;
 		}
-	if (idx == -1) { cout << "Object is full. \n"; return -1; }
+	if (idx == -1) { cout << "Object is full. \n"; return idx; }
 
 	obj[idx] = make_unique<GameObj>();
 	obj[idx]->setLocation(loc);
 	obj[idx]->setSize(size);
 	obj[idx]->setColor(color);
-
+	
 	return idx;
 }
 
 void GameMgr::deleteObject(int idx)
 {
-	if (idx < 0) { cout << "negative idx is not allow. \n"; return; }
+	if (idx < 0) { cout << "Negative Idx is not allow. \n"; return; }
 	if (idx >= MAX_OBJECT) { cout << "Idx exceeds MAX_OBJECT \n"; return; }
 	if (obj[idx]) obj[idx].reset();
 }

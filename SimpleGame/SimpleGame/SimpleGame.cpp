@@ -51,14 +51,8 @@ int main(int argc, char **argv)
 	glutCreateWindow("Game Software Engineering KPU");
 
 	glewInit();
-	if (glewIsSupported("GL_VERSION_3_0"))
-	{
-		std::cout << " GLEW Version is 3.0\n ";
-	}
-	else
-	{
-		std::cout << "GLEW 3.0 not supported\n ";
-	}
+	if (glewIsSupported("GL_VERSION_3_0")) { std::cout << " GLEW Version is 3.0\n "; }
+	else { std::cout << "GLEW 3.0 not supported\n "; }
 
 	gameMgr = GameMgr::getInstance();
 

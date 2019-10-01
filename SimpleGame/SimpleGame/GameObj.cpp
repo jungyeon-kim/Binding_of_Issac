@@ -24,20 +24,20 @@ ObjColor GameObj::getColor() const
 	return objColor; 
 }
 
-void GameObj::setLocation(ObjLocation loc)
+void GameObj::setLocation(const ObjLocation& loc)
 {
 	objLoc.posX = loc.posX;
 	objLoc.posY = loc.posY;
 	objLoc.posZ = loc.posZ;
 }
 
-void GameObj::setSize(ObjSize size)
+void GameObj::setSize(const ObjSize& size)
 {
 	objSize.sizeX = size.sizeX;
 	objSize.sizeY = size.sizeY;
 	objSize.sizeZ = size.sizeZ;
 }
-void GameObj::setColor(ObjColor color)
+void GameObj::setColor(const ObjColor& color)
 {
 	objColor.colorR = color.colorR;
 	objColor.colorG = color.colorG;

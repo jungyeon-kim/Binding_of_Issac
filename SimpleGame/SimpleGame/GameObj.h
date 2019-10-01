@@ -17,8 +17,8 @@ public:
 	ObjLocation getLocation() const;
 	ObjSize getSize() const;
 	ObjColor getColor() const;
-	void setLocation(ObjLocation loc);
-	void setSize(ObjSize size);
-	void setColor(ObjColor color);
+	void setLocation(const ObjLocation& loc);
+	void setSize(const ObjSize& size);
+	void setColor(const ObjColor& color);
 };
 

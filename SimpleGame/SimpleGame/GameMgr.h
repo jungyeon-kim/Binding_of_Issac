@@ -20,7 +20,7 @@ private:
 public:
 	static GameMgr* getInstance();
 	void renderScene();
-	int addObject(ObjLocation loc, ObjSize size, ObjColor color);
+	int addObject(const ObjLocation& loc, const ObjSize& size, const ObjColor& color);
 	void deleteObject(int idx);
 	void testKeyInput(unsigned char c);
 };
