@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Vec.h"
+#include "Vector.h"
 #include "Color.h"
 
 class GameObj
@@ -12,6 +12,8 @@ private:
 public:
 	GameObj();
 	~GameObj();
+
+	void update(float eTime);
 
 	float getWt() const;
 	Vector getPos() const;

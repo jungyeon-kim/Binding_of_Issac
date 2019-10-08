@@ -12,33 +12,41 @@ but WITHOUT ANY WARRANTY.
 #include "GameMgr.h"
 
 GameMgr* gameMgr{};
+float previousTime{};
+float elapsedTime{};
 
-void RenderScene(void)
+void RenderScene(int temp)
 {
+	elapsedTime = glutGet(GLUT_ELAPSED_TIME) - previousTime;
+	previousTime = glutGet(GLUT_ELAPSED_TIME);
+	std::cout << elapsedTime << std::endl;
+
+	gameMgr->update(elapsedTime / 1000);
 	gameMgr->renderScene();
 
-	glutSwapBuffers();	// double buffering
+	glutSwapBuffers();						// double buffering
+	glutTimerFunc(16, RenderScene, NULL);
 }
 
-void Idle(void)
+void Display()
 {
-	RenderScene();
+}
+
+void Idle()
+{
 }
 
 void MouseInput(int button, int state, int x, int y)
 {
-	RenderScene();
 }
 
 void KeyInput(unsigned char key, int x, int y)
 {
 	gameMgr->testKeyInput(key);
-	RenderScene();
 }
 
 void SpecialKeyInput(int key, int x, int y)
 {
-	RenderScene();
 }
 
 int main(int argc, char **argv)
@@ -56,14 +64,14 @@ int main(int argc, char **argv)
 
 	gameMgr = GameMgr::getInstance();
 
-	glutDisplayFunc(RenderScene);
+	glutDisplayFunc(Display);
 	glutIdleFunc(Idle);
 	glutKeyboardFunc(KeyInput);
 	glutMouseFunc(MouseInput);
 	glutSpecialFunc(SpecialKeyInput);
+	glutTimerFunc(16, RenderScene, NULL);
 
 	glutMainLoop();
 
     return 0;
 }
-

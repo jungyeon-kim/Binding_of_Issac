@@ -160,14 +160,16 @@
     <ClInclude Include="GameObj.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Vec.h" />
+    <ClInclude Include="Vector.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameMgr.cpp" />
     <ClCompile Include="GameObj.cpp" />
     <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="SimpleGame.cpp" />
+    <ClCompile Include="SimpleGame.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

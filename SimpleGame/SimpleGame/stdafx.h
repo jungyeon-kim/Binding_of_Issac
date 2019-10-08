@@ -9,3 +9,5 @@
 
 constexpr int wndSizeX{ 500 };
 constexpr int wndSizeY{ 500 };
+
+constexpr int meter{ 100 };

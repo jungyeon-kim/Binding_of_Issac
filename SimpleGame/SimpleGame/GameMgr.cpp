@@ -26,6 +26,12 @@ GameMgr* GameMgr::getInstance()
 	return instance;
 }
 
+void GameMgr::update(float eTime)
+{
+	for (int i = 0; i < MAX_OBJECT; ++i)
+		if (obj[i]) obj[i]->update(eTime);
+}
+
 void GameMgr::renderScene()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -59,6 +65,7 @@ int GameMgr::addObject(const Vector& pos, const Vector& vol, const Color& col)
 	obj[idx] = make_unique<GameObj>();
 	obj[idx]->setPos(pos);
 	obj[idx]->setVol(vol);
+	obj[idx]->setVel({ 0.5, 0, 0 });
 	obj[idx]->setCol(col);
 	
 	return idx;
@@ -77,7 +84,7 @@ void GameMgr::testKeyInput(unsigned char c)
 
 	if (c == 'a')
 	{
-		addObject({ 20 * loc, 20 * loc, 0 }, { 20, 20, 20}, { 1, 0, 0, 1 });
+		addObject({ 1 * loc, 1 * loc, 0 }, { 1, 1, 1 }, { 1, 0, 0, 1 });
 		if(loc < MAX_OBJECT) ++loc;
 	}
 

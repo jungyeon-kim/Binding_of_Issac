@@ -48,10 +48,10 @@
     <ClInclude Include="Renderer.h">
       <Filter>소스 파일\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Vec.h">
+    <ClInclude Include="Color.h">
       <Filter>헤더 파일\Struct</Filter>
     </ClInclude>
-    <ClInclude Include="Color.h">
+    <ClInclude Include="Vector.h">
       <Filter>헤더 파일\Struct</Filter>
     </ClInclude>
   </ItemGroup>
