@@ -12,19 +12,26 @@ but WITHOUT ANY WARRANTY.
 #include "GameMgr.h"
 
 GameMgr* gameMgr{};
-float previousTime{};
-float elapsedTime{};
+
+void Init(int argc, char** argv)
+{
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+	glutInitWindowPosition(0, 0);
+	glutInitWindowSize(wndSizeX, wndSizeY);
+	glutCreateWindow("Game Software Engineering KPU");
+
+	glewInit();
+	if (glewIsSupported("GL_VERSION_3_0")) { std::cout << " GLEW Version is 3.0\n "; }
+	else { std::cout << "GLEW 3.0 not supported\n "; }
+}
 
 void RenderScene(int temp)
 {
-	elapsedTime = glutGet(GLUT_ELAPSED_TIME) - previousTime;
-	previousTime = glutGet(GLUT_ELAPSED_TIME);
-	std::cout << elapsedTime << std::endl;
-
-	gameMgr->update(elapsedTime / 1000);
+	gameMgr->update(static_cast<float>(gameMgr->getElapsedTime()) / 1000);
 	gameMgr->renderScene();
 
-	glutSwapBuffers();						// double buffering
+	glutSwapBuffers();	// double buffering
 	glutTimerFunc(16, RenderScene, NULL);
 }
 
@@ -51,16 +58,7 @@ void SpecialKeyInput(int key, int x, int y)
 
 int main(int argc, char **argv)
 {
-	// Initialize GL things
-	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-	glutInitWindowPosition(0, 0);
-	glutInitWindowSize(wndSizeX, wndSizeY);
-	glutCreateWindow("Game Software Engineering KPU");
-
-	glewInit();
-	if (glewIsSupported("GL_VERSION_3_0")) { std::cout << " GLEW Version is 3.0\n "; }
-	else { std::cout << "GLEW 3.0 not supported\n "; }
+	Init(argc, argv);
 
 	gameMgr = GameMgr::getInstance();
 

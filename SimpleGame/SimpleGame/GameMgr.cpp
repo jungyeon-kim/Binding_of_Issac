@@ -99,3 +99,13 @@ void GameMgr::testKeyInput(unsigned char c)
 			}
 	}
 }
+
+int GameMgr::getElapsedTime()
+{
+	currTime = glutGet(GLUT_ELAPSED_TIME);
+	elapsedTime = currTime - prevTime;
+	prevTime = currTime;
+	cout << "elapsed time (ms): " << elapsedTime << endl;
+
+	return elapsedTime;
+}

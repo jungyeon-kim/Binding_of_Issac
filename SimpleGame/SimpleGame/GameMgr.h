@@ -13,6 +13,7 @@ private:
 	static GameMgr* instance;
 	std::unique_ptr<Renderer> renderer{};
 	std::unique_ptr<GameObj> obj[MAX_OBJECT]{};
+	int currTime{}, prevTime{}, elapsedTime{};
 private:
 	GameMgr();
 	~GameMgr();
@@ -23,5 +24,7 @@ public:
 	int addObject(const Vector& pos, const Vector& vol, const Color& col);
 	void deleteObject(int idx);
 	void testKeyInput(unsigned char c);
+
+	int getElapsedTime();
 };
 
