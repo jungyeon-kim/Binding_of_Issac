@@ -1,8 +1,5 @@
 #pragma once
 
-#include "Vector.h"
-#include "Color.h"
-
 class GameObj
 {
 private:

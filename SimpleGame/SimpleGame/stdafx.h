@@ -6,6 +6,17 @@
 
 #include <iostream>
 #include <tchar.h>
+#include <memory>
+#include <list>
+
+/*	
+	--------------------------------------------
+					custom area	бщ
+	--------------------------------------------
+*/
+
+#include "Vector.h"
+#include "Color.h"
 
 constexpr int wndSizeX{ 500 };
 constexpr int wndSizeY{ 500 };

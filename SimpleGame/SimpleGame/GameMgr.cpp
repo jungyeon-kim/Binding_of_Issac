@@ -3,8 +3,6 @@
 #include "Renderer.h"
 #include "GameObj.h"
 
-#include <memory>
-
 using namespace std;
 
 GameMgr* GameMgr::instance{};
@@ -28,8 +26,7 @@ GameMgr* GameMgr::getInstance()
 
 void GameMgr::update(float eTime)
 {
-	for (int i = 0; i < MAX_OBJECT; ++i)
-		if (obj[i]) obj[i]->update(eTime);
+	for (auto& i : obj) i->update(eTime);
 }
 
 void GameMgr::renderScene()
@@ -38,44 +35,38 @@ void GameMgr::renderScene()
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 
 	// renderer Test
-	for (int i = 0; i < MAX_OBJECT; ++i)
-		if (obj[i])
-		{
-			Vector pos{ obj[i]->getPos() };
-			Vector vol{ obj[i]->getVol() };
-			Color col{ obj[i]->getCol() };
+	for (const auto& i : obj)
+	{
+		Vector pos{ i->getPos() };
+		Vector vol{ i->getVol() };
+		Color col{ i->getCol() };
 
-			renderer->DrawSolidRect(pos.x, pos.y, pos.z, vol.x,
-				col.r, col.g, col.b, col.a);
-		}
+		renderer->DrawSolidRect(pos.x, pos.y, pos.z, vol.x,
+			col.r, col.g, col.b, col.a);
+	}
 }
 
-int GameMgr::addObject(const Vector& pos, const Vector& vol, const Color& col)
+void GameMgr::addObject(const Vector& pos, const Vector& vol, const Color& col)
 {
-	int idx{ -1 };
-
-	for (int i = 0; i < MAX_OBJECT; ++i)
-		if (!obj[i])
-		{
-			idx = i;
-			break;
-		}
-	if (idx == -1) { cout << "Object is full. \n"; return idx; }
-
-	obj[idx] = make_unique<GameObj>();
-	obj[idx]->setPos(pos);
-	obj[idx]->setVol(vol);
-	obj[idx]->setVel({ 0.5, 0, 0 });
-	obj[idx]->setCol(col);
-	
-	return idx;
+	if (obj.size() < MAX_OBJECT)
+	{
+		obj.emplace_back(make_unique<GameObj>());
+		obj.back()->setPos(pos);
+		obj.back()->setVol(vol);
+		obj.back()->setVel({ 0.5, 0, 0 });
+		obj.back()->setCol(col);
+	}
+	else 
+		cout << "Object is full. \n";
 }
 
-void GameMgr::deleteObject(int idx)
+void GameMgr::deleteObject()
 {
-	if (idx < 0) { cout << "Negative Idx is not allow. \n"; return; }
-	if (idx >= MAX_OBJECT) { cout << "Idx exceeds MAX_OBJECT \n"; return; }
-	if (obj[idx]) obj[idx].reset();
+	for (const auto& i : obj)
+	{
+		obj.remove(i);
+		break;
+	}
 }
 
 void GameMgr::testKeyInput(unsigned char c)
@@ -90,13 +81,8 @@ void GameMgr::testKeyInput(unsigned char c)
 
 	if (c == 'd')
 	{
-		for (int i = 0; i < MAX_OBJECT; ++i)
-			if (obj[i])
-			{
-				deleteObject(i);
-				--loc;
-				break;
-			}
+		if (!obj.empty()) --loc;
+		deleteObject();
 	}
 }
 
