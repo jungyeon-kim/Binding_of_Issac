@@ -21,5 +21,5 @@ constexpr float meter(float cMeter = 1)
 	return cMeter * 100;
 }
 
-constexpr float wndSizeX{ meter(5) };
-constexpr float wndSizeY{ meter(5) };
+constexpr int wndSizeX{ static_cast<int>(meter(5)) };
+constexpr int wndSizeY{ static_cast<int>(meter(5)) };

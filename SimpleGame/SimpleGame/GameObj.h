@@ -3,23 +3,23 @@
 class GameObj
 {
 private:
-	float objWt{};
+	float objMass{};
 	Vector objPos{}, objVel{}, objAcc{}, objVol{};
 	Color objCol{};
 public:
 	GameObj();
-	~GameObj();
+	virtual ~GameObj();
 
 	void update(float eTime);
-	void addForce(float x, float y, float z, float eTime);
+	void addForce(float fX, float fY, float fZ, float eTime);
 
-	float getWt() const;
+	float getMass() const;
 	Vector getPos() const;
 	Vector getVel() const;
 	Vector getAcc() const;
 	Vector getVol() const;
 	Color getCol() const;
-	void setWt(float wt);
+	void setMass(float mass);
 	void setPos(const Vector& pos);
 	void setVel(const Vector& vel);
 	void setAcc(const Vector& acc);

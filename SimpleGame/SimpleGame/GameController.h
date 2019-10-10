@@ -1,11 +1,14 @@
 #pragma once
 
-class GameMgr;
-
-class GameController : public GameMgr
+class GameController
 {
-public:
+protected:
+	bool keyW{}, keyA{}, keyS{}, keyD{};
+protected:
 	GameController();
-	~GameController();
+	virtual ~GameController();
+public:
+	void keyDownInput(unsigned char key, int x, int y);
+	void keyUpInput(unsigned char key, int x, int y);
 };
 

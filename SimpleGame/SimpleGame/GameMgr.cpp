@@ -15,11 +15,12 @@ GameMgr::GameMgr()
 
 	// Add Hero Object Test
 	obj.emplace_back(make_unique<GameObj>());
-	obj[HERO_OBJECT]->setPos({ 0,0,0 });
+	obj[HERO_OBJECT]->setPos({ 0, 0, 0 });
 	obj[HERO_OBJECT]->setVol({ 1, 1, 1 });
 	obj[HERO_OBJECT]->setVel({ 0, 0, 0 });
 	obj[HERO_OBJECT]->setCol({ 1, 0, 0, 0 });
-	obj[HERO_OBJECT]->setWt(1);
+	obj[HERO_OBJECT]->setMass(1);
+	//
 }
 
 GameMgr::~GameMgr()
@@ -34,13 +35,15 @@ GameMgr* GameMgr::getInstance()
 
 void GameMgr::update(float eTime)
 {
-	float fAmount{ 1 };
+	// addForce Test
+	float fAmount{ 3 };
 	float fX{}, fY{}, fZ{};
 
 	if (keyW) fY += fAmount;
 	if (keyA) fX -= fAmount;
 	if (keyS) fY -= fAmount;
 	if (keyD) fX += fAmount;
+	//
 
 	obj[HERO_OBJECT]->addForce(fX, fY, fZ, eTime);
 
@@ -52,7 +55,7 @@ void GameMgr::renderScene()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 
-	// renderer Test
+	// Rendering Test
 	for (const auto& i : obj)
 	{
 		Vector pos{ i->getPos() };
@@ -62,6 +65,7 @@ void GameMgr::renderScene()
 		renderer->DrawSolidRect(pos.x, pos.y, pos.z, vol.x,
 			col.r, col.g, col.b, col.a);
 	}
+	//
 }
 
 void GameMgr::addObject(const Vector& pos, const Vector& vol, const Color& col)
@@ -85,50 +89,6 @@ void GameMgr::deleteObject()
 		if (i->get()->getPos().x > meter()) i = obj.erase(i);
 		else ++i;
 	}
-}
-
-void GameMgr::keyDownInput(unsigned char key, int x, int y)
-{
-	switch (key | 32)
-	{
-	case 'w':
-		keyW = true;
-		break;
-	case 'a':
-		keyA = true;
-		break;
-	case 's':
-		keyS = true;
-		break;
-	case 'd':
-		keyD = true;
-		break;
-	}
-}
-
-void GameMgr::keyUpInput(unsigned char key, int x, int y)
-{
-	switch (key | 32)
-	{
-	case 'w':
-		keyW = false;
-		break;
-	case 'a':
-		keyA = false;
-		break;
-	case 's':
-		keyS = false;
-		break;
-	case 'd':
-		keyD = false;
-		break;
-	}
-}
-
-void GameMgr::testKeyInput(unsigned char c)
-{
-	if (c == 'a') addObject({ 0, 0, 0 }, { 1, 1, 1 }, { 1, 0, 0, 1 });
-	if (c == 'd') deleteObject();
 }
 
 int GameMgr::getElapsedTime()

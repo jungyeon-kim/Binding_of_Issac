@@ -49,7 +49,6 @@ void MouseInput(int button, int state, int x, int y)
 
 void KeyDownInput(unsigned char key, int x, int y)
 {
-	//gameMgr->testKeyInput(key);
 	gameMgr->keyDownInput(key, x, y);
 }
 
