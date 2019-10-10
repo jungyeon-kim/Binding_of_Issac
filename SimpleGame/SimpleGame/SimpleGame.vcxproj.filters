@@ -28,6 +28,9 @@
     <Filter Include="헤더 파일\Struct">
       <UniqueIdentifier>{44489fc7-e2e8-4e31-b69c-d33c5d4f2449}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\GameController">
+      <UniqueIdentifier>{4d9806e2-b95e-4328-af5d-a46faeb96317}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -54,6 +57,9 @@
     <ClInclude Include="Vector.h">
       <Filter>헤더 파일\Struct</Filter>
     </ClInclude>
+    <ClInclude Include="GameController.h">
+      <Filter>소스 파일\GameController</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -70,6 +76,9 @@
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>소스 파일\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="GameController.cpp">
+      <Filter>소스 파일\GameController</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

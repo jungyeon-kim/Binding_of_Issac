@@ -11,6 +11,7 @@ public:
 	~GameObj();
 
 	void update(float eTime);
+	void addForce(float x, float y, float z, float eTime);
 
 	float getWt() const;
 	Vector getPos() const;

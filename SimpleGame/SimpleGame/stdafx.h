@@ -7,18 +7,19 @@
 #include <iostream>
 #include <tchar.h>
 #include <memory>
-#include <list>
+#include <vector>
 
-/*	
-	--------------------------------------------
+/*	--------------------------------------------
 					custom area	бщ
-	--------------------------------------------
-*/
+	--------------------------------------------  */
 
 #include "Vector.h"
 #include "Color.h"
 
-constexpr int wndSizeX{ 500 };
-constexpr int wndSizeY{ 500 };
+constexpr float meter(float cMeter = 1)
+{
+	return cMeter * 100;
+}
 
-constexpr int meter{ 100 };
+constexpr float wndSizeX{ meter(5) };
+constexpr float wndSizeY{ meter(5) };

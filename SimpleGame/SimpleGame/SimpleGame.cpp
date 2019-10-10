@@ -47,10 +47,17 @@ void MouseInput(int button, int state, int x, int y)
 {
 }
 
-void KeyInput(unsigned char key, int x, int y)
+void KeyDownInput(unsigned char key, int x, int y)
 {
-	gameMgr->testKeyInput(key);
+	//gameMgr->testKeyInput(key);
+	gameMgr->keyDownInput(key, x, y);
 }
+
+void KeyUpInput(unsigned char key, int x, int y)
+{
+	gameMgr->keyUpInput(key, x, y);
+}
+
 
 void SpecialKeyInput(int key, int x, int y)
 {
@@ -64,7 +71,8 @@ int main(int argc, char **argv)
 
 	glutDisplayFunc(Display);
 	glutIdleFunc(Idle);
-	glutKeyboardFunc(KeyInput);
+	glutKeyboardFunc(KeyDownInput);
+	glutKeyboardUpFunc(KeyUpInput);
 	glutMouseFunc(MouseInput);
 	glutSpecialFunc(SpecialKeyInput);
 	glutTimerFunc(16, RenderScene, NULL);

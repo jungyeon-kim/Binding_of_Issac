@@ -14,9 +14,20 @@ GameObj::~GameObj()
 
 void GameObj::update(float eTime)
 {
-	objPos.x += objVel.x * eTime * meter;
-	objPos.y += objVel.y * eTime * meter;
-	objPos.z += objVel.z * eTime * meter;
+	objPos.x += objVel.x * eTime * meter();
+	objPos.y += objVel.y * eTime * meter();
+	objPos.z += objVel.z * eTime * meter();
+}
+
+void GameObj::addForce(float x, float y, float z, float eTime)
+{
+	objAcc.x = x / objWt;
+	objAcc.y = y / objWt;
+	objAcc.z = z / objWt;
+	
+	objVel.x += objAcc.x * eTime;
+	objVel.y += objAcc.y * eTime;
+	objVel.z += objAcc.z * eTime;
 }
 
 float GameObj::getWt() const
@@ -56,9 +67,9 @@ void GameObj::setWt(float wt)
 
 void GameObj::setPos(const Vector& pos)
 {
-	objPos.x = pos.x * meter;
-	objPos.y = pos.y * meter;
-	objPos.z = pos.z * meter;
+	objPos.x = pos.x * meter();
+	objPos.y = pos.y * meter();
+	objPos.z = pos.z * meter();
 }
 
 void GameObj::setVel(const Vector& vel)
@@ -77,9 +88,9 @@ void GameObj::setAcc(const Vector& acc)
 
 void GameObj::setVol(const Vector& vol)
 {
-	objVol.x = vol.x * meter;
-	objVol.y = vol.y * meter;
-	objVol.z = vol.z * meter;
+	objVol.x = vol.x * meter();
+	objVol.y = vol.y * meter();
+	objVol.z = vol.z * meter();
 }
 
 void GameObj::setCol(const Color& col)

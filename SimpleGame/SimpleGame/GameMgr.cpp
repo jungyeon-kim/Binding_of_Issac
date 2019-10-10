@@ -12,6 +12,14 @@ GameMgr::GameMgr()
 	// Initialize Renderer
 	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
 	if (!renderer->IsInitialized()) { cout << "Renderer could not be initialized.. \n"; }
+
+	// Add Hero Object Test
+	obj.emplace_back(make_unique<GameObj>());
+	obj[HERO_OBJECT]->setPos({ 0,0,0 });
+	obj[HERO_OBJECT]->setVol({ 1, 1, 1 });
+	obj[HERO_OBJECT]->setVel({ 0, 0, 0 });
+	obj[HERO_OBJECT]->setCol({ 1, 0, 0, 0 });
+	obj[HERO_OBJECT]->setWt(1);
 }
 
 GameMgr::~GameMgr()
@@ -26,7 +34,17 @@ GameMgr* GameMgr::getInstance()
 
 void GameMgr::update(float eTime)
 {
-	for (auto& i : obj) i->update(eTime);
+	float fAmount{ 1 };
+	float fX{}, fY{}, fZ{};
+
+	if (keyW) fY += fAmount;
+	if (keyA) fX -= fAmount;
+	if (keyS) fY -= fAmount;
+	if (keyD) fX += fAmount;
+
+	obj[HERO_OBJECT]->addForce(fX, fY, fZ, eTime);
+
+	for (const auto& i : obj) i->update(eTime);
 }
 
 void GameMgr::renderScene()
@@ -62,28 +80,55 @@ void GameMgr::addObject(const Vector& pos, const Vector& vol, const Color& col)
 
 void GameMgr::deleteObject()
 {
-	for (const auto& i : obj)
+	for (auto& i = obj.cbegin(); i != obj.cend();)
 	{
-		obj.remove(i);
+		if (i->get()->getPos().x > meter()) i = obj.erase(i);
+		else ++i;
+	}
+}
+
+void GameMgr::keyDownInput(unsigned char key, int x, int y)
+{
+	switch (key | 32)
+	{
+	case 'w':
+		keyW = true;
+		break;
+	case 'a':
+		keyA = true;
+		break;
+	case 's':
+		keyS = true;
+		break;
+	case 'd':
+		keyD = true;
+		break;
+	}
+}
+
+void GameMgr::keyUpInput(unsigned char key, int x, int y)
+{
+	switch (key | 32)
+	{
+	case 'w':
+		keyW = false;
+		break;
+	case 'a':
+		keyA = false;
+		break;
+	case 's':
+		keyS = false;
+		break;
+	case 'd':
+		keyD = false;
 		break;
 	}
 }
 
 void GameMgr::testKeyInput(unsigned char c)
 {
-	static float loc{};
-
-	if (c == 'a')
-	{
-		addObject({ 1 * loc, 1 * loc, 0 }, { 1, 1, 1 }, { 1, 0, 0, 1 });
-		if(loc < MAX_OBJECT) ++loc;
-	}
-
-	if (c == 'd')
-	{
-		if (!obj.empty()) --loc;
-		deleteObject();
-	}
+	if (c == 'a') addObject({ 0, 0, 0 }, { 1, 1, 1 }, { 1, 0, 0, 1 });
+	if (c == 'd') deleteObject();
 }
 
 int GameMgr::getElapsedTime()
@@ -91,7 +136,7 @@ int GameMgr::getElapsedTime()
 	currTime = glutGet(GLUT_ELAPSED_TIME);
 	elapsedTime = currTime - prevTime;
 	prevTime = currTime;
-	cout << "elapsed time (ms): " << elapsedTime << endl;
+	//cout << "elapsed time (ms): " << elapsedTime << endl;
 
 	return elapsedTime;
 }

@@ -156,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Color.h" />
+    <ClInclude Include="GameController.h" />
     <ClInclude Include="GameMgr.h" />
     <ClInclude Include="GameObj.h" />
     <ClInclude Include="Renderer.h" />
@@ -164,6 +165,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameController.cpp" />
     <ClCompile Include="GameMgr.cpp" />
     <ClCompile Include="GameObj.cpp" />
     <ClCompile Include="Renderer.cpp" />

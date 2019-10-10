@@ -1,2 +1,10 @@
-﻿  Renderer.cpp
+﻿  GameMgr.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\memory(2066,56): warning C4244:  '인수': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  GameObj.cpp
+  코드를 생성하고 있습니다...
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\GameMgr.cpp(13): message :  컴파일되는 함수 템플릿 인스턴스화 'std::unique_ptr<Renderer,std::default_delete<_Ty>> std::make_unique<Renderer,const float&,const float&,0>(const float &,const float &)'에 대한 참조를 확인하세요.
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\GameMgr.cpp(13): message :         with
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\GameMgr.cpp(13): message :         [
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\GameMgr.cpp(13): message :             _Ty=Renderer
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\GameMgr.cpp(13): message :         ]
   SimpleGame.vcxproj -> C:\project\Visual Studio\FrameWork\SimpleGame\x64\Debug\SimpleGame.exe
