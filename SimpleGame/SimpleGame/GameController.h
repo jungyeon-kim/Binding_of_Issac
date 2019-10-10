@@ -1,14 +1,20 @@
 #pragma once
 
-class GameController
+// Singleton
+class GameController final
 {
-protected:
-	bool keyW{}, keyA{}, keyS{}, keyD{};
-protected:
+private:
+	Direction objDir{};
+	static GameController* instance;
+private:
 	GameController();
-	virtual ~GameController();
+	~GameController();
 public:
+	static GameController* getInstance();
 	void keyDownInput(unsigned char key, int x, int y);
 	void keyUpInput(unsigned char key, int x, int y);
+
+	const Direction& getDir() const;
+	void setDir(const Direction& dir);
 };
 

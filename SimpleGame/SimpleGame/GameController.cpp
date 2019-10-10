@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "GameController.h"
 
+using namespace std;
+
+GameController* GameController::instance{};
+
 GameController::GameController()
 {
 }
@@ -9,21 +13,27 @@ GameController::~GameController()
 {
 }
 
+GameController* GameController::getInstance()
+{
+	if (!instance) instance = new GameController{};
+	return instance;
+}
+
 void GameController::keyDownInput(unsigned char key, int x, int y)
 {
 	switch (key | 32)
 	{
 	case 'w':
-		keyW = true;
+		objDir.up = true;
 		break;
 	case 'a':
-		keyA = true;
+		objDir.left = true;
 		break;
 	case 's':
-		keyS = true;
+		objDir.down = true;
 		break;
 	case 'd':
-		keyD = true;
+		objDir.right = true;
 		break;
 	}
 }
@@ -33,16 +43,26 @@ void GameController::keyUpInput(unsigned char key, int x, int y)
 	switch (key | 32)
 	{
 	case 'w':
-		keyW = false;
+		objDir.up = false;
 		break;
 	case 'a':
-		keyA = false;
+		objDir.left = false;
 		break;
 	case 's':
-		keyS = false;
+		objDir.down = false;
 		break;
 	case 'd':
-		keyD = false;
+		objDir.right = false;
 		break;
 	}
+}
+
+const Direction& GameController::getDir() const
+{
+	return objDir;
+}
+
+void GameController::setDir(const Direction& dir)
+{
+	objDir = dir;
 }

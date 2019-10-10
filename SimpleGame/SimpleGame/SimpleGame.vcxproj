@@ -159,15 +159,18 @@
     <ClInclude Include="GameController.h" />
     <ClInclude Include="GameMgr.h" />
     <ClInclude Include="GameObj.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Direction.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="GameMgr.cpp" />
     <ClCompile Include="GameObj.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="SimpleGame.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>

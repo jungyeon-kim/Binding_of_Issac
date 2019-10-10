@@ -2,19 +2,20 @@
 
 #include "GameController.h"
 
-class Renderer;
+class GameController;
 class GameObj;
+class Player;
 
 // Singleton
-class GameMgr final : public GameController
+class GameMgr final
 {
 private:
 	static constexpr int MAX_OBJECT{ 3 };
-	static constexpr int HERO_OBJECT{ 0 };
 	int currTime{}, prevTime{}, elapsedTime{};
 
 	static GameMgr* instance;
-	std::unique_ptr<Renderer> renderer{};
+	GameController* gameController;
+	std::unique_ptr<Player> player{};
 	std::vector<std::unique_ptr<GameObj>> obj{};
 private:
 	GameMgr();
@@ -22,10 +23,11 @@ private:
 public:
 	static GameMgr* getInstance();
 	void update(float eTime);
-	void renderScene();
+	void render();
 	void addObject(const Vector& pos, const Vector& vol, const Color& col);
 	void deleteObject();
 
+	GameController* getGameController() const;
 	int getElapsedTime();
 };
 

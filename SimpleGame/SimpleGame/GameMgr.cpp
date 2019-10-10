@@ -2,6 +2,7 @@
 #include "GameMgr.h"
 #include "Renderer.h"
 #include "GameObj.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -9,18 +10,8 @@ GameMgr* GameMgr::instance{};
 
 GameMgr::GameMgr()
 {
-	// Initialize Renderer
-	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
-	if (!renderer->IsInitialized()) { cout << "Renderer could not be initialized.. \n"; }
-
-	// Add Hero Object Test
-	obj.emplace_back(make_unique<GameObj>());
-	obj[HERO_OBJECT]->setPos({ 0, 0, 0 });
-	obj[HERO_OBJECT]->setVol({ 1, 1, 1 });
-	obj[HERO_OBJECT]->setVel({ 0, 0, 0 });
-	obj[HERO_OBJECT]->setCol({ 1, 0, 0, 0 });
-	obj[HERO_OBJECT]->setMass(1);
-	//
+	gameController = GameController::getInstance();
+	player = make_unique<Player>();
 }
 
 GameMgr::~GameMgr()
@@ -35,37 +26,15 @@ GameMgr* GameMgr::getInstance()
 
 void GameMgr::update(float eTime)
 {
-	// addForce Test
-	float fAmount{ 3 };
-	float fX{}, fY{}, fZ{};
-
-	if (keyW) fY += fAmount;
-	if (keyA) fX -= fAmount;
-	if (keyS) fY -= fAmount;
-	if (keyD) fX += fAmount;
-	//
-
-	obj[HERO_OBJECT]->addForce(fX, fY, fZ, eTime);
-
-	for (const auto& i : obj) i->update(eTime);
+	player->update(eTime);
 }
 
-void GameMgr::renderScene()
+void GameMgr::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 
-	// Rendering Test
-	for (const auto& i : obj)
-	{
-		Vector pos{ i->getPos() };
-		Vector vol{ i->getVol() };
-		Color col{ i->getCol() };
-
-		renderer->DrawSolidRect(pos.x, pos.y, pos.z, vol.x,
-			col.r, col.g, col.b, col.a);
-	}
-	//
+	player->render();
 }
 
 void GameMgr::addObject(const Vector& pos, const Vector& vol, const Color& col)
@@ -89,6 +58,11 @@ void GameMgr::deleteObject()
 		if (i->get()->getPos().x > meter()) i = obj.erase(i);
 		else ++i;
 	}
+}
+
+GameController* GameMgr::getGameController() const
+{
+	return gameController;
 }
 
 int GameMgr::getElapsedTime()

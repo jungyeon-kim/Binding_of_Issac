@@ -15,6 +15,7 @@
 
 #include "Vector.h"
 #include "Color.h"
+#include "Direction.h"
 
 constexpr float meter(float cMeter = 1)
 {

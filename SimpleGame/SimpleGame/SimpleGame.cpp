@@ -29,7 +29,7 @@ void Init(int argc, char** argv)
 void RenderScene(int temp)
 {
 	gameMgr->update(static_cast<float>(gameMgr->getElapsedTime()) / 1000);
-	gameMgr->renderScene();
+	gameMgr->render();
 
 	glutSwapBuffers();	// double buffering
 	glutTimerFunc(16, RenderScene, NULL);
@@ -49,12 +49,12 @@ void MouseInput(int button, int state, int x, int y)
 
 void KeyDownInput(unsigned char key, int x, int y)
 {
-	gameMgr->keyDownInput(key, x, y);
+	gameMgr->getGameController()->keyDownInput(key, x, y);
 }
 
 void KeyUpInput(unsigned char key, int x, int y)
 {
-	gameMgr->keyUpInput(key, x, y);
+	gameMgr->getGameController()->keyUpInput(key, x, y);
 }
 
 
