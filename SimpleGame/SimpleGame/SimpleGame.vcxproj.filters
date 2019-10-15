@@ -31,7 +31,7 @@
     <Filter Include="소스 파일\GameController">
       <UniqueIdentifier>{4d9806e2-b95e-4328-af5d-a46faeb96317}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Player">
+    <Filter Include="소스 파일\GameObj\Player">
       <UniqueIdentifier>{98c07434-7013-4d52-8db1-3afaaae49269}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -64,7 +64,7 @@
       <Filter>소스 파일\GameController</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>소스 파일\Player</Filter>
+      <Filter>소스 파일\GameObj\Player</Filter>
     </ClInclude>
     <ClInclude Include="Direction.h">
       <Filter>헤더 파일\Struct</Filter>
@@ -90,7 +90,7 @@
       <Filter>소스 파일\GameController</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>소스 파일\Player</Filter>
+      <Filter>소스 파일\GameObj\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

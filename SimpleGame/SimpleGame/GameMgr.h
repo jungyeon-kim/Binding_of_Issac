@@ -3,7 +3,7 @@
 #include "GameController.h"
 
 class GameController;
-class GameObj;
+class Renderer;
 class Player;
 
 // Singleton
@@ -14,9 +14,10 @@ private:
 	int currTime{}, prevTime{}, elapsedTime{};
 
 	static GameMgr* instance;
-	GameController* gameController;
+	GameController* gameCon;
+	std::unique_ptr<Renderer> renderer{};
 	std::unique_ptr<Player> player{};
-	std::vector<std::unique_ptr<GameObj>> obj{};
+	std::vector<std::unique_ptr<Player>> test{};
 private:
 	GameMgr();
 	~GameMgr();

@@ -10,7 +10,10 @@ GameMgr* GameMgr::instance{};
 
 GameMgr::GameMgr()
 {
-	gameController = GameController::getInstance();
+	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
+	if (!renderer->IsInitialized()) { cout << "Renderer could not be initialized.. \n"; }
+
+	gameCon = GameController::getInstance();
 	player = make_unique<Player>();
 }
 
@@ -31,21 +34,19 @@ void GameMgr::update(float eTime)
 
 void GameMgr::render()
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
-
+	renderer->render();
 	player->render();
 }
 
 void GameMgr::addObject(const Vector& pos, const Vector& vol, const Color& col)
 {
-	if (obj.size() < MAX_OBJECT)
+	if (test.size() < MAX_OBJECT)
 	{
-		obj.emplace_back(make_unique<GameObj>());
-		obj.back()->setPos(pos);
-		obj.back()->setVol(vol);
-		obj.back()->setVel({ 0.5, 0, 0 });
-		obj.back()->setCol(col);
+		test.emplace_back(make_unique<Player>());
+		test.back()->setPos(pos);
+		test.back()->setVol(vol);
+		test.back()->setVel({ 0.5, 0, 0 });
+		test.back()->setCol(col);
 	}
 	else 
 		cout << "Object is full. \n";
@@ -53,16 +54,16 @@ void GameMgr::addObject(const Vector& pos, const Vector& vol, const Color& col)
 
 void GameMgr::deleteObject()
 {
-	for (auto& i = obj.cbegin(); i != obj.cend();)
+	for (auto& i = test.cbegin(); i != test.cend();)
 	{
-		if (i->get()->getPos().x > meter()) i = obj.erase(i);
+		if (i->get()->getPos().x > meter()) i = test.erase(i);
 		else ++i;
 	}
 }
 
 GameController* GameMgr::getGameController() const
 {
-	return gameController;
+	return gameCon;
 }
 
 int GameMgr::getElapsedTime()

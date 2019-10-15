@@ -2,40 +2,17 @@
 #include "GameObj.h"
 #include "Renderer.h"
 
-using namespace std;
-
 GameObj::GameObj()
 {
-	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
-	if (!renderer->IsInitialized()) { cout << "Renderer could not be initialized.. \n"; }
 }
 
 GameObj::~GameObj()
 {
 }
 
-void GameObj::update(float eTime)
+float GameObj::getForceAmount() const
 {
-	addForce(eTime);
-
-	// pos = pos + vel * eTime
-	objPos = { objPos.x + objVel.x * eTime * meter(), 
-		objPos.y + objVel.y * eTime * meter(), 
-		objPos.z + objVel.z * eTime * meter() };
-}
-
-void GameObj::render()
-{
-	renderer->DrawSolidRect(objPos.x, objPos.y, objPos.z, objVol.x,
-		objCol.r, objCol.g, objCol.b, objCol.a);
-}
-
-void GameObj::addForce(float eTime)
-{
-	// acc = force / mass
-	objAcc = { objForce.x / objMass, objForce.y / objMass, objForce.z / objMass };
-	// vel = vel + acc * eTime
-	objVel = { objVel.x + objAcc.x * eTime, objVel.y + objAcc.y * eTime, objVel.z + objAcc.z * eTime };
+	return forceAmount;
 }
 
 float GameObj::getMass() const
@@ -73,6 +50,11 @@ const Color& GameObj::getCol() const
 	return objCol;
 }
 
+void GameObj::setForceAmount(float amount)
+{
+	forceAmount = amount;
+}
+
 void GameObj::setMass(float mass)
 {
 	objMass = mass;
@@ -106,14 +88,4 @@ void GameObj::setVol(const Vector& vol)
 void GameObj::setCol(const Color& col)
 {
 	objCol = col;
-}
-
-float GameObj::getForceAmount() const
-{
-	return forceAmount;
-}
-
-void GameObj::setForceAmount(float amount)
-{
-	forceAmount = amount;
 }
