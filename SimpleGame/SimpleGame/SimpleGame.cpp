@@ -10,8 +10,7 @@ but WITHOUT ANY WARRANTY.
 
 #include "stdafx.h"
 #include "GameMgr.h"
-
-GameMgr* gameMgr{};
+#include "GameController.h"
 
 void Init(int argc, char** argv)
 {
@@ -28,7 +27,7 @@ void Init(int argc, char** argv)
 
 void RenderScene(int temp)
 {
-	gameMgr->update(static_cast<float>(gameMgr->getElapsedTime()) / 1000);
+	gameMgr->update(static_cast<float>(GameMgr::getInstance()->getElapsedTime()) / 1000);
 	gameMgr->render();
 
 	glutSwapBuffers();	// double buffering
@@ -49,12 +48,12 @@ void MouseInput(int button, int state, int x, int y)
 
 void KeyDownInput(unsigned char key, int x, int y)
 {
-	gameMgr->getGameController()->keyDownInput(key, x, y);
+	gameCon->keyDownInput(key, x, y);
 }
 
 void KeyUpInput(unsigned char key, int x, int y)
 {
-	gameMgr->getGameController()->keyUpInput(key, x, y);
+	gameCon->keyUpInput(key, x, y);
 }
 
 
@@ -65,8 +64,6 @@ void SpecialKeyInput(int key, int x, int y)
 int main(int argc, char **argv)
 {
 	Init(argc, argv);
-
-	gameMgr = GameMgr::getInstance();
 
 	glutDisplayFunc(Display);
 	glutIdleFunc(Idle);

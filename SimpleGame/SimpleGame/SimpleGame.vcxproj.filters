@@ -34,6 +34,9 @@
     <Filter Include="소스 파일\GameObj\Player">
       <UniqueIdentifier>{98c07434-7013-4d52-8db1-3afaaae49269}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Physics">
+      <UniqueIdentifier>{506c7d58-0b82-4a49-802e-70b39a0fa7fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -69,6 +72,9 @@
     <ClInclude Include="Direction.h">
       <Filter>헤더 파일\Struct</Filter>
     </ClInclude>
+    <ClInclude Include="Physics.h">
+      <Filter>소스 파일\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -91,6 +97,9 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>소스 파일\GameObj\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics.cpp">
+      <Filter>소스 파일\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

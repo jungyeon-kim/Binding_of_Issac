@@ -2,12 +2,12 @@
 
 #include "GameObj.h"
 
-class GameController;
+class Physics;
 
 class Player : public GameObj
 {
 private:
-	GameController* gameCon{};
+	std::unique_ptr<Physics> physics{};
 public:
 	Player();
 	virtual ~Player();
@@ -15,6 +15,7 @@ public:
 	virtual void init() override;
 	virtual void update(float eTime) override;
 	virtual void render() override;
-	virtual void calcPhysics(float eTime) override;
+
+	void addForce(float eTime);
 };
 

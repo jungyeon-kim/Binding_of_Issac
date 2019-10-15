@@ -159,6 +159,7 @@
     <ClInclude Include="GameController.h" />
     <ClInclude Include="GameMgr.h" />
     <ClInclude Include="GameObj.h" />
+    <ClInclude Include="Physics.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="stdafx.h" />
@@ -170,6 +171,7 @@
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="GameMgr.cpp" />
     <ClCompile Include="GameObj.cpp" />
+    <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="SimpleGame.cpp">

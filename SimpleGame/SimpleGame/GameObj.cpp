@@ -2,8 +2,11 @@
 #include "GameObj.h"
 #include "Renderer.h"
 
+using namespace std;
+
 GameObj::GameObj()
 {
+	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
 }
 
 GameObj::~GameObj()
@@ -13,6 +16,11 @@ GameObj::~GameObj()
 float GameObj::getForceAmount() const
 {
 	return forceAmount;
+}
+
+float GameObj::getFricCoef() const
+{
+	return fricCoef;
 }
 
 float GameObj::getMass() const
@@ -53,6 +61,11 @@ const Color& GameObj::getCol() const
 void GameObj::setForceAmount(float amount)
 {
 	forceAmount = amount;
+}
+
+void GameObj::setFricCoef(float coef)
+{
+	fricCoef = coef;
 }
 
 void GameObj::setMass(float mass)

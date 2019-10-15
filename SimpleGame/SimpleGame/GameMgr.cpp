@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "GameMgr.h"
 #include "Renderer.h"
-#include "GameObj.h"
 #include "Player.h"
 
 using namespace std;
@@ -10,11 +9,7 @@ GameMgr* GameMgr::instance{};
 
 GameMgr::GameMgr()
 {
-	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
-	if (!renderer->IsInitialized()) { cout << "Renderer could not be initialized.. \n"; }
-
-	gameCon = GameController::getInstance();
-	player = make_unique<Player>();
+	init();
 }
 
 GameMgr::~GameMgr()
@@ -25,6 +20,14 @@ GameMgr* GameMgr::getInstance()
 {
 	if (!instance) instance = new GameMgr{};
 	return instance;
+}
+
+void GameMgr::init()
+{
+	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
+	if (!renderer->IsInitialized()) { cout << "Renderer could not be initialized.. \n"; }
+
+	player = make_unique<Player>();
 }
 
 void GameMgr::update(float eTime)
@@ -59,11 +62,6 @@ void GameMgr::deleteObject()
 		if (i->get()->getPos().x > meter()) i = test.erase(i);
 		else ++i;
 	}
-}
-
-GameController* GameMgr::getGameController() const
-{
-	return gameCon;
 }
 
 int GameMgr::getElapsedTime()

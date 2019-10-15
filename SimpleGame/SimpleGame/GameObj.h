@@ -5,7 +5,8 @@ class Renderer;
 class GameObj abstract
 {
 protected:
-	float forceAmount{};
+	float forceAmount{};	// ÈûÀÇ ¾ç
+	float fricCoef{};		// ¸¶Âû °è¼ö
 	float objMass{};
 	Vector objPos{}, objVel{}, objAcc{}, objVol{}, objForce{};
 	Color objCol{};
@@ -18,9 +19,9 @@ public:
 	virtual void init() = 0;
 	virtual void update(float eTime) = 0;
 	virtual void render() = 0;
-	virtual void calcPhysics(float eTime) = 0;
 
 	float getForceAmount() const;
+	float getFricCoef() const;
 	float getMass() const;
 	const Vector& getForce() const;
 	const Vector& getPos() const;
@@ -30,6 +31,7 @@ public:
 	const Color& getCol() const;
 
 	void setForceAmount(float amount);
+	void setFricCoef(float coef);
 	void setMass(float mass);
 	void setForce(const Vector& force);
 	void setPos(const Vector& pos);

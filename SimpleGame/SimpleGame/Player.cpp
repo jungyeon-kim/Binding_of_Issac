@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Renderer.h"
 #include "GameController.h"
+#include "Physics.h"
 
 using namespace std;
 
@@ -16,26 +17,26 @@ Player::~Player()
 
 void Player::init()
 {
-	forceAmount = 3;
+	forceAmount = 20;
+	fricCoef = 1;
 	objForce = { 0, 0, 0 };
 	objPos = { 0, 0, 0 };
 	objVol = { meter(), meter(), meter() };
 	objVel = { 0, 0, 0 };
-	objCol = { 1, 0, 0, 0 };
+	objCol = { 0.5, 0.5, 0, 0 };
 	objMass = 1;
 
-	gameCon = GameController::getInstance();
-	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
+	physics = make_unique<Physics>();
 }
 
 void Player::update(float eTime)
 {
-	calcPhysics(eTime);
+	addForce(eTime);
 
-	// pos = pos + vel * eTime
-	objPos = { objPos.x + objVel.x * eTime * meter(),
-		objPos.y + objVel.y * eTime * meter(),
-		objPos.z + objVel.z * eTime * meter() };
+	physics->calcAcc(objAcc, objForce, objMass);
+	physics->calcVel(objVel, objAcc, eTime);
+	physics->calcFric(objVel, objMass, fricCoef, eTime);
+	physics->calcPos(objPos, objVel, eTime);
 }
 
 void Player::render()
@@ -44,7 +45,7 @@ void Player::render()
 		objCol.r, objCol.g, objCol.b, objCol.a);
 }
 
-void Player::calcPhysics(float eTime)
+void Player::addForce(float eTime)
 {
 	objForce = { 0, 0, 0 };
 
@@ -52,9 +53,4 @@ void Player::calcPhysics(float eTime)
 	if (gameCon->getDir().down) objForce.y -= forceAmount;
 	if (gameCon->getDir().left) objForce.x -= forceAmount;
 	if (gameCon->getDir().right) objForce.x += forceAmount;
-
-	// acc = force / mass
-	objAcc = { objForce.x / objMass, objForce.y / objMass, objForce.z / objMass };
-	// vel = vel + acc * eTime
-	objVel = { objVel.x + objAcc.x * eTime, objVel.y + objAcc.y * eTime, objVel.z + objAcc.z * eTime };
 }
