@@ -1,6 +1,7 @@
 #pragma once
 
 class Renderer;
+class Physics;
 
 class GameObj abstract
 {
@@ -12,6 +13,7 @@ protected:
 	Color objCol{};
 
 	std::unique_ptr<Renderer> renderer{};
+	std::unique_ptr<Physics> physics{};
 public:
 	GameObj();
 	virtual ~GameObj();
@@ -19,6 +21,7 @@ public:
 	virtual void init() = 0;
 	virtual void update(float eTime) = 0;
 	virtual void render() = 0;
+	virtual void addForce() = 0;
 
 	float getForceAmount() const;
 	float getFricCoef() const;

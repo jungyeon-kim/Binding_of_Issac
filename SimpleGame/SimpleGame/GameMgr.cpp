@@ -1,7 +1,9 @@
 #include "stdafx.h"
 #include "GameMgr.h"
 #include "Renderer.h"
+#include "GameController.h"
 #include "Player.h"
+#include "Bullet.h"
 
 using namespace std;
 
@@ -26,30 +28,34 @@ void GameMgr::init()
 {
 	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
 	if (!renderer->IsInitialized()) { cout << "Renderer could not be initialized.. \n"; }
-
+	gameCon = GameController::getInstance();
 	player = make_unique<Player>();
 }
 
 void GameMgr::update(float eTime)
 {
+	if (gameCon->isShoot())
+		addObject(player->getPos(), { meter() / 4, meter() / 4, 0 }, { 1, 1, 1, 0 });
+
+	for (const auto& i : bullet) i->update(eTime);
 	player->update(eTime);
 }
 
 void GameMgr::render()
 {
 	renderer->render();
+	for (const auto& i : bullet) i->render();
 	player->render();
 }
 
 void GameMgr::addObject(const Vector& pos, const Vector& vol, const Color& col)
 {
-	if (test.size() < MAX_OBJECT)
+	if (bullet.size() < MAX_OBJECT)
 	{
-		test.emplace_back(make_unique<Player>());
-		test.back()->setPos(pos);
-		test.back()->setVol(vol);
-		test.back()->setVel({ 0.5, 0, 0 });
-		test.back()->setCol(col);
+		bullet.emplace_back(make_unique<Bullet>());
+		bullet.back()->setPos(pos);
+		bullet.back()->setVol(vol);
+		bullet.back()->setCol(col);
 	}
 	else 
 		cout << "Object is full. \n";
@@ -57,11 +63,31 @@ void GameMgr::addObject(const Vector& pos, const Vector& vol, const Color& col)
 
 void GameMgr::deleteObject()
 {
-	for (auto& i = test.cbegin(); i != test.cend();)
+	for (auto& i = bullet.cbegin(); i != bullet.cend();)
 	{
-		if (i->get()->getPos().x > meter()) i = test.erase(i);
+		if (i->get()->getPos().x > meter()) i = bullet.erase(i);
 		else ++i;
 	}
+}
+
+void GameMgr::keyDownInput(unsigned char key, int x, int y)
+{
+	gameCon->keyDownInput(key, x, y);
+}
+
+void GameMgr::keyUpInput(unsigned char key, int x, int y)
+{
+	gameCon->keyUpInput(key, x, y);
+}
+
+void GameMgr::specialKeyDownInput(int key, int x, int y)
+{
+	gameCon->specialKeyDownInput(key, x, y);
+}
+
+void GameMgr::specialKeyUpInput(int key, int x, int y)
+{
+	gameCon->specialKeyUpInput(key, x, y);
 }
 
 int GameMgr::getElapsedTime()

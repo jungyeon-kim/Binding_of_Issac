@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "Player.h"
+#include "Physics.h"
 #include "Renderer.h"
 #include "GameController.h"
-#include "Physics.h"
 
 using namespace std;
 
@@ -17,6 +17,8 @@ Player::~Player()
 
 void Player::init()
 {
+	gameCon = GameController::getInstance();
+
 	forceAmount = 20;
 	fricCoef = 1;
 	objForce = { 0, 0, 0 };
@@ -25,13 +27,11 @@ void Player::init()
 	objVel = { 0, 0, 0 };
 	objCol = { 0.5, 0.5, 0, 0 };
 	objMass = 1;
-
-	physics = make_unique<Physics>();
 }
 
 void Player::update(float eTime)
 {
-	addForce(eTime);
+	addForce();
 
 	physics->calcAcc(objAcc, objForce, objMass);
 	physics->calcVel(objVel, objAcc, eTime);
@@ -45,7 +45,7 @@ void Player::render()
 		objCol.r, objCol.g, objCol.b, objCol.a);
 }
 
-void Player::addForce(float eTime)
+void Player::addForce()
 {
 	objForce = { 0, 0, 0 };
 

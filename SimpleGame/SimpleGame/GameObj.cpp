@@ -1,12 +1,14 @@
 #include "stdafx.h"
 #include "GameObj.h"
 #include "Renderer.h"
+#include "Physics.h"
 
 using namespace std;
 
 GameObj::GameObj()
 {
 	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
+	physics = make_unique<Physics>();
 }
 
 GameObj::~GameObj()

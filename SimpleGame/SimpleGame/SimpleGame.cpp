@@ -10,7 +10,8 @@ but WITHOUT ANY WARRANTY.
 
 #include "stdafx.h"
 #include "GameMgr.h"
-#include "GameController.h"
+
+GameMgr* gameMgr{};
 
 void Init(int argc, char** argv)
 {
@@ -48,29 +49,37 @@ void MouseInput(int button, int state, int x, int y)
 
 void KeyDownInput(unsigned char key, int x, int y)
 {
-	gameCon->keyDownInput(key, x, y);
+	gameMgr->keyDownInput(key, x, y);
 }
 
 void KeyUpInput(unsigned char key, int x, int y)
 {
-	gameCon->keyUpInput(key, x, y);
+	gameMgr->keyUpInput(key, x, y);
 }
 
-
-void SpecialKeyInput(int key, int x, int y)
+void SpecialKeyDownInput(int key, int x, int y)
 {
+	gameMgr->specialKeyDownInput(key, x, y);
+}
+
+void SpecialKeyUpInput(int key, int x, int y)
+{
+	gameMgr->specialKeyUpInput(key, x, y);
 }
 
 int main(int argc, char **argv)
 {
 	Init(argc, argv);
 
+	gameMgr = GameMgr::getInstance();
+
 	glutDisplayFunc(Display);
 	glutIdleFunc(Idle);
 	glutKeyboardFunc(KeyDownInput);
 	glutKeyboardUpFunc(KeyUpInput);
+	glutSpecialFunc(SpecialKeyDownInput);
+	glutSpecialUpFunc(SpecialKeyUpInput);
 	glutMouseFunc(MouseInput);
-	glutSpecialFunc(SpecialKeyInput);
 	glutTimerFunc(16, RenderScene, NULL);
 
 	glutMainLoop();

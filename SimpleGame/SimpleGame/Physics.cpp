@@ -57,7 +57,7 @@ const Vector& Physics::calcFric(Vector& vel, float mass, float fricCoef, float e
 			-unitVec.y * forceAmount * fricCoef
 		};
 		// acceleration by fricForce
-		acc = { fricForce.x / mass, fricForce.y / mass };	// acc = force / mass (가속도 감소)
+		acc = { fricForce.x / mass, fricForce.y / mass };	// acc = force / mass (음의 가속도)
 		// update velocity
 		this->vel = {										// vel = vel + acc * eTime (속도 감소)
 			vel.x + acc.x * eTime,
