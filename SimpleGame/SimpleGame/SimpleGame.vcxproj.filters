@@ -69,9 +69,6 @@
     <ClInclude Include="GameController.h">
       <Filter>소스 파일\GameController</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>소스 파일\GameObj\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Direction.h">
       <Filter>헤더 파일\Struct</Filter>
     </ClInclude>
@@ -80,6 +77,12 @@
     </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>소스 파일\GameObj\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>소스 파일\GameObj\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMgr.hpp">
+      <Filter>소스 파일\GameMgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

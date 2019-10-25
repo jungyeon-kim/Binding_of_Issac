@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "GameMgr.h"
+#include "GameMgr.hpp"
 #include "Renderer.h"
 #include "GameController.h"
 #include "Player.h"
@@ -18,6 +19,12 @@ GameMgr::~GameMgr()
 {
 }
 
+void GameMgr::garbageCollect()
+{
+	// delete bullet
+	deleteObject();
+}
+
 GameMgr* GameMgr::getInstance()
 {
 	if (!instance) instance = new GameMgr{};
@@ -34,8 +41,8 @@ void GameMgr::init()
 
 void GameMgr::update(float eTime)
 {
-	if (gameCon->isShoot())
-		addObject(player->getPos(), { meter() / 4, meter() / 4, 0 }, { 1, 1, 1, 0 });
+	if (gameCon->isShoot()) addObject<Bullet>("Bullet");
+	deleteObject();
 
 	for (const auto& i : bullet) i->update(eTime);
 	player->update(eTime);
@@ -48,24 +55,14 @@ void GameMgr::render()
 	player->render();
 }
 
-void GameMgr::addObject(const Vector& pos, const Vector& vol, const Color& col)
-{
-	if (bullet.size() < MAX_OBJECT)
-	{
-		bullet.emplace_back(make_unique<Bullet>());
-		bullet.back()->setPos(pos);
-		bullet.back()->setVol(vol);
-		bullet.back()->setCol(col);
-	}
-	else 
-		cout << "Object is full. \n";
-}
-
 void GameMgr::deleteObject()
 {
 	for (auto& i = bullet.cbegin(); i != bullet.cend();)
 	{
-		if (i->get()->getPos().x > meter()) i = bullet.erase(i);
+		if (sqrtf(pow(i->get()->getVel().x, 2) + 
+			pow(i->get()->getVel().y, 2) + 
+			pow(i->get()->getVel().z, 2)) == 0) 
+			i = bullet.erase(i);
 		else ++i;
 	}
 }

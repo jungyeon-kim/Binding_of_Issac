@@ -19,18 +19,20 @@ void Player::init()
 {
 	gameCon = GameController::getInstance();
 
-	forceAmount = 20;
+	forceAmount = 15;
 	fricCoef = 1;
 	objForce = { 0, 0, 0 };
 	objPos = { 0, 0, 0 };
-	objVol = { meter(), meter(), meter() };
 	objVel = { 0, 0, 0 };
-	objCol = { 0.5, 0.5, 0, 0 };
+	objAcc = { 0, 0, 0 };
+	objVol = { meter(), meter(), meter() };
+	objCol = { 0.5, 0.7, 0, 0 };
 	objMass = 1;
 }
 
 void Player::update(float eTime)
 {
+	objForce = { 0, 0, 0 };
 	addForce();
 
 	physics->calcAcc(objAcc, objForce, objMass);
@@ -47,8 +49,6 @@ void Player::render()
 
 void Player::addForce()
 {
-	objForce = { 0, 0, 0 };
-
 	if (gameCon->getDir().up) objForce.y += forceAmount;
 	if (gameCon->getDir().down) objForce.y -= forceAmount;
 	if (gameCon->getDir().left) objForce.x -= forceAmount;

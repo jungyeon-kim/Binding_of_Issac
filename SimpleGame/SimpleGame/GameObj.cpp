@@ -7,12 +7,17 @@ using namespace std;
 
 GameObj::GameObj()
 {
-	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
-	physics = make_unique<Physics>();
+	init();
 }
 
 GameObj::~GameObj()
 {
+}
+
+void GameObj::init()
+{
+	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
+	physics = make_unique<Physics>();
 }
 
 float GameObj::getForceAmount() const

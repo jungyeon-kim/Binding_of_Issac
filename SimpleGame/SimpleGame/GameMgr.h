@@ -2,14 +2,11 @@
 
 class Renderer;
 class GameController;
+class GameObj;
 class Player;
 class Bullet;
 
 //	map<string, T>으로 GameObj를 상속하는 오브젝트들 관리하도록 바꿀것
-/*
-	SimpleGame->KeyInput ~ gameMgr->KeyInput ~ gameCon->KeyInput ~ gameCon-> 총알 네 방향, 발사 불변수 T or F
-	~ gameMgr->update->if(gameCon->shoot) addObject ~ bullet->update->gameCon->dir에따라 이동
-*/
 // Singleton
 class GameMgr final
 {
@@ -25,13 +22,16 @@ private:
 private:
 	GameMgr();
 	~GameMgr();
+
+	void garbageCollect();
 public:
 	static GameMgr* getInstance();
 
 	void init();
 	void update(float eTime);
 	void render();
-	void addObject(const Vector& pos, const Vector& vol, const Color& col);
+	template <typename T>
+	void addObject(std::string objName);
 	void deleteObject();
 
 	void keyDownInput(unsigned char key, int x, int y);

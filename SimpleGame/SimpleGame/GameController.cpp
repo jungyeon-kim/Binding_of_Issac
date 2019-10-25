@@ -68,15 +68,19 @@ void GameController::specialKeyDownInput(int key, int x, int y)
 	{
 	case GLUT_KEY_UP:
 		objShoot.up = true;
+		objShoot.down = false;
 		break;
 	case GLUT_KEY_DOWN:
 		objShoot.down = true;
+		objShoot.up = false;
 		break;
 	case GLUT_KEY_LEFT:
 		objShoot.left = true;
+		objShoot.right = false;
 		break;
 	case GLUT_KEY_RIGHT:
 		objShoot.right = true;
+		objShoot.left = false;
 		break;
 	}
 }
