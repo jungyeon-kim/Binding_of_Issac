@@ -1,13 +1,16 @@
-#include "stdafx.h"
-#include "GameMgr.h"
+#pragma once
 
 template <typename T>
 void GameMgr::addObject(std::string objName)
 {
-	if (bullet.size() < MAX_OBJECT)
+	if (obj->size() < MAX_OBJECT)
 	{
-		bullet.emplace_back(make_unique<T>(player->getPos(), player->getVel()));
+		if (objName == "Bullet") obj->emplace(objName, std::make_unique<Bullet>(
+			obj->find("Player")->second->getPos(),
+			obj->find("Player")->second->getVel()
+			));
+		else obj->emplace(objName, std::make_unique<T>());
 	}
 	else
-		cout << "Object is full. \n";
+		std::cout << "Object is full. \n";
 }

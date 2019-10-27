@@ -1,15 +1,15 @@
 #pragma once
 
 class Renderer;
+class Physics;
 class GameController;
 class GameObj;
-class Player;
-class Bullet;
 
-//	map<string, T>으로 GameObj를 상속하는 오브젝트들 관리하도록 바꿀것
 // Singleton
 class GameMgr final
 {
+private:
+	using ObjContainer = std::unique_ptr<std::unordered_multimap<std::string, std::unique_ptr<GameObj>>>;
 private:
 	static constexpr int MAX_OBJECT{ 5000 };
 	int currTime{}, prevTime{}, elapsedTime{};
@@ -17,22 +17,22 @@ private:
 	static GameMgr* instance;
 	GameController* gameCon{};
 	std::unique_ptr<Renderer> renderer{};
-	std::unique_ptr<Player> player{};
-	std::vector<std::unique_ptr<Bullet>> bullet{};
+	std::unique_ptr<Physics> physics{};
+	ObjContainer obj{};
 private:
 	GameMgr();
 	~GameMgr();
 
-	void garbageCollect();
-public:
-	static GameMgr* getInstance();
-
-	void init();
-	void update(float eTime);
-	void render();
 	template <typename T>
 	void addObject(std::string objName);
 	void deleteObject();
+	void garbageCollect();
+public:
+	static GameMgr* getInstance();
+	
+	void init();
+	void update(float eTime);
+	void render();
 
 	void keyDownInput(unsigned char key, int x, int y);
 	void keyUpInput(unsigned char key, int x, int y);
@@ -42,3 +42,4 @@ public:
 	int getElapsedTime();
 };
 
+#include "GameMgr.hpp"

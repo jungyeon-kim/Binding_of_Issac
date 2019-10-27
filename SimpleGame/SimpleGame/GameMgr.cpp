@@ -1,9 +1,10 @@
-#include "stdafx.h"
+#include "stdafx.h"		
 #include "GameMgr.h"
-#include "GameMgr.hpp"
 #include "Renderer.h"
+#include "Physics.h"
 #include "GameController.h"
-#include "Player.h"
+#include "GameObj.h"
+#include "Player.h" 
 #include "Bullet.h"
 
 using namespace std;
@@ -17,6 +18,17 @@ GameMgr::GameMgr()
 
 GameMgr::~GameMgr()
 {
+}
+
+void GameMgr::deleteObject()
+{
+	for (auto& i = obj->cbegin(); i != obj->cend();)
+	{
+		if (i->first == "Bullet" && !physics->calcScalar(i->second->getVel())) 
+			i = obj->erase(i);
+		else 
+			++i;
+	}
 }
 
 void GameMgr::garbageCollect()
@@ -34,37 +46,25 @@ GameMgr* GameMgr::getInstance()
 void GameMgr::init()
 {
 	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
-	if (!renderer->IsInitialized()) { cout << "Renderer could not be initialized.. \n"; }
+	physics = make_unique<Physics>();
 	gameCon = GameController::getInstance();
-	player = make_unique<Player>();
+	obj = make_unique<unordered_multimap<string, unique_ptr<GameObj>>>();
+
+	addObject<Player>("Player");
 }
 
 void GameMgr::update(float eTime)
 {
 	if (gameCon->isShoot()) addObject<Bullet>("Bullet");
-	deleteObject();
+	garbageCollect();
 
-	for (const auto& i : bullet) i->update(eTime);
-	player->update(eTime);
+	for (const auto& obj : *obj) obj.second->update(eTime);
 }
 
 void GameMgr::render()
 {
 	renderer->render();
-	for (const auto& i : bullet) i->render();
-	player->render();
-}
-
-void GameMgr::deleteObject()
-{
-	for (auto& i = bullet.cbegin(); i != bullet.cend();)
-	{
-		if (sqrtf(pow(i->get()->getVel().x, 2) + 
-			pow(i->get()->getVel().y, 2) + 
-			pow(i->get()->getVel().z, 2)) == 0) 
-			i = bullet.erase(i);
-		else ++i;
-	}
+	for (const auto& obj : *obj) obj.second->render();
 }
 
 void GameMgr::keyDownInput(unsigned char key, int x, int y)

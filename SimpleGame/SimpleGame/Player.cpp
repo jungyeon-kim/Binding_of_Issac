@@ -50,7 +50,7 @@ void Player::render()
 void Player::addForce()
 {
 	if (gameCon->getDir().up) objForce.y += forceAmount;
-	if (gameCon->getDir().down) objForce.y -= forceAmount;
+	else if (gameCon->getDir().down) objForce.y -= forceAmount;
 	if (gameCon->getDir().left) objForce.x -= forceAmount;
-	if (gameCon->getDir().right) objForce.x += forceAmount;
+	else if (gameCon->getDir().right) objForce.x += forceAmount;
 }

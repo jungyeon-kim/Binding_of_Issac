@@ -9,6 +9,11 @@ Physics::~Physics()
 {
 }
 
+float Physics::calcScalar(const Vector& vec)
+{
+	return sqrtf(pow(vec.x, 2) + pow(vec.y, 2) + pow(vec.z, 2));
+}
+
 const Vector& Physics::calcAcc(Vector& acc, const Vector& force, float mass)
 {
 	acc = {
@@ -45,7 +50,7 @@ const Vector& Physics::calcPos(Vector& pos, const Vector& vel, float eTime)
 const Vector& Physics::calcFric(Vector& vel, float mass, float fricCoef, float eTime)
 {
 	// normalize vector
-	scalarVec = sqrtf(pow(vel.x, 2) + pow(vel.y, 2));
+	scalarVec = calcScalar(vel);
 
 	if (scalarVec > 0) 
 	{

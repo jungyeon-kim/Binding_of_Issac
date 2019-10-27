@@ -12,6 +12,7 @@ public:
 	Physics();
 	~Physics();
 
+	float calcScalar(const Vector& vec);
 	// acc = force / mass
 	const Vector& calcAcc(Vector& acc, const Vector& force, float mass);
 	// vel = vel + acc * eTime

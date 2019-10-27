@@ -14,10 +14,10 @@ public:
 	virtual ~Bullet();
 
 	virtual void init() override;
+	void init(const Vector& pos, const Vector& vel);
 	virtual void update(float eTime) override;
 	virtual void render() override;
 	virtual void addForce() override;
 
-	void init(const Vector& pos, const Vector& vel);
 };
 
