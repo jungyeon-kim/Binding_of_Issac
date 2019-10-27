@@ -9,7 +9,8 @@ class GameObj;
 class GameMgr final
 {
 private:
-	using ObjContainer = std::unique_ptr<std::unordered_multimap<std::string, std::unique_ptr<GameObj>>>;
+	template <typename T>
+	using ObjContainer = std::unique_ptr<std::unordered_multimap<std::string, T>>;
 private:
 	static constexpr int MAX_OBJECT{ 5000 };
 	int currTime{}, prevTime{}, elapsedTime{};
@@ -18,7 +19,7 @@ private:
 	GameController* gameCon{};
 	std::unique_ptr<Renderer> renderer{};
 	std::unique_ptr<Physics> physics{};
-	ObjContainer obj{};
+	ObjContainer<std::unique_ptr<GameObj>> obj{};
 private:
 	GameMgr();
 	~GameMgr();
