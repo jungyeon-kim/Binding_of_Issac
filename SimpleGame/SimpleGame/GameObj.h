@@ -18,7 +18,8 @@ public:
 	GameObj();
 	virtual ~GameObj();
 
-	virtual void init() = 0;
+	void init();
+	virtual void init(const Vector& pos) = 0;
 	virtual void update(float eTime) = 0;
 	virtual void render() = 0;
 	virtual void addForce() = 0;

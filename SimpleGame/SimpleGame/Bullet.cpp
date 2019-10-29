@@ -6,9 +6,9 @@
 
 using namespace std;
 
-Bullet::Bullet()
+Bullet::Bullet(const Vector& pos)
 {
-	init();
+	init(pos);
 }
 
 Bullet::Bullet(const Vector& pos, const Vector& vel)
@@ -20,7 +20,7 @@ Bullet::~Bullet()
 {
 }
 
-void Bullet::init()
+void Bullet::init(const Vector& pos)
 {
 	gameCon = GameController::getInstance();
 
@@ -28,11 +28,11 @@ void Bullet::init()
 	addForce();
 	fricCoef = 1;
 	objForce;				// No initialize for addForce()
-	objPos = { 0, 0, 0 };
+	objPos = pos;
 	objVel = { 0, 0, 0 };
 	objAcc = { 0, 0, 0 };
 	objVol = { meter() / 8, meter() / 8, 0 };
-	objCol = { 0.5, 1, 0.5, 0 };
+	objCol = { 0.5, 1, 0.5, 1 };
 	objMass = 1;
 }
 
@@ -48,7 +48,7 @@ void Bullet::init(const Vector& pos, const Vector& vel)
 	objVel = objForce + vel;
 	objAcc = { 0, 0, 0 };
 	objVol = { meter() / 8, meter() / 8, 0 };
-	objCol = { 0.5, 1, 0.5, 0 };
+	objCol = { 0.5, 1, 0.5, 1 };
 	objMass = 1;
 }
 
@@ -73,6 +73,6 @@ void Bullet::addForce()
 {
 	if (gameCon->getShoot().up) objForce.y += forceAmount;
 	else if (gameCon->getShoot().down) objForce.y -= forceAmount;
-	if (gameCon->getShoot().left) objForce.x -= forceAmount;
+	else if (gameCon->getShoot().left) objForce.x -= forceAmount;
 	else if (gameCon->getShoot().right) objForce.x += forceAmount;
 }

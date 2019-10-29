@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="소스 파일\Shaders">
-      <UniqueIdentifier>{aa86e47f-445f-4440-9a76-173363b46c4e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\GameMgr">
       <UniqueIdentifier>{172e5f06-ea29-4c33-be8e-e15c5c434cb0}</UniqueIdentifier>
     </Filter>
@@ -24,9 +21,6 @@
     </Filter>
     <Filter Include="소스 파일\Renderer">
       <UniqueIdentifier>{9208c3ad-cd24-400c-b921-35b2d8884355}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\Struct">
-      <UniqueIdentifier>{44489fc7-e2e8-4e31-b69c-d33c5d4f2449}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\GameController">
       <UniqueIdentifier>{4d9806e2-b95e-4328-af5d-a46faeb96317}</UniqueIdentifier>
@@ -39,6 +33,15 @@
     </Filter>
     <Filter Include="소스 파일\GameObj\Bullet">
       <UniqueIdentifier>{2d2b8c87-bc5e-462a-ac50-408186641ba3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\headerSet">
+      <UniqueIdentifier>{32927143-7442-4716-aed9-094c34739daf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\struct">
+      <UniqueIdentifier>{44489fc7-e2e8-4e31-b69c-d33c5d4f2449}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\shaders">
+      <UniqueIdentifier>{aa86e47f-445f-4440-9a76-173363b46c4e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -61,16 +64,16 @@
       <Filter>소스 파일\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Color.h">
-      <Filter>헤더 파일\Struct</Filter>
+      <Filter>헤더 파일\struct</Filter>
     </ClInclude>
     <ClInclude Include="Vector.h">
-      <Filter>헤더 파일\Struct</Filter>
+      <Filter>헤더 파일\struct</Filter>
     </ClInclude>
     <ClInclude Include="GameController.h">
       <Filter>소스 파일\GameController</Filter>
     </ClInclude>
     <ClInclude Include="Direction.h">
-      <Filter>헤더 파일\Struct</Filter>
+      <Filter>헤더 파일\struct</Filter>
     </ClInclude>
     <ClInclude Include="Physics.h">
       <Filter>소스 파일\Physics</Filter>
@@ -83,6 +86,9 @@
     </ClInclude>
     <ClInclude Include="GameMgr.hpp">
       <Filter>소스 파일\GameMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectSet.h">
+      <Filter>헤더 파일\headerSet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -116,10 +122,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\SolidRect.fs">
-      <Filter>소스 파일\Shaders</Filter>
+      <Filter>소스 파일\shaders</Filter>
     </None>
     <None Include="Shaders\SolidRect.vs">
-      <Filter>소스 파일\Shaders</Filter>
+      <Filter>소스 파일\shaders</Filter>
     </None>
   </ItemGroup>
 </Project>
