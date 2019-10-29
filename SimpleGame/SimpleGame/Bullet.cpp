@@ -48,7 +48,7 @@ void Bullet::init(const Vector& pos, const Vector& vel)
 	objVel = objForce + vel;
 	objAcc = { 0, 0, 0 };
 	objVol = { meter() / 8, meter() / 8, 0 };
-	objCol = { 0.5, 1, 0.5, 0 };
+	objCol = { 0.5, 1, 0.5, 1 };
 	objMass = 1;
 }
 
