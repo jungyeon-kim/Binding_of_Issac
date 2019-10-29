@@ -11,12 +11,6 @@ Renderer::~Renderer()
 {
 }
 
-void Renderer::render()
-{
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.3f, 0.4f, 0.3f, 1.0f);
-}
-
 void Renderer::Initialize(int windowSizeX, int windowSizeY)
 {
 	//Set window size

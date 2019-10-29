@@ -1,3 +1,14 @@
-﻿  GameMgr.cpp
+﻿  stdafx.cpp
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\stdafx.h(28,53): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\stdafx.h(29,53): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+  Bullet.cpp
+  GameController.cpp
+  GameMgr.cpp
+  GameObj.cpp
+  Physics.cpp
+  Player.cpp
+  Renderer.cpp
+  코드를 생성하고 있습니다...
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\Player.cpp(29,28): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
   SimpleGame.cpp
   SimpleGame.vcxproj -> C:\project\Visual Studio\FrameWork\SimpleGame\x64\Debug\SimpleGame.exe

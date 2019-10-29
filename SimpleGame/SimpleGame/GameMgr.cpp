@@ -63,7 +63,9 @@ void GameMgr::update(float eTime)
 
 void GameMgr::render()
 {
-	renderer->render();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0.3f, 0.4f, 0.3f, 1.0f);
+
 	for (const auto& obj : *obj) obj.second->render();
 }
 
