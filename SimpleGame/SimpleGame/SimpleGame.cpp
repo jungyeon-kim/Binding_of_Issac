@@ -28,7 +28,7 @@ void Init(int argc, char** argv)
 
 void RenderScene(int temp)
 {
-	gameMgr->update(static_cast<float>(GameMgr::getInstance()->getElapsedTime()) / 1000);
+	gameMgr->update(static_cast<float>(gameMgr->getElapsedTime()) / 1000);
 	gameMgr->render();
 
 	glutSwapBuffers();	// double buffering

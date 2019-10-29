@@ -3,9 +3,7 @@
 #include "Renderer.h"
 #include "Physics.h"
 #include "GameController.h"
-#include "GameObj.h"
-#include "Player.h" 
-#include "Bullet.h"
+#include "ObjectSet.h"
 
 using namespace std;
 
@@ -33,7 +31,6 @@ void GameMgr::deleteObject()
 
 void GameMgr::garbageCollect()
 {
-	// delete bullet
 	deleteObject();
 }
 
@@ -50,12 +47,12 @@ void GameMgr::init()
 	gameCon = GameController::getInstance();
 	obj = make_unique<unordered_multimap<string, unique_ptr<GameObj>>>();
 
-	addObject<Player>("Player");
+	addObject<Player>("Player", { 0, 0, 0 });
 }
 
 void GameMgr::update(float eTime)
 {
-	if (gameCon->isShoot()) addObject<Bullet>("Bullet");
+	if (gameCon->isShoot()) addObject<Bullet>("Bullet", obj->find("Player")->second->getPos());
 	garbageCollect();
 
 	for (const auto& obj : *obj) obj.second->update(eTime);
@@ -63,26 +60,28 @@ void GameMgr::update(float eTime)
 
 void GameMgr::render()
 {
-	renderer->render();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0.2, 0.5, 0.5, 1);
+
 	for (const auto& obj : *obj) obj.second->render();
 }
 
-void GameMgr::keyDownInput(unsigned char key, int x, int y)
+void GameMgr::keyDownInput(unsigned char key, int x, int y) const
 {
 	gameCon->keyDownInput(key, x, y);
 }
 
-void GameMgr::keyUpInput(unsigned char key, int x, int y)
+void GameMgr::keyUpInput(unsigned char key, int x, int y) const
 {
 	gameCon->keyUpInput(key, x, y);
 }
 
-void GameMgr::specialKeyDownInput(int key, int x, int y)
+void GameMgr::specialKeyDownInput(int key, int x, int y) const
 {
 	gameCon->specialKeyDownInput(key, x, y);
 }
 
-void GameMgr::specialKeyUpInput(int key, int x, int y)
+void GameMgr::specialKeyUpInput(int key, int x, int y) const
 {
 	gameCon->specialKeyUpInput(key, x, y);
 }

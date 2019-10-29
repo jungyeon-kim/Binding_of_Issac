@@ -14,7 +14,7 @@ private:
 private:
 	static constexpr int MAX_OBJECT{ 5000 };
 	int currTime{}, prevTime{}, elapsedTime{};
-
+	
 	static GameMgr* instance;
 	GameController* gameCon{};
 	std::unique_ptr<Renderer> renderer{};
@@ -25,7 +25,7 @@ private:
 	~GameMgr();
 
 	template <typename T>
-	void addObject(std::string objName);
+	void addObject(const std::string& name, const Vector& pos);
 	void deleteObject();
 	void garbageCollect();
 public:
@@ -35,10 +35,10 @@ public:
 	void update(float eTime);
 	void render();
 
-	void keyDownInput(unsigned char key, int x, int y);
-	void keyUpInput(unsigned char key, int x, int y);
-	void specialKeyDownInput(int key, int x, int y);
-	void specialKeyUpInput(int key, int x, int y);
+	void keyDownInput(unsigned char key, int x, int y) const;
+	void keyUpInput(unsigned char key, int x, int y) const;
+	void specialKeyDownInput(int key, int x, int y) const;
+	void specialKeyUpInput(int key, int x, int y) const;
 
 	int getElapsedTime();
 };

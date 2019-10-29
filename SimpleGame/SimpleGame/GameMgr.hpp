@@ -1,15 +1,13 @@
 #pragma once
 
 template <typename T>
-void GameMgr::addObject(std::string objName)
+void GameMgr::addObject(const std::string& name, const Vector& pos)
 {
 	if (obj->size() < MAX_OBJECT)
 	{
-		if (objName == "Bullet") obj->emplace(objName, std::make_unique<Bullet>(
-			obj->find("Player")->second->getPos(),
-			obj->find("Player")->second->getVel()
-			));
-		else obj->emplace(objName, std::make_unique<T>());
+		if (name == "Bullet")
+			obj->emplace(name, make_unique<Bullet>(pos, obj->find("Player")->second->getVel()));
+		else obj->emplace(name, make_unique<T>(pos));
 	}
 	else
 		std::cout << "Object is full. \n";
