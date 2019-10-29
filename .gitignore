@@ -1,0 +1,41 @@
+### C++ ###
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+SimpleGame/.vs/SimpleGame/v16/Solution.VC.db-wal
+SimpleGame/.vs/SimpleGame/v16/.suo
+SimpleGame/.vs/SimpleGame/v16/Solution.VC.db
+SimpleGame/.vs/SimpleGame/v16/Solution.VC.db-shm
+SimpleGame/.vs/slnx.sqlite
+SimpleGame/.vs/VSWorkspaceState.json
+SimpleGame/.vs/ProjectSettings.json
