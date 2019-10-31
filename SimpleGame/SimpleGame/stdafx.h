@@ -11,6 +11,7 @@
 #include <fstream>
 #include <string>
 #include <memory>
+#include <map>
 #include <unordered_map>
 
 /*	--------------------------------------------
@@ -20,6 +21,8 @@
 #include "Vector.h"
 #include "Color.h"
 #include "Direction.h"
+
+#define PLAYER dynamic_cast<Player*>(obj->find("Player")->second.get())
 
 constexpr float meter(float centiMeter = 1)
 {

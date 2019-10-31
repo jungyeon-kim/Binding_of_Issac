@@ -18,6 +18,7 @@ Player::~Player()
 void Player::init(const Vector& pos)
 {
 	gameCon = GameController::getInstance();
+	coolTime = make_unique<map<string, float>>();
 
 	forceAmount = 15;
 	fricCoef = 1;
@@ -28,10 +29,19 @@ void Player::init(const Vector& pos)
 	objVol = { meter(), meter(), meter() };
 	objCol = { 0.5, 0.7, 0, 1 };
 	objMass = 1;
+
+	setCoolTime();
 }
 
 void Player::update(float eTime)
 {
+	for (auto& cool : *coolTime)
+		if (cool.second)
+		{
+			cool.second -= eTime;
+			if (cool.second < 0) cool.second = 0;
+		}
+
 	objForce = { 0, 0, 0 };
 	addForce();
 
@@ -53,4 +63,19 @@ void Player::addForce()
 	if (gameCon->getDir().down) objForce.y -= forceAmount;
 	if (gameCon->getDir().left) objForce.x -= forceAmount;
 	if (gameCon->getDir().right) objForce.x += forceAmount;
+}
+
+bool Player::isEndCoolTime(const string& name) const
+{
+	return (*coolTime)[name] == 0;
+}
+
+void Player::resetCoolTime(const string& name)
+{
+	if (name == "shoot") (*coolTime)[name] = 0.4;
+}
+
+void Player::setCoolTime()
+{
+	coolTime->emplace("shoot", 0);
 }

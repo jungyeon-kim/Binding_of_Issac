@@ -52,7 +52,12 @@ void GameMgr::init()
 
 void GameMgr::update(float eTime)
 {
-	if (gameCon->isShoot()) addObject<Bullet>("Bullet", obj->find("Player")->second->getPos());
+	if (gameCon->isShoot() && PLAYER->isEndCoolTime("shoot"))
+	{
+		addObject<Bullet>("Bullet", PLAYER->getPos());
+		PLAYER->resetCoolTime("shoot");
+	}
+
 	garbageCollect();
 
 	for (const auto& obj : *obj) obj.second->update(eTime);

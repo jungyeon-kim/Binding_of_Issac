@@ -1,4 +1,94 @@
 ﻿  GameMgr.cpp
-C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\GameMgr.cpp(64,31): warning C4305: '인수': 'double'에서 'GLclampf'(으)로 잘립니다.
-  SimpleGame.cpp
+  Player.cpp
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\GameMgr.cpp(69,31): warning C4305: '인수': 'double'에서 'GLclampf'(으)로 잘립니다.
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\Player.cpp(30,28): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\Player.cpp(75,46): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244: '초기화 중': '_Ty'에서 '_Ty2'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244:         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244:         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244:             _Ty=int
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244:         ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244:         and
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244:         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244:             _Ty2=float
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244:         ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xmemory(758): message : 컴파일되는 함수 템플릿 인스턴스화 'std::pair<const _Kty,_Ty>::pair<const char(&)[6],int,0>(_Other1,_Other2 &&) noexcept(false)'에 대한 참조를 확인하세요.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xmemory(758): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xmemory(758): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xmemory(758): message :             _Kty=std::string,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xmemory(758): message :             _Ty=float,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xmemory(758): message :             _Other1=const char (&)[6],
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xmemory(758): message :             _Other2=int
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xmemory(758): message :         ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xmemory(758): message : 컴파일되는 함수 템플릿 인스턴스화 'std::pair<const _Kty,_Ty>::pair<const char(&)[6],int,0>(_Other1,_Other2 &&) noexcept(false)'에 대한 참조를 확인하세요.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xmemory(758): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xmemory(758): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xmemory(758): message :             _Kty=std::string,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xmemory(758): message :             _Ty=float,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xmemory(758): message :             _Other1=const char (&)[6],
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xmemory(758): message :             _Other2=int
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xmemory(758): message :         ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(808): message : 컴파일되는 함수 템플릿 인스턴스화 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,const char(&)[6],int>(_Alloc &,_Objty *const ,const char (&)[6],int &&)'에 대한 참조를 확인하세요.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(808): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(808): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(808): message :             _Alloc=std::allocator<std::_Tree_node<std::pair<const std::string,float>,std::_Default_allocator_traits<std::allocator<std::pair<const std::string,float>>>::void_pointer>>,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(808): message :             _Ty=std::pair<const std::string,float>,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(808): message :             _Objty=std::pair<const std::string,float>
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(808): message :         ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(808): message : 컴파일되는 함수 템플릿 인스턴스화 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,const char(&)[6],int>(_Alloc &,_Objty *const ,const char (&)[6],int &&)'에 대한 참조를 확인하세요.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(808): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(808): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(808): message :             _Alloc=std::allocator<std::_Tree_node<std::pair<const std::string,float>,std::_Default_allocator_traits<std::allocator<std::pair<const std::string,float>>>::void_pointer>>,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(808): message :             _Ty=std::pair<const std::string,float>,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(808): message :             _Objty=std::pair<const std::string,float>
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(808): message :         ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1016): message : 컴파일되는 함수 템플릿 인스턴스화 'std::_Tree_temp_node<std::allocator<std::_Tree_node<std::pair<const _Kty,_Ty>,std::_Default_allocator_traits<_Alloc>::void_pointer>>>::_Tree_temp_node<const char(&)[6],int>(_Alnode &,std::_Tree_node<std::pair<const _Kty,_Ty>,std::_Default_allocator_traits<_Alloc>::void_pointer> *,const char (&)[6],int &&)'에 대한 참조를 확인하세요.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1016): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1016): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1016): message :             _Kty=std::string,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1016): message :             _Ty=float,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1016): message :             _Alloc=std::allocator<std::pair<const std::string,float>>,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1016): message :             _Alnode=std::allocator<std::_Tree_node<std::pair<const std::string,float>,std::_Default_allocator_traits<std::allocator<std::pair<const std::string,float>>>::void_pointer>>
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1016): message :         ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1016): message : 컴파일되는 함수 템플릿 인스턴스화 'std::_Tree_temp_node<std::allocator<std::_Tree_node<std::pair<const _Kty,_Ty>,std::_Default_allocator_traits<_Alloc>::void_pointer>>>::_Tree_temp_node<const char(&)[6],int>(_Alnode &,std::_Tree_node<std::pair<const _Kty,_Ty>,std::_Default_allocator_traits<_Alloc>::void_pointer> *,const char (&)[6],int &&)'에 대한 참조를 확인하세요.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1016): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1016): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1016): message :             _Kty=std::string,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1016): message :             _Ty=float,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1016): message :             _Alloc=std::allocator<std::pair<const std::string,float>>,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1016): message :             _Alnode=std::allocator<std::_Tree_node<std::pair<const std::string,float>,std::_Default_allocator_traits<std::allocator<std::pair<const std::string,float>>>::void_pointer>>
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1016): message :         ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1095): message : 컴파일되는 함수 템플릿 인스턴스화 'std::pair<std::_Tree_node<std::pair<const _Kty,_Ty>,std::_Default_allocator_traits<_Alloc>::void_pointer> *,bool> std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::_Emplace<const char(&)[6],int>(const char (&)[6],int &&)'에 대한 참조를 확인하세요.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1095): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1095): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1095): message :             _Kty=std::string,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1095): message :             _Ty=float,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1095): message :             _Alloc=std::allocator<std::pair<const std::string,float>>,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1095): message :             _Pr=std::less<std::string>
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1095): message :         ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1095): message : 컴파일되는 함수 템플릿 인스턴스화 'std::pair<std::_Tree_node<std::pair<const _Kty,_Ty>,std::_Default_allocator_traits<_Alloc>::void_pointer> *,bool> std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::_Emplace<const char(&)[6],int>(const char (&)[6],int &&)'에 대한 참조를 확인하세요.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1095): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1095): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1095): message :             _Kty=std::string,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1095): message :             _Ty=float,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1095): message :             _Alloc=std::allocator<std::pair<const std::string,float>>,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1095): message :             _Pr=std::less<std::string>
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\xtree(1095): message :         ]
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\Player.cpp(80): message : 컴파일되는 함수 템플릿 인스턴스화 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>,bool> std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::emplace<const char(&)[6],int>(const char (&)[6],int &&)'에 대한 참조를 확인하세요.
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\Player.cpp(80): message :         with
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\Player.cpp(80): message :         [
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\Player.cpp(80): message :             _Kty=std::string,
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\Player.cpp(80): message :             _Ty=float,
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\Player.cpp(80): message :             _Pr=std::less<std::string>,
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\Player.cpp(80): message :             _Alloc=std::allocator<std::pair<const std::string,float>>
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\Player.cpp(80): message :         ]
+  코드를 생성하고 있습니다...
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\Player.cpp(80): message : 컴파일되는 함수 템플릿 인스턴스화 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const _Kty,_Ty>>>>,bool> std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::emplace<const char(&)[6],int>(const char (&)[6],int &&)'에 대한 참조를 확인하세요.
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\Player.cpp(80): message :         with
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\Player.cpp(80): message :         [
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\Player.cpp(80): message :             _Kty=std::string,
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\Player.cpp(80): message :             _Ty=float,
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\Player.cpp(80): message :             _Pr=std::less<std::string>,
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\Player.cpp(80): message :             _Alloc=std::allocator<std::pair<const std::string,float>>
+C:\project\Visual Studio\FrameWork\SimpleGame\SimpleGame\Player.cpp(80): message :         ]
   SimpleGame.vcxproj -> C:\project\Visual Studio\FrameWork\SimpleGame\x64\Debug\SimpleGame.exe

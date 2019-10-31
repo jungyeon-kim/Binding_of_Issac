@@ -7,7 +7,10 @@ class GameController;
 class Player : public GameObj
 {
 private:
+	using CoolTimeContainer = std::unique_ptr<std::map<std::string, float>>;
+private:
 	GameController* gameCon{};
+	CoolTimeContainer coolTime{};
 public:
 	Player(const Vector& pos);
 	virtual ~Player();
@@ -16,5 +19,10 @@ public:
 	virtual void update(float eTime) override;
 	virtual void render() override;
 	virtual void addForce() override;
+
+	bool isEndCoolTime(const std::string& name) const;
+	void resetCoolTime(const std::string& name);
+
+	void setCoolTime();
 };
 

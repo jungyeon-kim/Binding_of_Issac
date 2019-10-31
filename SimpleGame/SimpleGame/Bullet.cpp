@@ -52,7 +52,6 @@ void Bullet::init(const Vector& pos, const Vector& vel)
 	objMass = 1;
 }
 
-
 void Bullet::update(float eTime)
 {
 	objForce = { 0, 0, 0 };
