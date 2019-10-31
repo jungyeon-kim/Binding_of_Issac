@@ -19,6 +19,7 @@ void Player::init(const Vector& pos)
 {
 	gameCon = GameController::getInstance();
 	coolTime = make_unique<map<string, float>>();
+	period = make_unique<map<string, float>>();
 
 	forceAmount = 15;
 	fricCoef = 1;
@@ -72,10 +73,11 @@ bool Player::isEndCoolTime(const string& name) const
 
 void Player::resetCoolTime(const string& name)
 {
-	if (name == "shoot") (*coolTime)[name] = 0.4;
+	if (name == "shoot") (*coolTime)[name] = (*period)["shoot"];
 }
 
 void Player::setCoolTime()
 {
 	coolTime->emplace("shoot", 0);
+	period->emplace("shoot", 0.4);
 }

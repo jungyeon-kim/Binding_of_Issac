@@ -11,6 +11,7 @@ private:
 private:
 	GameController* gameCon{};
 	CoolTimeContainer coolTime{};
+	CoolTimeContainer period{};
 public:
 	Player(const Vector& pos);
 	virtual ~Player();
