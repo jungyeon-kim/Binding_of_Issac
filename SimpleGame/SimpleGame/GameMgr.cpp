@@ -54,7 +54,7 @@ void GameMgr::update(float eTime)
 {
 	if (gameCon->isShoot() && PLAYER->isEndCoolTime("shoot"))
 	{
-		addObject<Bullet>("Bullet", PLAYER->getPos());
+		addObject<Bullet>("Bullet", PLAYER->getPos(), PLAYER->getVel());
 		PLAYER->resetCoolTime("shoot");
 	}
 
@@ -66,7 +66,7 @@ void GameMgr::update(float eTime)
 void GameMgr::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.2, 0.5, 0.5, 1);
+	glClearColor(0.2, 0.5, 0.5, 1.0);
 
 	for (const auto& obj : *obj) obj.second->render();
 }

@@ -4,6 +4,7 @@ class Renderer;
 class Physics;
 class GameController;
 class GameObj;
+class Bullet;
 
 // Singleton
 class GameMgr final
@@ -26,6 +27,8 @@ private:
 
 	template <typename T>
 	void addObject(const std::string& name, const Vector& pos);
+	template <typename T>
+	void addObject(const std::string& name, const Vector& pos, const Vector& vel);
 	void deleteObject();
 	void garbageCollect();
 public:
