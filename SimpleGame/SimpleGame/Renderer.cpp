@@ -12,22 +12,37 @@ Renderer::Renderer(int windowSizeX, int windowSizeY)
 
 Renderer::~Renderer()
 {
+	//delete all resources here
+	glDeleteShader(m_SolidRectShader);
+	glDeleteShader(m_TextureRectShader);
+	glDeleteBuffers(1, &m_VBORect);
+	for (int i = 0; i < MAX_TEXTURES; i++)
+	{
+		DeleteTexture(i);
+	}
 }
 
 void Renderer::Initialize(int windowSizeX, int windowSizeY)
 {
+	//Initialize Texture arrays
+	for (int i = 0; i < MAX_TEXTURES; i++)
+	{
+		m_Textures[i] = -1;;
+	}
+
 	//Set window size
 	m_WindowSizeX = windowSizeX;
 	m_WindowSizeY = windowSizeY;
 
 	//Load shaders
 	m_SolidRectShader = CompileShaders("./Shaders/SolidRect.vs", "./Shaders/SolidRect.fs");
+	m_TextureRectShader = CompileShaders("./Shaders/TextureRect.vs", "./Shaders/TextureRect.fs");
 	
 	//Create VBOs
 	CreateVertexBufferObjects();
 
 	//Initialize camera settings
-	m_v3Camera_Position = glm::vec3(0.f, -100.f, 100.f);
+	m_v3Camera_Position = glm::vec3(0.f, -1000.f, 1000.f);
 	m_v3Camera_Lookat = glm::vec3(0.f, 0.f, 0.f);
 	m_v3Camera_Up = glm::vec3(0.f, 1.f, 0.f);
 	m_m4View = glm::lookAt(
@@ -39,18 +54,18 @@ void Renderer::Initialize(int windowSizeX, int windowSizeY)
 	//Initialize projection matrix
 	m_m4OrthoProj = glm::ortho(
 		-(float)windowSizeX/2.f, (float)windowSizeX/2.f, 
-		-(float)windowSizeY/(2.f*sqrtf(2.f)), (float)windowSizeY/(2.f*sqrtf(2.f)),
-		0.0001f, 1000.f);
+		-(float)windowSizeY/2.f, (float)windowSizeY/2.f,
+		0.0001f, 10000.f);
 	m_m4PersProj = glm::perspectiveRH(45.f, 1.f, 1.f, 1000.f);
 
 	//Initialize projection-view matrix
 	m_m4ProjView = m_m4OrthoProj * m_m4View; //use ortho at this time
 	//m_m4ProjView = m_m4PersProj * m_m4View;
 
-	if (m_SolidRectShader > 0 && m_VBORect > 0)
-	{
-		m_Initialized = true;
-	}
+	//Initialize model transform matrix :; used for rotating quad normal to parallel to camera direction
+	m_m4Model = glm::rotate(glm::mat4(1.0f), glm::radians(45.f), glm::vec3(1.f, 0.f, 0.f));
+
+	m_Initialized = true;
 }
 
 bool Renderer::IsInitialized()
@@ -60,16 +75,99 @@ bool Renderer::IsInitialized()
 
 void Renderer::CreateVertexBufferObjects()
 {
+	float rectSize = 0.5f;
 	float rect[]
 		=
 	{
-		-1.f, -1.f, 0.f, -1.f, 1.f, 0.f, 1.f, 1.f, 0.f, //Triangle1
-		-1.f, -1.f, 0.f,  1.f, 1.f, 0.f, 1.f, -1.f, 0.f, //Triangle2
+		-rectSize, -rectSize, 0.f, -rectSize, rectSize, 0.f, rectSize, rectSize, 0.f, //Triangle1
+		-rectSize, -rectSize, 0.f,  rectSize, rectSize, 0.f, rectSize, -rectSize, 0.f, //Triangle2
 	};
 
 	glGenBuffers(1, &m_VBORect);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBORect);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(rect), rect, GL_STATIC_DRAW);
+}
+
+int Renderer::GenPngTexture(char * filePath, GLuint sampling)
+{
+	//Load Pngs
+	std::vector<unsigned char> image;
+	unsigned width, height;
+	unsigned error = lodepng::decode(image, width, height, filePath);
+	if (error != 0)
+	{
+		cout << "PNG Image Loading Failed : " << filePath << endl;
+		assert(0);
+	}
+
+	GLuint temp;
+	glGenTextures(1, &temp);
+
+	if (temp < 0)
+	{
+		cout << "PNG Texture Creation Failed : " << filePath << endl;
+		assert(0);
+	}
+
+	glBindTexture(GL_TEXTURE_2D, temp);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, sampling);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, sampling);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &image[0]);
+
+	return temp;
+}
+
+int Renderer::GenBmpTexture(char * filePath, GLuint sampling)
+{
+	unsigned int width, height;
+
+	const unsigned char* rawImage = loadBMP::loadBMPRaw(filePath, width, height, false);
+
+	if (rawImage == NULL)
+	{
+		cout << "BMP Image Loading Failed : " << filePath << endl;
+		assert(0);
+	}
+
+	GLuint temp;
+	glGenTextures(1, &temp);
+
+	if (temp < 0)
+	{
+		cout << "BMP Texture Creation Failed : " << filePath << endl;
+		assert(0);
+	}
+
+	glBindTexture(GL_TEXTURE_2D, temp);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, sampling);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, sampling);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, &rawImage[0]);
+
+	return temp;
+}
+
+bool Renderer::DeleteTexture(int idx, bool printLog)
+{
+	if (idx <= 0)
+	{
+		if (printLog)
+		{
+			cout << "Error : Texture index is negative " << idx << endl;
+		}
+		return false;
+	}
+	if (m_Textures[idx] == -1)
+	{
+		if (printLog)
+		{
+			cout << "Error : Texture " << idx << " already deleted. " << endl;
+		}
+		return false;
+	}
+	glDeleteTextures(1, (const GLuint*)(&m_Textures[idx]));
+	m_Textures[idx] = -1;
+
+	return true;
 }
 
 void Renderer::AddShader(GLuint ShaderProgram, const char* pShaderText, GLenum ShaderType)
@@ -130,6 +228,7 @@ GLuint Renderer::CompileShaders(char* filenameVS, char* filenameFS)
 
 	if (ShaderProgram == 0) { //쉐이더 프로그램이 만들어졌는지 확인
 		fprintf(stderr, "Error creating shader program\n");
+		assert(0);
 	}
 
 	std::string vs, fs;
@@ -137,12 +236,14 @@ GLuint Renderer::CompileShaders(char* filenameVS, char* filenameFS)
 	//shader.vs 가 vs 안으로 로딩됨
 	if (!ReadFile(filenameVS, &vs)) {
 		printf("Error compiling vertex shader\n");
+		assert(0);
 		return -1;
 	};
 
 	//shader.fs 가 fs 안으로 로딩됨
 	if (!ReadFile(filenameFS, &fs)) {
 		printf("Error compiling fragment shader\n");
+		assert(0);
 		return -1;
 	};
 
@@ -165,6 +266,7 @@ GLuint Renderer::CompileShaders(char* filenameVS, char* filenameFS)
 		// shader program 로그를 받아옴
 		glGetProgramInfoLog(ShaderProgram, sizeof(ErrorLog), NULL, ErrorLog);
 		std::cout << filenameVS << ", " << filenameFS << " Error linking shader program\n" << ErrorLog;
+		assert(0);
 		return -1;
 	}
 
@@ -173,11 +275,12 @@ GLuint Renderer::CompileShaders(char* filenameVS, char* filenameFS)
 	if (!Success) {
 		glGetProgramInfoLog(ShaderProgram, sizeof(ErrorLog), NULL, ErrorLog);
 		std::cout << filenameVS << ", " << filenameFS << " Error validating shader program\n" << ErrorLog;
+		assert(0);
 		return -1;
 	}
 
 	glUseProgram(ShaderProgram);
-	std::cout << filenameVS << ", " << filenameFS << " Shader compiling is done.";
+	std::cout << filenameVS << ", " << filenameFS << " Shader compiling is done.\n";
 
 	return ShaderProgram;
 }
@@ -196,12 +299,16 @@ void Renderer::DrawSolidRect(float x, float y, float z, float size, float r, flo
 	glDepthFunc(GL_LEQUAL);
 
 	GLuint uProjView = glGetUniformLocation(shader, "u_ProjView");
+	GLuint uRotToCam = glGetUniformLocation(shader, "u_RotToCam");
 	GLuint uTrans = glGetUniformLocation(shader, "u_Trans");
+	GLuint uScale = glGetUniformLocation(shader, "u_Scale");
 	GLuint uColor = glGetUniformLocation(shader, "u_Color");
 
-	glUniform4f(uTrans, x, y, z, size);
+	glUniform3f(uTrans, x, y, z);
+	glUniform3f(uScale, size, size, size);
 	glUniform4f(uColor, r, g, b, a);
 	glUniformMatrix4fv(uProjView, 1, GL_FALSE, &m_m4ProjView[0][0]);
+	glUniformMatrix4fv(uRotToCam, 1, GL_FALSE, &m_m4Model[0][0]);
 
 	int attribPosition = glGetAttribLocation(shader, "a_Position");
 	glEnableVertexAttribArray(attribPosition);
@@ -215,4 +322,95 @@ void Renderer::DrawSolidRect(float x, float y, float z, float size, float r, flo
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	glDisable(GL_BLEND);
+}
+
+void Renderer::DrawSolidRect(
+	float x, float y, float z, 
+	float sizeX, float sizeY, float sizeZ,
+	float r, float g, float b, float a)
+{
+	//Program select
+	GLuint shader = m_SolidRectShader;
+
+	glUseProgram(shader);
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+
+	GLuint uProjView = glGetUniformLocation(shader, "u_ProjView");
+	GLuint uRotToCam = glGetUniformLocation(shader, "u_RotToCam");
+	GLuint uTrans = glGetUniformLocation(shader, "u_Trans");
+	GLuint uScale = glGetUniformLocation(shader, "u_Scale");
+	GLuint uColor = glGetUniformLocation(shader, "u_Color");
+
+	glUniform3f(uTrans, x, y, z);
+	glUniform3f(uScale, sizeX, sizeY, sizeZ);
+	glUniform4f(uColor, r, g, b, a);
+	glUniformMatrix4fv(uProjView, 1, GL_FALSE, &m_m4ProjView[0][0]);
+	glUniformMatrix4fv(uRotToCam, 1, GL_FALSE, &m_m4Model[0][0]);
+
+	int attribPosition = glGetAttribLocation(shader, "a_Position");
+	glEnableVertexAttribArray(attribPosition);
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBORect);
+	glVertexAttribPointer(attribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
+
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+
+	glDisableVertexAttribArray(attribPosition);
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	glDisable(GL_BLEND);
+}
+
+void Renderer::DrawTextureRect(
+	float x, float y, float z,
+	float sizeX, float sizeY, float sizeZ,
+	float r, float g, float b, float a,
+	int textureID)
+{
+	//Program select
+	GLuint shader = m_TextureRectShader;
+
+	glUseProgram(shader);
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+
+	GLuint uProjView = glGetUniformLocation(shader, "u_ProjView");
+	GLuint uRotToCam = glGetUniformLocation(shader, "u_RotToCam");
+	GLuint uTrans = glGetUniformLocation(shader, "u_Trans");
+	GLuint uScale = glGetUniformLocation(shader, "u_Scale");
+	GLuint uColor = glGetUniformLocation(shader, "u_Color");
+	GLuint uTexture = glGetUniformLocation(shader, "u_Texture");
+
+	glUniformMatrix4fv(uProjView, 1, GL_FALSE, &m_m4ProjView[0][0]);
+	glUniformMatrix4fv(uRotToCam, 1, GL_FALSE, &m_m4Model[0][0]);
+	glUniform3f(uTrans, x, y, z);
+	glUniform3f(uScale, sizeX, sizeY, sizeZ);
+	glUniform4f(uColor, r, g, b, a);
+	glUniform1i(uTexture, 0);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+
+	int attribPosition = glGetAttribLocation(shader, "a_Position");
+	glEnableVertexAttribArray(attribPosition);
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBORect);
+	glVertexAttribPointer(attribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
+
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+
+	glDisableVertexAttribArray(attribPosition);
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	glDisable(GL_BLEND);
+	glDisable(GL_DEPTH_TEST);
 }

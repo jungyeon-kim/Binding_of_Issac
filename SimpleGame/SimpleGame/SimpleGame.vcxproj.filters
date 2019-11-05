@@ -90,6 +90,9 @@
     <ClInclude Include="ObjectSet.h">
       <Filter>헤더 파일\headerSet</Filter>
     </ClInclude>
+    <ClInclude Include="LoadPng.h">
+      <Filter>소스 파일\Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -118,6 +121,9 @@
     </ClCompile>
     <ClCompile Include="Physics.cpp">
       <Filter>소스 파일\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadPng.cpp">
+      <Filter>소스 파일\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

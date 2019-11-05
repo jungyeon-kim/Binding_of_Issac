@@ -161,6 +161,7 @@
     <ClInclude Include="GameMgr.h" />
     <ClInclude Include="GameMgr.hpp" />
     <ClInclude Include="GameObj.h" />
+    <ClInclude Include="LoadPng.h" />
     <ClInclude Include="ObjectSet.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Player.h" />
@@ -175,6 +176,7 @@
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="GameMgr.cpp" />
     <ClCompile Include="GameObj.cpp" />
+    <ClCompile Include="LoadPng.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Renderer.cpp" />
