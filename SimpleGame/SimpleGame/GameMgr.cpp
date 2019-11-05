@@ -57,7 +57,6 @@ void GameMgr::update(float eTime)
 		addObject<Bullet>("Bullet", PLAYER->getPos(), PLAYER->getVel());
 		PLAYER->resetCoolTime("shoot");
 	}
-
 	garbageCollect();
 
 	for (const auto& obj : *obj) obj.second->update(eTime);
