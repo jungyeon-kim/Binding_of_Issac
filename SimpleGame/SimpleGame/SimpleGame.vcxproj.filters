@@ -43,6 +43,9 @@
     <Filter Include="소스 파일\shaders">
       <UniqueIdentifier>{aa86e47f-445f-4440-9a76-173363b46c4e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Renderer\LoadPng">
+      <UniqueIdentifier>{823f6d74-d4e2-43e7-a0c8-2593f6c9c458}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -91,7 +94,7 @@
       <Filter>헤더 파일\headerSet</Filter>
     </ClInclude>
     <ClInclude Include="LoadPng.h">
-      <Filter>소스 파일\Renderer</Filter>
+      <Filter>소스 파일\Renderer\LoadPng</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -123,7 +126,7 @@
       <Filter>소스 파일\Physics</Filter>
     </ClCompile>
     <ClCompile Include="LoadPng.cpp">
-      <Filter>소스 파일\Renderer</Filter>
+      <Filter>소스 파일\Renderer\LoadPng</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

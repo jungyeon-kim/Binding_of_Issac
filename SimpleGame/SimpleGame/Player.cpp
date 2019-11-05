@@ -6,6 +6,8 @@
 
 using namespace std;
 
+int Player::texID{};
+
 Player::Player(const Vector& pos)
 {
 	init(pos);
@@ -17,9 +19,13 @@ Player::~Player()
 
 void Player::init(const Vector& pos)
 {
+	if (!texID) texID = renderer->GenPngTexture("./textures/TestImg.png");
+
 	gameCon = GameController::getInstance();
 	coolTime = make_unique<map<string, float>>();
 	period = make_unique<map<string, float>>();
+
+	setCoolTime();
 
 	forceAmount = 15;
 	fricCoef = 1;
@@ -30,8 +36,6 @@ void Player::init(const Vector& pos)
 	objVol = { meter(), meter(), meter() };
 	objCol = { 0.5, 0.7, 0, 1 };
 	objMass = 1;
-
-	setCoolTime();
 }
 
 void Player::update(float eTime)
@@ -54,8 +58,7 @@ void Player::update(float eTime)
 
 void Player::render()
 {
-	renderer->DrawSolidRect(objPos.x, objPos.y, objPos.z, objVol.x,
-		objCol.r, objCol.g, objCol.b, objCol.a);
+	renderer->DrawTextureRect(objPos, objVol, objCol, texID);
 }
 
 void Player::addForce()
@@ -68,12 +71,12 @@ void Player::addForce()
 
 bool Player::isEndCoolTime(const string& name) const
 {
-	return (*coolTime)[name] == 0;
+	return !(*coolTime)[name];
 }
 
 void Player::resetCoolTime(const string& name)
 {
-	if (name == "shoot") (*coolTime)[name] = (*period)["shoot"];
+	(*coolTime)[name] = (*period)[name];
 }
 
 void Player::setCoolTime()

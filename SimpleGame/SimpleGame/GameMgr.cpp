@@ -18,22 +18,6 @@ GameMgr::~GameMgr()
 {
 }
 
-void GameMgr::deleteObject()
-{
-	for (auto& i = obj->cbegin(); i != obj->cend();)
-	{
-		if (i->first == "Bullet" && !physics->calcScalar(i->second->getVel())) 
-			i = obj->erase(i);
-		else 
-			++i;
-	}
-}
-
-void GameMgr::garbageCollect()
-{
-	deleteObject();
-}
-
 GameMgr* GameMgr::getInstance()
 {
 	if (!instance) instance = new GameMgr{};
@@ -68,6 +52,22 @@ void GameMgr::render()
 	glClearColor(0.2, 0.5, 0.5, 1.0);
 
 	for (const auto& obj : *obj) obj.second->render();
+}
+
+void GameMgr::deleteObject()
+{
+	for (auto& i = obj->cbegin(); i != obj->cend();)
+	{
+		if (i->first == "Bullet" && !physics->calcScalar(i->second->getVel()))
+			i = obj->erase(i);
+		else
+			++i;
+	}
+}
+
+void GameMgr::garbageCollect()
+{
+	deleteObject();
 }
 
 void GameMgr::keyDownInput(unsigned char key, int x, int y) const

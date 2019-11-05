@@ -9,6 +9,8 @@ class Player : public GameObj
 private:
 	using CoolTimeContainer = std::unique_ptr<std::map<std::string, float>>;
 private:
+	static int texID;
+
 	GameController* gameCon{};
 	CoolTimeContainer coolTime{};
 	CoolTimeContainer period{};

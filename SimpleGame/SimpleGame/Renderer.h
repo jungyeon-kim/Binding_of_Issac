@@ -38,9 +38,9 @@ public:
 		float r, float g, float b, float a);
 
 	void DrawTextureRect(
-		float x, float y, float z,
-		float sizeX, float sizeY, float sizeZ,
-		float r, float g, float b, float a,
+		const Vector& pos,
+		const Vector& vol,
+		const Color& col,
 		int textureID);
 
 	int GenPngTexture(char * filePath, GLuint sampling = GL_NEAREST);

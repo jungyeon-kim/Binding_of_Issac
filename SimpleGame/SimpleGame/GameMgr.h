@@ -24,6 +24,8 @@ private:
 private:
 	GameMgr();
 	~GameMgr();
+	GameMgr(const GameMgr& rhs) = delete;
+	GameMgr& operator=(const GameMgr& rhs) = delete;
 
 	template <typename T>
 	void addObject(const std::string& name, const Vector& pos);

@@ -6,6 +6,8 @@
 
 using namespace std;
 
+int Bullet::texID{};
+
 Bullet::Bullet(const Vector& pos)
 {
 	init(pos);
@@ -22,6 +24,8 @@ Bullet::~Bullet()
 
 void Bullet::init(const Vector& pos)
 {
+	if (!texID) texID = renderer->GenPngTexture("./textures/TestImg.png");
+
 	gameCon = GameController::getInstance();
 
 	forceAmount = 8;
@@ -38,18 +42,8 @@ void Bullet::init(const Vector& pos)
 
 void Bullet::init(const Vector& pos, const Vector& vel)
 {
-	gameCon = GameController::getInstance();
-
-	forceAmount = 8;
-	addForce();
-	fricCoef = 1;
-	objForce;				// No initialize for addForce()
-	objPos = pos;
+	init(pos);
 	objVel = objForce + vel;
-	objAcc = { 0, 0, 0 };
-	objVol = { meter() / 8, meter() / 8, 0 };
-	objCol = { 0.5, 1, 0.5, 1 };
-	objMass = 1;
 }
 
 void Bullet::update(float eTime)
@@ -64,8 +58,7 @@ void Bullet::update(float eTime)
 
 void Bullet::render()
 {
-	renderer->DrawSolidRect(objPos.x, objPos.y, objPos.z, objVol.x,
-		objCol.r, objCol.g, objCol.b, objCol.a);
+	renderer->DrawTextureRect(objPos, objVol, objCol, texID);
 }
 
 void Bullet::addForce()

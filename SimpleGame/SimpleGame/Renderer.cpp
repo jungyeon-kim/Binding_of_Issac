@@ -367,9 +367,9 @@ void Renderer::DrawSolidRect(
 }
 
 void Renderer::DrawTextureRect(
-	float x, float y, float z,
-	float sizeX, float sizeY, float sizeZ,
-	float r, float g, float b, float a,
+	const Vector& pos,
+	const Vector& vol,
+	const Color& col,
 	int textureID)
 {
 	//Program select
@@ -392,9 +392,9 @@ void Renderer::DrawTextureRect(
 
 	glUniformMatrix4fv(uProjView, 1, GL_FALSE, &m_m4ProjView[0][0]);
 	glUniformMatrix4fv(uRotToCam, 1, GL_FALSE, &m_m4Model[0][0]);
-	glUniform3f(uTrans, x, y, z);
-	glUniform3f(uScale, sizeX, sizeY, sizeZ);
-	glUniform4f(uColor, r, g, b, a);
+	glUniform3f(uTrans, pos.x, pos.y, pos.z);
+	glUniform3f(uScale, vol.x, vol.y, vol.z);
+	glUniform4f(uColor, col.r, col.g, col.b, col.a);
 	glUniform1i(uTexture, 0);
 
 	glActiveTexture(GL_TEXTURE0);
