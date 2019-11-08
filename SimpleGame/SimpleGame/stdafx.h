@@ -23,13 +23,14 @@
 #include "Direction.h"
 
 #define PLAYER dynamic_cast<Player*>(obj->find("Player")->second.get())
+#define BULLET dynamic_cast<Bullet*>(obj->find("Bullet")->second.get())
 
 constexpr float meter(float centiMeter = 1)
 {
 	return centiMeter * 100;
 }
 
-constexpr int wndSizeX{ static_cast<int>(meter(19.20)) };
-constexpr int wndSizeY{ static_cast<int>(meter(10.80)) };
+constexpr int wndSizeX{ static_cast<int>(meter(19.20f)) };
+constexpr int wndSizeY{ static_cast<int>(meter(10.80f)) };
 
-constexpr float gravity{ static_cast<float>(9.8) };
+constexpr float gravity{ static_cast<float>(9.8f) };

@@ -36,12 +36,12 @@ const Vector& Physics::calcVel(Vector& vel, const Vector& acc, float eTime)
 	return vel;
 }
 
-const Vector& Physics::calcPos(Vector& pos, const Vector& vel, float eTime)
+const Vector& Physics::calcPos(Vector& pos, const Vector& vel, const Vector& acc, float eTime)
 {
 	pos = { 
-		pos.x + vel.x * eTime * meter(),
-		pos.y + vel.y * eTime * meter(),
-		pos.z + vel.z * eTime * meter()
+		pos.x + (vel.x * eTime + 1 / 2 * acc.x * pow(eTime, 2)) * meter(),
+		pos.y + (vel.y * eTime + 1 / 2 * acc.y * pow(eTime, 2)) * meter(),
+		pos.z + (vel.z * eTime + 1 / 2 * acc.z * pow(eTime, 2)) * meter()
 	};
 
 	return pos;

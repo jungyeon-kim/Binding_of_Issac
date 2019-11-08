@@ -31,7 +31,7 @@ void GameMgr::init()
 	gameCon = GameController::getInstance();
 	obj = make_unique<unordered_multimap<string, unique_ptr<GameObj>>>();
 
-	addObject<Player>("Player", { 0, 0, 0 });
+	addObject<Player>("Player", { 0.0f, 0.0f, 0.0f });
 }
 
 void GameMgr::update(float eTime)
@@ -49,25 +49,22 @@ void GameMgr::update(float eTime)
 void GameMgr::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.2, 0.5, 0.5, 1.0);
+	glClearColor(0.2f, 0.5f, 0.5f, 1.0f);
 
 	for (const auto& obj : *obj) obj.second->render();
 }
 
-void GameMgr::deleteObject()
+void GameMgr::deleteObject(const string& name)
 {
-	for (auto& i = obj->cbegin(); i != obj->cend();)
-	{
-		if (i->first == "Bullet" && !physics->calcScalar(i->second->getVel()))
-			i = obj->erase(i);
-		else
-			++i;
-	}
+	obj->erase(obj->find(name));
 }
 
 void GameMgr::garbageCollect()
 {
-	deleteObject();
+	if (obj->find("Bullet") != obj->end())
+	{
+		if (!physics->calcScalar(BULLET->getVel())) deleteObject("Bullet");
+	}
 }
 
 void GameMgr::keyDownInput(unsigned char key, int x, int y) const

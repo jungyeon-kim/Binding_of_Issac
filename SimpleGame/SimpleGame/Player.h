@@ -9,7 +9,8 @@ class Player : public GameObj
 private:
 	using CoolTimeContainer = std::unique_ptr<std::map<std::string, float>>;
 private:
-	static int texID;
+	static constexpr int MAX_SPEED{ 7 };
+	static int TEX_ID;
 
 	GameController* gameCon{};
 	CoolTimeContainer coolTime{};

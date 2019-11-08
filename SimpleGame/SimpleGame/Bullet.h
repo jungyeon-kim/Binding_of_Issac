@@ -7,7 +7,7 @@ class GameController;
 class Bullet : public GameObj
 {
 private:
-	static int texID;
+	static int TEX_ID;
 
 	GameController* gameCon{};
 public:

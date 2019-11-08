@@ -110,8 +110,8 @@ int Renderer::GenPngTexture(char * filePath, GLuint sampling)
 	}
 
 	glBindTexture(GL_TEXTURE_2D, temp);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, sampling);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, sampling);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, static_cast<float>(sampling));
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, static_cast<float>(sampling));
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &image[0]);
 
 	return temp;
@@ -139,8 +139,8 @@ int Renderer::GenBmpTexture(char * filePath, GLuint sampling)
 	}
 
 	glBindTexture(GL_TEXTURE_2D, temp);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, sampling);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, sampling);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, static_cast<float>(sampling));
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, static_cast<float>(sampling));
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, &rawImage[0]);
 
 	return temp;
@@ -182,7 +182,7 @@ void Renderer::AddShader(GLuint ShaderProgram, const char* pShaderText, GLenum S
 	const GLchar* p[1];
 	p[0] = pShaderText;
 	GLint Lengths[1];
-	Lengths[0] = strlen(pShaderText);
+	Lengths[0] = static_cast<GLint>(strlen(pShaderText));
 	//쉐이더 코드를 쉐이더 오브젝트에 할당
 	glShaderSource(ShaderObj, 1, p, Lengths);
 

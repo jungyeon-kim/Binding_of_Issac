@@ -31,7 +31,7 @@ private:
 	void addObject(const std::string& name, const Vector& pos);
 	template <typename T>
 	void addObject(const std::string& name, const Vector& pos, const Vector& vel);
-	void deleteObject();
+	void deleteObject(const std::string& name);
 	void garbageCollect();
 public:
 	static GameMgr* getInstance();

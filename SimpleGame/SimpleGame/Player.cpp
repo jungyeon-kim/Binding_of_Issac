@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int Player::texID{};
+int Player::TEX_ID{};
 
 Player::Player(const Vector& pos)
 {
@@ -19,7 +19,7 @@ Player::~Player()
 
 void Player::init(const Vector& pos)
 {
-	if (!texID) texID = renderer->GenPngTexture("./textures/TestImg.png");
+	if (!TEX_ID) TEX_ID = renderer->GenPngTexture("./textures/TestImg.png");
 
 	gameCon = GameController::getInstance();
 	coolTime = make_unique<map<string, float>>();
@@ -27,15 +27,15 @@ void Player::init(const Vector& pos)
 
 	setCoolTime();
 
-	forceAmount = 15;
-	fricCoef = 1;
-	objForce = { 0, 0, 0 };
+	forceAmount = 20.0f;
+	fricCoef = 0.8f;
+	objForce;
 	objPos = pos;
-	objVel = { 0, 0, 0 };
-	objAcc = { 0, 0, 0 };
+	objVel;
+	objAcc;
 	objVol = { meter(), meter(), meter() };
-	objCol = { 0.5, 0.7, 0, 1 };
-	objMass = 1;
+	objCol = { 0.5f, 0.7f, 0.0f, 1.0f };
+	objMass = 1.0f;
 }
 
 void Player::update(float eTime)
@@ -51,14 +51,14 @@ void Player::update(float eTime)
 	addForce();
 
 	physics->calcAcc(objAcc, objForce, objMass);
-	if (physics->calcScalar(objVel) < 8) physics->calcVel(objVel, objAcc, eTime);
+	if (physics->calcScalar(objVel) < MAX_SPEED) physics->calcVel(objVel, objAcc, eTime);
 	physics->calcFric(objVel, objMass, fricCoef, eTime);
-	physics->calcPos(objPos, objVel, eTime);
+	physics->calcPos(objPos, objVel, objAcc, eTime);
 }
 
 void Player::render()
 {
-	renderer->DrawTextureRect(objPos, objVol, objCol, texID);
+	renderer->DrawTextureRect(objPos, objVol, objCol, TEX_ID);
 }
 
 void Player::addForce()

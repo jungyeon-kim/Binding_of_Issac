@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int Bullet::texID{};
+int Bullet::TEX_ID{};
 
 Bullet::Bullet(const Vector& pos)
 {
@@ -24,20 +24,20 @@ Bullet::~Bullet()
 
 void Bullet::init(const Vector& pos)
 {
-	if (!texID) texID = renderer->GenPngTexture("./textures/TestImg.png");
+	if (!TEX_ID) TEX_ID = renderer->GenPngTexture("./textures/TestImg.png");
 
 	gameCon = GameController::getInstance();
 
-	forceAmount = 8;
+	forceAmount = 8.0f;
 	addForce();
-	fricCoef = 1;
+	fricCoef = 1.0f;
 	objForce;				// No initialize for addForce()
 	objPos = pos;
-	objVel = { 0, 0, 0 };
-	objAcc = { 0, 0, 0 };
+	objVel;
+	objAcc;
 	objVol = { meter() / 8, meter() / 8, 0 };
-	objCol = { 0.5, 1, 0.5, 1 };
-	objMass = 1;
+	objCol = { 0.5f, 1.0f, 0.5f, 1.0f };
+	objMass = 1.0f;
 }
 
 void Bullet::init(const Vector& pos, const Vector& vel)
@@ -53,12 +53,12 @@ void Bullet::update(float eTime)
 	physics->calcAcc(objAcc, objForce, objMass);
 	physics->calcVel(objVel, objAcc, eTime);
 	physics->calcFric(objVel, objMass, fricCoef, eTime);
-	physics->calcPos(objPos, objVel, eTime);
+	physics->calcPos(objPos, objVel, objAcc, eTime);
 }
 
 void Bullet::render()
 {
-	renderer->DrawTextureRect(objPos, objVol, objCol, texID);
+	renderer->DrawTextureRect(objPos, objVol, objCol, TEX_ID);
 }
 
 void Bullet::addForce()

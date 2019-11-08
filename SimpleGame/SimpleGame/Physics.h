@@ -17,8 +17,8 @@ public:
 	const Vector& calcAcc(Vector& acc, const Vector& force, float mass);
 	// vel = vel + acc * eTime
 	const Vector& calcVel(Vector& vel, const Vector& acc, float eTime);
-	// pos = pos + vel * eTime
-	const Vector& calcPos(Vector& pos, const Vector& vel, float eTime);
+	// pos = pos + vel * eTime + 1 / 2 * acc * eTime ^ 2
+	const Vector& calcPos(Vector& pos, const Vector& vel, const Vector& acc, float eTime);
 	// calculate friction force & apply to velocity
 	const Vector& calcFric(Vector& vel, float mass, float fricCoef, float eTime);
 };
