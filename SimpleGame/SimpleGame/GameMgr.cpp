@@ -29,21 +29,21 @@ void GameMgr::init()
 	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
 	physics = make_unique<Physics>();
 	gameCon = GameController::getInstance();
-	obj = make_unique<unordered_multimap<string, unique_ptr<GameObj>>>();
+	obj = make_unique<unordered_multimap<Obj, unique_ptr<GameObj>>>();
 
-	addObject<Player>("Player", { 0.0f, 0.0f, 0.0f });
+	addObject<Player>(Obj::PLAYER, { 0.0f, 0.0f, 0.0f });
 }
 
 void GameMgr::update(float eTime)
 {
-	if (obj->find("Player") != obj->end())
+	if (obj->find(Obj::PLAYER) != obj->end())
 	{
-		static const auto& player{ getObj<Player>("Player") };
+		static const auto& player{ getObj<Player>(Obj::PLAYER) };
 
-		if (gameCon->isShoot() && player->isEndCoolTime("shoot"))
+		if (gameCon->isShoot() && player->isEndCoolTime(Skill::SHOOT))
 		{
-			addObject<Bullet>("Bullet", player->getPos(), player->getVel());
-			player->resetCoolTime("shoot");
+			addObject<Bullet>(Obj::BULLET, player->getPos(), player->getVel());
+			player->resetCoolTime(Skill::SHOOT);
 		}
 	}
 
@@ -60,22 +60,27 @@ void GameMgr::render()
 	for (const auto& obj : *obj) obj.second->render();
 }
 
-void GameMgr::deleteObject(const string& name)
+void GameMgr::deleteObject(Obj name)
 {
 	const auto& target{ obj->find(name) };
 
 	if (target != obj->end()) obj->erase(target);
-	else cout << "Cannot delete. " << name << " is not exist. \n";
+	else cout << "Cannot delete. " << static_cast<int>(name) << " Object is not exist. \n";
 }
 
 void GameMgr::garbageCollect()
 {
 	for (auto& i = obj->begin(); i != obj->end();)
-	{
-		if (i->first == "Bullet" && !physics->calcScalar(i->second->getVel()))
-			i = obj->erase(i);
-		else ++i;
-	}
+		switch (i->first)
+		{
+		case Obj::PLAYER:
+			++i;
+			break;
+		case Obj::BULLET:
+			if (!physics->calcScalar(i->second->getVel())) i = obj->erase(i);
+			else ++i;
+			break;
+		}
 }
 
 void GameMgr::keyDownInput(unsigned char key, int x, int y) const

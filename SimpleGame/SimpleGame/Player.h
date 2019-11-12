@@ -7,7 +7,7 @@ class GameController;
 class Player : public GameObj
 {
 private:
-	using CoolTimeContainer = std::unique_ptr<std::map<std::string, float>>;
+	using CoolTimeContainer = std::unique_ptr<std::map<Skill, float>>;
 private:
 	static constexpr int MAX_SPEED{ 7 };
 	static int TEX_ID;
@@ -24,8 +24,8 @@ public:
 	virtual void render() override;
 	virtual void addForce() override;
 
-	bool isEndCoolTime(const std::string& name) const;
-	void resetCoolTime(const std::string& name);
+	bool isEndCoolTime(Skill name) const;
+	void resetCoolTime(Skill name);
 
 	void setCoolTime();
 };

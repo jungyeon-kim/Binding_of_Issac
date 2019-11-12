@@ -9,7 +9,6 @@
 #include <iostream>
 #include <cstdlib>
 #include <fstream>
-#include <string>
 #include <memory>
 #include <map>
 #include <unordered_map>
@@ -21,6 +20,9 @@
 #include "Vector.h"
 #include "Color.h"
 #include "Direction.h"
+
+enum class Obj { PLAYER, BULLET };
+enum class Skill { SHOOT };
 
 constexpr float meter(float centiMeter = 1)
 {

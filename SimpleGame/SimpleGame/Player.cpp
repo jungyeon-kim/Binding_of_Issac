@@ -22,8 +22,8 @@ void Player::init(const Vector& pos)
 	if (!TEX_ID) TEX_ID = renderer->GenPngTexture("./textures/TestImg.png");
 
 	gameCon = GameController::getInstance();
-	coolTime = make_unique<map<string, float>>();
-	period = make_unique<map<string, float>>();
+	coolTime = make_unique<map<Skill, float>>();
+	period = make_unique<map<Skill, float>>();
 
 	setCoolTime();
 
@@ -69,18 +69,18 @@ void Player::addForce()
 	if (gameCon->getDir().right) objForce.x += forceAmount;
 }
 
-bool Player::isEndCoolTime(const string& name) const
+bool Player::isEndCoolTime(Skill name) const
 {
 	return !(*coolTime)[name];
 }
 
-void Player::resetCoolTime(const string& name)
+void Player::resetCoolTime(Skill name)
 {
 	(*coolTime)[name] = (*period)[name];
 }
 
 void Player::setCoolTime()
 {
-	coolTime->emplace("shoot", 0.0f);
-	period->emplace("shoot", 0.4f);
+	coolTime->emplace(Skill::SHOOT, 0.0f);
+	period->emplace(Skill::SHOOT, 0.4f);
 }

@@ -10,10 +10,7 @@ class GameMgr final
 {
 private:
 	template <typename T>
-	using ObjContainer = std::unique_ptr<std::unordered_multimap<std::string, T>>;
-
-	enum class Obj { PLAYER, BULLET };
-	enum class Skill { SHOOT };
+	using ObjContainer = std::unique_ptr<std::unordered_multimap<Obj, T>>;
 private:
 	static constexpr int MAX_OBJECT{ 5000 };
 	int currTime{}, prevTime{}, elapsedTime{};
@@ -30,10 +27,10 @@ private:
 	GameMgr& operator=(const GameMgr& rhs) = delete;
 
 	template <typename T>
-	void addObject(const std::string& name, const Vector& pos);
+	void addObject(Obj name, const Vector& pos);
 	template <typename T>
-	void addObject(const std::string& name, const Vector& pos, const Vector& vel);
-	void deleteObject(const std::string& name);
+	void addObject(Obj name, const Vector& pos, const Vector& vel);
+	void deleteObject(Obj name);
 	void garbageCollect();
 public:
 	static GameMgr* getInstance();
@@ -49,7 +46,7 @@ public:
 
 	int getElapsedTime();
 	template <typename T>
-	T* getObj(const std::string& name) const;
+	T* getObj(Obj name) const;
 };
 
 #include "GameMgr.hpp"
