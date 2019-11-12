@@ -14,9 +14,10 @@ void GameMgr::addObject(Obj name, const Vector& pos, const Vector& vel)
 	else cout << "Object is full. \n";
 }
 
-// This function must use with code for check end list.
+// This function must use with null check
 template<typename T>
-T* GameMgr::getObj(Obj name) const
+T* GameMgr::tryGetObj(Obj name) const
 {
-	return dynamic_cast<T*>(obj->find(name)->second.get());
+	if (obj->find(name) != obj->end()) return dynamic_cast<T*>(obj->find(name)->second.get());
+	return nullptr;
 }

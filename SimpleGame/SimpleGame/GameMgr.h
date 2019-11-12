@@ -46,7 +46,7 @@ public:
 
 	int getElapsedTime();
 	template <typename T>
-	T* getObj(Obj name) const;
+	T* tryGetObj(Obj name) const;
 };
 
 #include "GameMgr.hpp"

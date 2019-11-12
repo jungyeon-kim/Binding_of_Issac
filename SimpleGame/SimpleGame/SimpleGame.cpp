@@ -1,13 +1,3 @@
-/*
-Copyright 2017 Lee Taek Hee (Korea Polytech University)
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the What The Hell License. Do it plz.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY.
-*/
-
 #include "stdafx.h"
 #include "GameMgr.h"
 
@@ -32,7 +22,7 @@ void RenderScene(int temp)
 	gameMgr->render();
 
 	glutSwapBuffers();	// double buffering
-	glutTimerFunc(8, RenderScene, NULL);
+	glutTimerFunc(frame, RenderScene, NULL);
 }
 
 void Display()
@@ -80,7 +70,7 @@ int main(int argc, char **argv)
 	glutSpecialFunc(SpecialKeyDownInput);
 	glutSpecialUpFunc(SpecialKeyUpInput);
 	glutMouseFunc(MouseInput);
-	glutTimerFunc(8, RenderScene, NULL);
+	glutTimerFunc(frame, RenderScene, NULL);
 
 	glutMainLoop();
 

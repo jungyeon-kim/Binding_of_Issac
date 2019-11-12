@@ -29,6 +29,8 @@ constexpr float meter(float centiMeter = 1)
 	return centiMeter * 100;
 }
 
+constexpr int frame{ 8 };
+
 constexpr int wndSizeX{ static_cast<int>(meter(19.20f)) };
 constexpr int wndSizeY{ static_cast<int>(meter(10.80f)) };
 

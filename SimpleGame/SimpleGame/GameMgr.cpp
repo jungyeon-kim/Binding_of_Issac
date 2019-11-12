@@ -36,16 +36,14 @@ void GameMgr::init()
 
 void GameMgr::update(float eTime)
 {
-	if (obj->find(Obj::PLAYER) != obj->end())
-	{
-		static const auto& player{ getObj<Player>(Obj::PLAYER) };
+	const auto& player{ tryGetObj<Player>(Obj::PLAYER) };
 
+	if (player)
 		if (gameCon->isShoot() && player->isEndCoolTime(Skill::SHOOT))
 		{
 			addObject<Bullet>(Obj::BULLET, player->getPos(), player->getVel());
 			player->resetCoolTime(Skill::SHOOT);
 		}
-	}
 
 	garbageCollect();
 
