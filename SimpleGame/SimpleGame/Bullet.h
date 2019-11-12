@@ -2,14 +2,12 @@
 
 #include "GameObj.h"
 
-class GameController;
-
 class Bullet : public GameObj
 {
 private:
 	static int TEX_ID;
 
-	GameController* gameCon{};
+	class GameController* gameCon{};
 public:
 	Bullet(const Vector& pos);
 	Bullet(const Vector& pos, const Vector& vel);

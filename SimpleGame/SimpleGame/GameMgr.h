@@ -1,10 +1,5 @@
 #pragma once
 
-class Renderer;
-class Physics;
-class GameController;
-class GameObj;
-
 // Singleton
 class GameMgr final
 {
@@ -14,12 +9,12 @@ private:
 private:
 	static constexpr int MAX_OBJECT{ 5000 };
 	int currTime{}, prevTime{}, elapsedTime{};
-	
+
 	static GameMgr* instance;
-	GameController* gameCon{};
-	std::unique_ptr<Renderer> renderer{};
-	std::unique_ptr<Physics> physics{};
-	ObjContainer<std::unique_ptr<GameObj>> obj{};
+	class GameController* gameCon{};
+	std::unique_ptr<class Renderer> renderer{};
+	std::unique_ptr<class Physics> physics{};
+	ObjContainer<std::unique_ptr<class GameObj>> obj{};
 private:
 	GameMgr();
 	~GameMgr();

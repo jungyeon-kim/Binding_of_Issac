@@ -1,8 +1,5 @@
 #pragma once
 
-class Renderer;
-class Physics;
-
 class GameObj abstract
 {
 protected:
@@ -12,8 +9,8 @@ protected:
 	Vector objPos{}, objVel{}, objAcc{}, objVol{}, objForce{};
 	Color objCol{};
 
-	std::unique_ptr<Renderer> renderer{};
-	std::unique_ptr<Physics> physics{};
+	std::unique_ptr<class Renderer> renderer{};
+	std::unique_ptr<class Physics> physics{};
 public:
 	GameObj();
 	virtual ~GameObj();

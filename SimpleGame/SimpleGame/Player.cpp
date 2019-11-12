@@ -40,13 +40,6 @@ void Player::init(const Vector& pos)
 
 void Player::update(float eTime)
 {
-	for (auto& cool : *coolTime)
-		if (cool.second)
-		{
-			cool.second -= eTime;
-			if (cool.second < 0) cool.second = 0;
-		}
-
 	objForce = { 0.0f, 0.0f, 0.0f };
 	addForce();
 
@@ -54,6 +47,13 @@ void Player::update(float eTime)
 	if (physics->calcScalar(objVel) < MAX_SPEED) physics->calcVel(objVel, objAcc, eTime);
 	physics->calcFric(objVel, objMass, fricCoef, eTime);
 	physics->calcPos(objPos, objVel, objAcc, eTime);
+
+	for (auto& cool : *coolTime)
+		if (cool.second)
+		{
+			cool.second -= eTime;
+			if (cool.second < 0) cool.second = 0;
+		}
 }
 
 void Player::render()

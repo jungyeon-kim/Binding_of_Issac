@@ -2,8 +2,6 @@
 
 #include "GameObj.h"
 
-class GameController;
-
 class Player : public GameObj
 {
 private:
@@ -12,7 +10,7 @@ private:
 	static constexpr int MAX_SPEED{ 7 };
 	static int TEX_ID;
 
-	GameController* gameCon{};
+	class GameController* gameCon{};
 	CoolTimeContainer coolTime{};
 	CoolTimeContainer period{};
 public:
