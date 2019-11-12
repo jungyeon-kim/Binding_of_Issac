@@ -48,7 +48,7 @@ void Bullet::init(const Vector& pos, const Vector& vel)
 
 void Bullet::update(float eTime)
 {
-	objForce = { 0, 0, 0 };
+	objForce = { 0.0f, 0.0f, 0.0f };
 
 	physics->calcAcc(objAcc, objForce, objMass);
 	physics->calcVel(objVel, objAcc, eTime);

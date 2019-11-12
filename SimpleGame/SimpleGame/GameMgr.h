@@ -4,7 +4,6 @@ class Renderer;
 class Physics;
 class GameController;
 class GameObj;
-class Bullet;
 
 // Singleton
 class GameMgr final
@@ -12,6 +11,9 @@ class GameMgr final
 private:
 	template <typename T>
 	using ObjContainer = std::unique_ptr<std::unordered_multimap<std::string, T>>;
+
+	enum class Obj { PLAYER, BULLET };
+	enum class Skill { SHOOT };
 private:
 	static constexpr int MAX_OBJECT{ 5000 };
 	int currTime{}, prevTime{}, elapsedTime{};
@@ -46,6 +48,8 @@ public:
 	void specialKeyUpInput(int key, int x, int y) const;
 
 	int getElapsedTime();
+	template <typename T>
+	T* getObj(const std::string& name) const;
 };
 
 #include "GameMgr.hpp"

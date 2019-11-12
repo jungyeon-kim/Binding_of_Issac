@@ -47,7 +47,7 @@ void Player::update(float eTime)
 			if (cool.second < 0) cool.second = 0;
 		}
 
-	objForce = { 0, 0, 0 };
+	objForce = { 0.0f, 0.0f, 0.0f };
 	addForce();
 
 	physics->calcAcc(objAcc, objForce, objMass);
@@ -81,6 +81,6 @@ void Player::resetCoolTime(const string& name)
 
 void Player::setCoolTime()
 {
-	coolTime->emplace("shoot", 0);
-	period->emplace("shoot", 0.4);
+	coolTime->emplace("shoot", 0.0f);
+	period->emplace("shoot", 0.4f);
 }

@@ -36,11 +36,17 @@ void GameMgr::init()
 
 void GameMgr::update(float eTime)
 {
-	if (gameCon->isShoot() && PLAYER->isEndCoolTime("shoot"))
+	if (obj->find("Player") != obj->end())
 	{
-		addObject<Bullet>("Bullet", PLAYER->getPos(), PLAYER->getVel());
-		PLAYER->resetCoolTime("shoot");
+		static const auto& player{ getObj<Player>("Player") };
+
+		if (gameCon->isShoot() && player->isEndCoolTime("shoot"))
+		{
+			addObject<Bullet>("Bullet", player->getPos(), player->getVel());
+			player->resetCoolTime("shoot");
+		}
 	}
+
 	garbageCollect();
 
 	for (const auto& obj : *obj) obj.second->update(eTime);
@@ -56,14 +62,19 @@ void GameMgr::render()
 
 void GameMgr::deleteObject(const string& name)
 {
-	obj->erase(obj->find(name));
+	const auto& target{ obj->find(name) };
+
+	if (target != obj->end()) obj->erase(target);
+	else cout << "Cannot delete. " << name << " is not exist. \n";
 }
 
 void GameMgr::garbageCollect()
 {
-	if (obj->find("Bullet") != obj->end())
+	for (auto& i = obj->begin(); i != obj->end();)
 	{
-		if (!physics->calcScalar(BULLET->getVel())) deleteObject("Bullet");
+		if (i->first == "Bullet" && !physics->calcScalar(i->second->getVel()))
+			i = obj->erase(i);
+		else ++i;
 	}
 }
 

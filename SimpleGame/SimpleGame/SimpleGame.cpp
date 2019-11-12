@@ -32,7 +32,7 @@ void RenderScene(int temp)
 	gameMgr->render();
 
 	glutSwapBuffers();	// double buffering
-	glutTimerFunc(16, RenderScene, NULL);
+	glutTimerFunc(8, RenderScene, NULL);
 }
 
 void Display()
@@ -80,7 +80,7 @@ int main(int argc, char **argv)
 	glutSpecialFunc(SpecialKeyDownInput);
 	glutSpecialUpFunc(SpecialKeyUpInput);
 	glutMouseFunc(MouseInput);
-	glutTimerFunc(16, RenderScene, NULL);
+	glutTimerFunc(8, RenderScene, NULL);
 
 	glutMainLoop();
 

@@ -22,9 +22,6 @@
 #include "Color.h"
 #include "Direction.h"
 
-#define PLAYER dynamic_cast<Player*>(obj->find("Player")->second.get())
-#define BULLET dynamic_cast<Bullet*>(obj->find("Bullet")->second.get())
-
 constexpr float meter(float centiMeter = 1)
 {
 	return centiMeter * 100;
