@@ -43,11 +43,13 @@ void Player::update(float eTime)
 	objForce = { 0.0f, 0.0f, 0.0f };
 	addForce();
 
+	// update Physics
 	physics->calcAcc(objAcc, objForce, objMass);
 	if (physics->calcScalar(objVel) < MAX_SPEED) physics->calcVel(objVel, objAcc, eTime);
 	physics->calcFric(objVel, objMass, fricCoef, eTime);
 	physics->calcPos(objPos, objVel, objAcc, eTime);
 
+	// update CoolTime
 	for (auto& cool : *coolTime)
 		if (cool.second)
 		{

@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="소스 파일\GameMgr">
-      <UniqueIdentifier>{172e5f06-ea29-4c33-be8e-e15c5c434cb0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\GameObj">
       <UniqueIdentifier>{e1f59320-3619-4488-b8eb-699f9367db14}</UniqueIdentifier>
     </Filter>
@@ -46,6 +43,15 @@
     <Filter Include="소스 파일\Renderer\LoadPng">
       <UniqueIdentifier>{823f6d74-d4e2-43e7-a0c8-2593f6c9c458}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\GameMgr">
+      <UniqueIdentifier>{18afa038-0317-4815-b43f-c13eabeb24a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\GameMgr\ObjMgr">
+      <UniqueIdentifier>{29d8af69-d704-4505-931e-ddee0a23e7e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\GameMgr\GameMgr">
+      <UniqueIdentifier>{172e5f06-ea29-4c33-be8e-e15c5c434cb0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -58,7 +64,7 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="GameMgr.h">
-      <Filter>소스 파일\GameMgr</Filter>
+      <Filter>소스 파일\GameMgr\GameMgr</Filter>
     </ClInclude>
     <ClInclude Include="GameObj.h">
       <Filter>소스 파일\GameObj</Filter>
@@ -87,14 +93,17 @@
     <ClInclude Include="Player.h">
       <Filter>소스 파일\GameObj\Player</Filter>
     </ClInclude>
-    <ClInclude Include="GameMgr.hpp">
-      <Filter>소스 파일\GameMgr</Filter>
-    </ClInclude>
     <ClInclude Include="ObjectSet.h">
       <Filter>헤더 파일\headerSet</Filter>
     </ClInclude>
     <ClInclude Include="LoadPng.h">
       <Filter>소스 파일\Renderer\LoadPng</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjMgr.h">
+      <Filter>소스 파일\GameMgr\ObjMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjMgr.hpp">
+      <Filter>소스 파일\GameMgr\ObjMgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -105,7 +114,7 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="GameMgr.cpp">
-      <Filter>소스 파일\GameMgr</Filter>
+      <Filter>소스 파일\GameMgr\GameMgr</Filter>
     </ClCompile>
     <ClCompile Include="GameObj.cpp">
       <Filter>소스 파일\GameObj</Filter>
@@ -127,6 +136,9 @@
     </ClCompile>
     <ClCompile Include="LoadPng.cpp">
       <Filter>소스 파일\Renderer\LoadPng</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjMgr.cpp">
+      <Filter>소스 파일\GameMgr\ObjMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,9 +1,7 @@
 #include "stdafx.h"		
 #include "GameMgr.h"
-#include "Renderer.h"
-#include "Physics.h"
+#include "ObjMgr.h"
 #include "GameController.h"
-#include "ObjectSet.h"
 
 using namespace std;
 
@@ -26,28 +24,13 @@ GameMgr* GameMgr::getInstance()
 
 void GameMgr::init()
 {
-	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
-	physics = make_unique<Physics>();
 	gameCon = GameController::getInstance();
-	obj = make_unique<unordered_multimap<Obj, unique_ptr<GameObj>>>();
-
-	addObject<Player>(Obj::PLAYER, { 0.0f, 0.0f, 0.0f });
+	objMgr = ObjMgr::getInstance();
 }
 
 void GameMgr::update(float eTime)
 {
-	const auto& player{ tryGetObj<Player>(Obj::PLAYER) };
-
-	if (player)
-		if (gameCon->isShoot() && player->isEndCoolTime(Skill::SHOOT))
-		{
-			addObject<Bullet>(Obj::BULLET, player->getPos(), player->getVel());
-			player->resetCoolTime(Skill::SHOOT);
-		}
-
-	garbageCollect();
-
-	for (const auto& obj : *obj) obj.second->update(eTime);
+	objMgr->update(eTime);
 }
 
 void GameMgr::render()
@@ -55,30 +38,7 @@ void GameMgr::render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.2f, 0.5f, 0.5f, 1.0f);
 
-	for (const auto& obj : *obj) obj.second->render();
-}
-
-void GameMgr::deleteObject(Obj name)
-{
-	const auto& target{ obj->find(name) };
-
-	if (target != obj->end()) obj->erase(target);
-	else cout << "Cannot delete. " << static_cast<int>(name) << " Object is not exist. \n";
-}
-
-void GameMgr::garbageCollect()
-{
-	for (auto& i = obj->begin(); i != obj->end();)
-		switch (i->first)
-		{
-		case Obj::PLAYER:
-			++i;
-			break;
-		case Obj::BULLET:
-			if (!physics->calcScalar(i->second->getVel())) i = obj->erase(i);
-			else ++i;
-			break;
-		}
+	objMgr->render();
 }
 
 void GameMgr::keyDownInput(unsigned char key, int x, int y) const

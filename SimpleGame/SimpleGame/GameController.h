@@ -1,7 +1,7 @@
 #pragma once
 
 // Singleton
-class GameController
+class GameController final
 {
 private:
 	Direction objShoot{};

@@ -50,6 +50,7 @@ void Bullet::update(float eTime)
 {
 	objForce = { 0.0f, 0.0f, 0.0f };
 
+	// update Physics
 	physics->calcAcc(objAcc, objForce, objMass);
 	physics->calcVel(objVel, objAcc, eTime);
 	physics->calcFric(objVel, objMass, fricCoef, eTime);
