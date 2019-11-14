@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <memory>
+#include <algorithm>
 #include <map>
 #include <unordered_map>
 

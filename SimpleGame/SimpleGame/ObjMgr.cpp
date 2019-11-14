@@ -27,7 +27,7 @@ void ObjMgr::init()
 {
 	physics = make_unique<Physics>();
 	gameCon = GameController::getInstance();
-	obj = make_unique<unordered_multimap<Obj, unique_ptr<GameObj>>>();
+	obj = make_unique<multimap<Obj, unique_ptr<GameObj>, greater<>>>();
 
 	addObject<Player>(Obj::PLAYER, { 0.0f, 0.0f, 0.0f });
 }
@@ -67,7 +67,7 @@ void ObjMgr::deleteObject(Obj name)
 
 void ObjMgr::garbageCollect()
 {
-	for (auto& i = obj->begin(); i != obj->end();)
+	for (auto& i = obj->cbegin(); i != obj->cend();)
 		switch (i->first)
 		{
 		case Obj::PLAYER:

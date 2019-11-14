@@ -5,7 +5,7 @@ class ObjMgr final
 {
 private:
 	template <typename T>
-	using ObjContainer = std::unique_ptr<std::unordered_multimap<Obj, T>>;
+	using ObjContainer = std::unique_ptr<std::multimap<Obj, T, std::greater<>>>;
 private:
 	static constexpr int MAX_OBJECT{ 5000 };
 

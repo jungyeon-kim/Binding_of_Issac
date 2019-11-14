@@ -84,5 +84,5 @@ void Player::resetCoolTime(Skill name)
 void Player::setCoolTime()
 {
 	coolTime->emplace(Skill::SHOOT, 0.0f);
-	period->emplace(Skill::SHOOT, 0.4f);
+	period->emplace(Skill::SHOOT, 0.004f);
 }
