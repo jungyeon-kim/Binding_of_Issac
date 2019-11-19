@@ -30,6 +30,7 @@ void ObjMgr::init()
 	obj = make_unique<multimap<Obj, unique_ptr<GameObj>, greater<>>>();
 
 	addObject<Player>(Obj::PLAYER, { 0.0f, 0.0f, 0.0f });
+	addObject<Bullet>(Obj::PLAYER_BULLET, { meter(2), 0.0f, 0.0f });
 }
 
 void ObjMgr::update(float eTime)
@@ -43,6 +44,12 @@ void ObjMgr::update(float eTime)
 			addObject<Bullet>(Obj::PLAYER_BULLET, player->getPos(), player->getVel());
 			player->resetCoolTime(Skill::SHOOT);
 		}
+
+	// Collsion test
+	for (auto i = obj->begin(); i != obj->end(); ++i)
+		for (auto j = i; j != obj->end(); ++j)
+			if (physics->isOverlap(*i->second, *j->second) && i != j)
+				physics->processCollision(*i->second, *j->second);
 
 	garbageCollect();
 
@@ -74,8 +81,8 @@ void ObjMgr::garbageCollect()
 			++i;
 			break;
 		case Obj::PLAYER_BULLET: case Obj::ENEMY_BULLET:
-			if (!physics->calcScalar(i->second->getVel())) i = obj->erase(i);
-			else ++i;
+			/*if (!physics->getScalar(i->second->getVel())) i = obj->erase(i);
+			else */++i;
 			break;
 		}
 }

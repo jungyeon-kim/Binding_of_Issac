@@ -37,32 +37,32 @@ float GameObj::getMass() const
 	return objMass;
 }
 
-const Vector& GameObj::getForce() const
+Vector GameObj::getForce() const
 {
 	return objForce;
 }
 
-const Vector& GameObj::getPos() const
+Vector GameObj::getPos() const
 {
 	return objPos;
 }
 
-const Vector& GameObj::getVel() const
+Vector GameObj::getVel() const
 {
 	return objVel;
 }
 
-const Vector& GameObj::getAcc() const
+Vector GameObj::getAcc() const
 {
 	return objAcc;
 }
 
-const Vector& GameObj::getVol() const
+Vector GameObj::getVol() const
 {
 	return objVol;
 }
 
-const Color& GameObj::getCol() const
+Color GameObj::getCol() const
 {
 	return objCol;
 }

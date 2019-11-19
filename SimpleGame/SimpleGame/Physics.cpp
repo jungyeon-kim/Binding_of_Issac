@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Physics.h"
+#include "GameObj.h"
 
 Physics::Physics()
 {
@@ -9,51 +10,44 @@ Physics::~Physics()
 {
 }
 
-float Physics::calcScalar(const Vector& vec)
+float Physics::getScalar(const Vector& vec)
 {
 	return sqrtf(pow(vec.x, 2) + pow(vec.y, 2) + pow(vec.z, 2));
 }
 
-const Vector& Physics::calcAcc(Vector& acc, const Vector& force, float mass)
+// acc = force / mass
+const Vector& Physics::getAcc(Vector acc, Vector force, float mass)
 {
-	acc = {
-		force.x / mass, 
-		force.y / mass, 
-		force.z / mass 
-	};
+	acc = force / mass;
 
 	return acc;
 }
 
-const Vector& Physics::calcVel(Vector& vel, const Vector& acc, float eTime)
+// vel = vel + acc * eTime
+const Vector& Physics::getVel(Vector vel, Vector acc, float eTime)
 {
-	vel = { 
-		vel.x + acc.x * eTime, 
-		vel.y + acc.y * eTime, 
-		vel.z + acc.z * eTime 
-	};
+	vel = vel + acc * eTime;
 
 	return vel;
 }
 
-const Vector& Physics::calcPos(Vector& pos, const Vector& vel, const Vector& acc, float eTime)
+// pos = pos + vel * eTime + 1 / 2 * acc * eTime ^ 2
+const Vector& Physics::getPos(Vector pos, Vector vel, Vector acc, float eTime)
 {
-	pos = { 
-		pos.x + (vel.x * eTime + 1 / 2 * acc.x * pow(eTime, 2)) * meter(),
-		pos.y + (vel.y * eTime + 1 / 2 * acc.y * pow(eTime, 2)) * meter(),
-		pos.z + (vel.z * eTime + 1 / 2 * acc.z * pow(eTime, 2)) * meter()
-	};
+	pos = pos + (vel * eTime + acc * pow(eTime, 2) * 1 / 2) * meter();
 
 	return pos;
 }
 
-const Vector& Physics::calcFric(Vector& vel, float mass, float fricCoef, float eTime)
+// calculate friction force & apply to velocity
+const Vector& Physics::getVelByFric(Vector vel, float mass, float fricCoef, float eTime)
 {
 	// normalize vector
-	scalarVec = calcScalar(vel);
+	scalarVec = getScalar(vel);
 
 	if (scalarVec > 0) 
 	{
+		//unitVec = vel / scalarVec;
 		unitVec = { vel.x / scalarVec, vel.y / scalarVec };
 		// calculate friction force
 		forceAmount = mass * gravity;						// force = mass * acc
@@ -75,4 +69,42 @@ const Vector& Physics::calcFric(Vector& vel, float mass, float fricCoef, float e
 	}
 
 	return vel;
+}
+
+bool Physics::bbOverlapTest(const GameObj& A, const GameObj& B)
+{
+	Vector minA{}, maxA{};
+	Vector minB{}, maxB{};
+
+	minA = A.getPos() - A.getVol() / 2.0f;
+	maxA = A.getPos() + A.getVol() / 2.0f;
+	minB = B.getPos() - B.getVol() / 2.0f;
+	maxB = B.getPos() + B.getVol() / 2.0f;
+
+	if (minA > maxB || maxA < minB) return false;
+	return true;
+}
+
+bool Physics::isOverlap(const GameObj& A, const GameObj& B, int type)
+{
+	switch (type)
+	{
+	case 0:
+		return bbOverlapTest(A, B);
+		break;
+	case 1:
+		break;
+	}
+}
+
+void Physics::processCollision(GameObj& A, GameObj& B)
+{
+	float aMass{ A.getMass() }, bMass{ B.getMass() };
+	Vector aFinalVel{}, bFinalVel{};
+
+	aFinalVel = A.getVel() * (aMass - bMass) / (aMass + bMass) + B.getVel() * 2.0f * bMass / (aMass + bMass);
+	bFinalVel = B.getVel() * (bMass - aMass) / (bMass + aMass) + A.getVel() * 2.0f * aMass / (bMass + aMass);
+
+	A.setVel(aFinalVel);
+	B.setVel(bFinalVel);
 }

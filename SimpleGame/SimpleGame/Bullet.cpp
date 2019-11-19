@@ -50,10 +50,10 @@ void Bullet::update(float eTime)
 	objForce = { 0.0f, 0.0f, 0.0f };
 
 	// update Physics
-	physics->calcAcc(objAcc, objForce, objMass);
-	physics->calcVel(objVel, objAcc, eTime);
-	physics->calcFric(objVel, objMass, fricCoef, eTime);
-	physics->calcPos(objPos, objVel, objAcc, eTime);
+	objAcc = physics->getAcc(objAcc, objForce, objMass);
+	objVel = physics->getVel(objVel, objAcc, eTime);
+	objVel = physics->getVelByFric(objVel, objMass, fricCoef, eTime);
+	objPos = physics->getPos(objPos, objVel, objAcc, eTime);
 }
 
 void Bullet::render()

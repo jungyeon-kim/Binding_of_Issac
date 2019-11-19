@@ -1,5 +1,7 @@
 #pragma once
 
+class GameObj;
+
 class Physics
 {
 private:
@@ -8,18 +10,18 @@ private:
 	Vector unitVec{};		// ´ÜÀ§º¤ÅÍ
 	Vector fricForce{};		// ¸¶Âû·Â
 	Vector vel{}, acc{};
+
+	bool bbOverlapTest(const GameObj& A, const GameObj& B);
 public:
 	Physics();
 	~Physics();
 
-	float calcScalar(const Vector& vec);
-	// acc = force / mass
-	const Vector& calcAcc(Vector& acc, const Vector& force, float mass);
-	// vel = vel + acc * eTime
-	const Vector& calcVel(Vector& vel, const Vector& acc, float eTime);
-	// pos = pos + vel * eTime + 1 / 2 * acc * eTime ^ 2
-	const Vector& calcPos(Vector& pos, const Vector& vel, const Vector& acc, float eTime);
-	// calculate friction force & apply to velocity
-	const Vector& calcFric(Vector& vel, float mass, float fricCoef, float eTime);
-};
+	float getScalar(const Vector& vec);
+	const Vector& getAcc(Vector acc, Vector force, float mass);
+	const Vector& getVel(Vector vel, Vector acc, float eTime);
+	const Vector& getPos(Vector pos, Vector vel, Vector acc, float eTime);
+	const Vector& getVelByFric(Vector vel, float mass, float fricCoef, float eTime);
 
+	bool isOverlap(const GameObj& A, const GameObj& B, int type = 0);
+	void processCollision(GameObj& A, GameObj& B);
+};

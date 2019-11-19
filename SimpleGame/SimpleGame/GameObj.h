@@ -27,12 +27,12 @@ public:
 	float getForceAmount() const;
 	float getFricCoef() const;
 	float getMass() const;
-	const Vector& getForce() const;
-	const Vector& getPos() const;
-	const Vector& getVel() const;
-	const Vector& getAcc() const;
-	const Vector& getVol() const;
-	const Color& getCol() const;
+	Vector getForce() const;
+	Vector getPos() const;
+	Vector getVel() const;
+	Vector getAcc() const;
+	Vector getVol() const;
+	Color getCol() const;
 
 	void setForceAmount(float amount);
 	void setFricCoef(float coef);
