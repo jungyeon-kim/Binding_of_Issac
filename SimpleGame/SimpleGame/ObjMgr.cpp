@@ -37,7 +37,7 @@ void ObjMgr::update(float eTime)
 	const auto& player{ tryGetObj<Player>(Obj::PLAYER) };
 
 	if (player)
-		// Decide whether to fire a Bullet
+		// Decide whether to spawn a Bullet
 		if (gameCon->isShoot() && player->isEndCoolTime(Skill::SHOOT))
 		{
 			addObject<Bullet>(Obj::BULLET, Tex::TEST, player->getPos(), player->getVel());
