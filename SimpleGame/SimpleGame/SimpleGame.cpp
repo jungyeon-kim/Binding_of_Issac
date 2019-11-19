@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "GameMgr.h"
+#include "GameController.h"
 
 GameMgr* gameMgr{};
 

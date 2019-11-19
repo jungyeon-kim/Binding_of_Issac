@@ -3,27 +3,26 @@
 #include "Physics.h"
 #include "Renderer.h"
 #include "GameController.h"
+#include "TexMgr.h"
 
 using namespace std;
 
-int Player::TEX_ID{};
-
-Player::Player(const Vector& pos)
+Player::Player(Tex name, const Vector & pos)
 {
-	init(pos);
+	init(name, pos);
 }
 
 Player::~Player()
 {
 }
 
-void Player::init(const Vector& pos)
+void Player::init(Tex name, const Vector& pos)
 {
-	if (!TEX_ID) TEX_ID = renderer->GenPngTexture("./textures/TestImg.png");
-
 	gameCon = GameController::getInstance();
 	coolTime = make_unique<map<Skill, float>>();
 	period = make_unique<map<Skill, float>>();
+
+	texID = texture->getTexture(name);
 
 	setCoolTime();
 
@@ -60,7 +59,7 @@ void Player::update(float eTime)
 
 void Player::render()
 {
-	renderer->DrawTextureRect(objPos, objVol, objCol, TEX_ID);
+	renderer->DrawTextureRect(objPos, objVol, objCol, texID);
 }
 
 void Player::addForce()
@@ -84,5 +83,5 @@ void Player::resetCoolTime(Skill name)
 void Player::setCoolTime()
 {
 	coolTime->emplace(Skill::SHOOT, 0.0f);
-	period->emplace(Skill::SHOOT, 0.004f);
+	period->emplace(Skill::SHOOT, 0.4f);
 }

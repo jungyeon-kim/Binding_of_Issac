@@ -3,30 +3,29 @@
 #include "Physics.h"
 #include "Renderer.h"
 #include "GameController.h"
+#include "TexMgr.h"
 
 using namespace std;
 
-int Bullet::TEX_ID{};
-
-Bullet::Bullet(const Vector& pos)
+Bullet::Bullet(Tex name, const Vector& pos)
 {
-	init(pos);
+	init(name, pos);
 }
 
-Bullet::Bullet(const Vector& pos, const Vector& vel)
+Bullet::Bullet(Tex name, const Vector& pos, const Vector& vel)
 {
-	init(pos, vel);
+	init(name, pos, vel);
 }
 
 Bullet::~Bullet()
 {
 }
 
-void Bullet::init(const Vector& pos)
+void Bullet::init(Tex name, const Vector& pos)
 {
-	if (!TEX_ID) TEX_ID = renderer->GenPngTexture("./textures/TestImg.png");
-
 	gameCon = GameController::getInstance();
+
+	texID = texture->getTexture(name);
 
 	forceAmount = 8.0f;
 	addForce();
@@ -40,9 +39,9 @@ void Bullet::init(const Vector& pos)
 	objMass = 1.0f;
 }
 
-void Bullet::init(const Vector& pos, const Vector& vel)
+void Bullet::init(Tex name, const Vector& pos, const Vector& vel)
 {
-	init(pos);
+	init(name, pos);
 	objVel = objForce + vel;
 }
 
@@ -59,7 +58,7 @@ void Bullet::update(float eTime)
 
 void Bullet::render()
 {
-	renderer->DrawTextureRect(objPos, objVol, objCol, TEX_ID);
+	renderer->DrawTextureRect(objPos, objVol, objCol, texID);
 }
 
 void Bullet::addForce()

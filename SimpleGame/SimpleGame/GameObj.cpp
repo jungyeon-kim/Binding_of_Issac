@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "GameObj.h"
+#include "TexMgr.h"
 #include "Renderer.h"
 #include "Physics.h"
 
@@ -16,6 +17,7 @@ GameObj::~GameObj()
 
 void GameObj::init()
 {
+	texture = TexMgr::getInstance();
 	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
 	physics = make_unique<Physics>();
 }

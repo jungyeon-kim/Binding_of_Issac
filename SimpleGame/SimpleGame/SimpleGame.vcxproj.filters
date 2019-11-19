@@ -52,6 +52,9 @@
     <Filter Include="소스 파일\GameMgr\GameMgr">
       <UniqueIdentifier>{172e5f06-ea29-4c33-be8e-e15c5c434cb0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\GameMgr\TexMgr">
+      <UniqueIdentifier>{d7c01a28-d51f-41be-a6b7-d5af0d98ffac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -105,6 +108,9 @@
     <ClInclude Include="ObjMgr.hpp">
       <Filter>소스 파일\GameMgr\ObjMgr</Filter>
     </ClInclude>
+    <ClInclude Include="TexMgr.h">
+      <Filter>소스 파일\GameMgr\TexMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -139,6 +145,9 @@
     </ClCompile>
     <ClCompile Include="ObjMgr.cpp">
       <Filter>소스 파일\GameMgr\ObjMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="TexMgr.cpp">
+      <Filter>소스 파일\GameMgr\TexMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -16,13 +16,11 @@ private:
 private:
 	ObjMgr();
 	~ObjMgr();
-	ObjMgr(const ObjMgr& rhs) = delete;
-	ObjMgr& operator=(const ObjMgr& rhs) = delete;
 
 	template <typename T>
-	void addObject(Obj name, const Vector& pos);
+	void addObject(Obj objName, Tex texName, const Vector& pos);
 	template <typename T>
-	void addObject(Obj name, const Vector& pos, const Vector& vel);
+	void addObject(Obj objName, Tex texName, const Vector& pos, const Vector& vel);
 	void deleteObject(Obj name);
 	void garbageCollect();
 public:

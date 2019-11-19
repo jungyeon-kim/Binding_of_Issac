@@ -22,6 +22,7 @@
 #include "Color.h"
 #include "Direction.h"
 
+enum class Tex { TEST, PLAYER };
 enum class Obj { PLAYER, BULLET };
 enum class Skill { SHOOT };
 

@@ -9,6 +9,9 @@ protected:
 	Vector objPos{}, objVel{}, objAcc{}, objVol{}, objForce{};
 	Color objCol{};
 
+	int texID{};
+
+	class TexMgr* texture{};
 	std::unique_ptr<class Renderer> renderer{};
 	std::unique_ptr<class Physics> physics{};
 public:
@@ -16,7 +19,7 @@ public:
 	virtual ~GameObj();
 
 	void init();
-	virtual void init(const Vector& pos) = 0;
+	virtual void init(Tex name, const Vector& pos) = 0;
 	virtual void update(float eTime) = 0;
 	virtual void render() = 0;
 	virtual void addForce() = 0;
@@ -41,4 +44,3 @@ public:
 	void setVol(const Vector& vol);
 	void setCol(const Color& color);
 };
-

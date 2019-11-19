@@ -8,16 +8,15 @@ private:
 	using CoolTimeContainer = std::unique_ptr<std::map<Skill, float>>;
 private:
 	static constexpr int MAX_SPEED{ 7 };
-	static int TEX_ID;
 
 	class GameController* gameCon{};
 	CoolTimeContainer coolTime{};
 	CoolTimeContainer period{};
 public:
-	Player(const Vector& pos);
-	virtual ~Player();
+	Player(Tex name, const Vector& pos);
+	virtual ~Player() override;
 
-	virtual void init(const Vector& pos) override;
+	virtual void init(Tex name, const Vector& pos) override;
 	virtual void update(float eTime) override;
 	virtual void render() override;
 	virtual void addForce() override;
@@ -27,4 +26,3 @@ public:
 
 	void setCoolTime();
 };
-

@@ -12,8 +12,6 @@ private:
 private:
 	GameMgr();
 	~GameMgr();
-	GameMgr(const GameMgr& rhs) = delete;
-	GameMgr& operator=(const GameMgr& rhs) = delete;
 public:
 	static GameMgr* getInstance();
 	

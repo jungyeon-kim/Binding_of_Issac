@@ -10,8 +10,6 @@ private:
 private:
 	GameController();
 	~GameController();
-	GameController(const GameController& rhs) = delete;
-	GameController& operator=(const GameController& rhs) = delete;
 public:
 	static GameController* getInstance();
 
