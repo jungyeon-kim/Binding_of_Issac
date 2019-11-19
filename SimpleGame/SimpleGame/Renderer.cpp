@@ -90,7 +90,6 @@ void Renderer::CreateVertexBufferObjects()
 
 int Renderer::GenPngTexture(char * filePath, GLuint sampling)
 {
-	std::cout << "d";
 	//Load Pngs
 	std::vector<unsigned char> image;
 	unsigned width, height;

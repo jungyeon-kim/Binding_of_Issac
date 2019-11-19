@@ -7,12 +7,12 @@
 
 using namespace std;
 
-Bullet::Bullet(Tex name, const Vector& pos)
+Bullet::Bullet(Obj name, const Vector& pos)
 {
 	init(name, pos);
 }
 
-Bullet::Bullet(Tex name, const Vector& pos, const Vector& vel)
+Bullet::Bullet(Obj name, const Vector& pos, const Vector& vel)
 {
 	init(name, pos, vel);
 }
@@ -21,7 +21,7 @@ Bullet::~Bullet()
 {
 }
 
-void Bullet::init(Tex name, const Vector& pos)
+void Bullet::init(Obj name, const Vector& pos)
 {
 	gameCon = GameController::getInstance();
 
@@ -34,12 +34,12 @@ void Bullet::init(Tex name, const Vector& pos)
 	objPos = pos;
 	objVel;
 	objAcc;
-	objVol = { meter() / 8, meter() / 8, 0 };
+	objVol = { meter() / 2, meter() / 2, 0 };
 	objCol = { 0.5f, 1.0f, 0.5f, 1.0f };
 	objMass = 1.0f;
 }
 
-void Bullet::init(Tex name, const Vector& pos, const Vector& vel)
+void Bullet::init(Obj name, const Vector& pos, const Vector& vel)
 {
 	init(name, pos);
 	objVel = objForce + vel;

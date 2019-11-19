@@ -29,7 +29,7 @@ void ObjMgr::init()
 	gameCon = GameController::getInstance();
 	obj = make_unique<multimap<Obj, unique_ptr<GameObj>, greater<>>>();
 
-	addObject<Player>(Obj::PLAYER, Tex::PLAYER, { 0.0f, 0.0f, 0.0f });
+	addObject<Player>(Obj::PLAYER, { 0.0f, 0.0f, 0.0f });
 }
 
 void ObjMgr::update(float eTime)
@@ -40,7 +40,7 @@ void ObjMgr::update(float eTime)
 		// Decide whether to spawn a Bullet
 		if (gameCon->isShoot() && player->isEndCoolTime(Skill::SHOOT))
 		{
-			addObject<Bullet>(Obj::BULLET, Tex::TEST, player->getPos(), player->getVel());
+			addObject<Bullet>(Obj::PLAYER_BULLET, player->getPos(), player->getVel());
 			player->resetCoolTime(Skill::SHOOT);
 		}
 
@@ -73,7 +73,7 @@ void ObjMgr::garbageCollect()
 		case Obj::PLAYER:
 			++i;
 			break;
-		case Obj::BULLET:
+		case Obj::PLAYER_BULLET: case Obj::ENEMY_BULLET:
 			if (!physics->calcScalar(i->second->getVel())) i = obj->erase(i);
 			else ++i;
 			break;

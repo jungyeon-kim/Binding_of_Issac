@@ -18,9 +18,9 @@ private:
 	~ObjMgr();
 
 	template <typename T>
-	void addObject(Obj objName, Tex texName, const Vector& pos);
+	void addObject(Obj objName, const Vector& pos);
 	template <typename T>
-	void addObject(Obj objName, Tex texName, const Vector& pos, const Vector& vel);
+	void addObject(Obj objName, const Vector& pos, const Vector& vel);
 	void deleteObject(Obj name);
 	void garbageCollect();
 public:

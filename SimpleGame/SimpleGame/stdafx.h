@@ -22,8 +22,7 @@
 #include "Color.h"
 #include "Direction.h"
 
-enum class Tex { TEST, PLAYER };
-enum class Obj { PLAYER, BULLET };
+enum class Obj { PLAYER, PLAYER_BULLET, ENEMY_BULLET };
 enum class Skill { SHOOT };
 
 constexpr float meter(float centiMeter = 1)

@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Player::Player(Tex name, const Vector & pos)
+Player::Player(Obj name, const Vector & pos)
 {
 	init(name, pos);
 }
@@ -16,7 +16,7 @@ Player::~Player()
 {
 }
 
-void Player::init(Tex name, const Vector& pos)
+void Player::init(Obj name, const Vector& pos)
 {
 	gameCon = GameController::getInstance();
 	coolTime = make_unique<map<Skill, float>>();

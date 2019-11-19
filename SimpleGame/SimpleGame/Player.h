@@ -13,10 +13,10 @@ private:
 	CoolTimeContainer coolTime{};
 	CoolTimeContainer period{};
 public:
-	Player(Tex name, const Vector& pos);
+	Player(Obj name, const Vector& pos);
 	virtual ~Player() override;
 
-	virtual void init(Tex name, const Vector& pos) override;
+	virtual void init(Obj name, const Vector& pos) override;
 	virtual void update(float eTime) override;
 	virtual void render() override;
 	virtual void addForce() override;
