@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "GameObj.h"
-#include "TexMgr.h"
 #include "Renderer.h"
 #include "Physics.h"
+#include "TexMgr.h"
 
 using namespace std;
 

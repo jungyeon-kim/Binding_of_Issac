@@ -22,13 +22,13 @@ TexMgr* TexMgr::getInstance()
 void TexMgr::init()
 {
 	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
-	texture = make_unique<map<Obj, int>>();
+	texture = make_unique<map<Tex, int>>();
 
-	texture->emplace(Obj::PLAYER_BULLET, renderer->GenPngTexture("./textures/TestImg.png"));
-	texture->emplace(Obj::PLAYER, renderer->GenPngTexture("./textures/Isac.png"));
+	texture->emplace(Tex::ISAC, renderer->GenPngTexture("./textures/Isac.png"));
+	texture->emplace(Tex::TEST, renderer->GenPngTexture("./textures/TestImg.png"));
 }
 
-int TexMgr::getTexture(Obj name) const
+int TexMgr::getTexture(Tex name) const
 {
 	return (*texture)[name];
 }

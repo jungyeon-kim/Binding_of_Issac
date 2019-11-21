@@ -47,7 +47,6 @@ const Vector& Physics::getVelByFric(Vector vel, float mass, float fricCoef, floa
 
 	if (scalarVec > 0) 
 	{
-		//unitVec = vel / scalarVec;
 		unitVec = { vel.x / scalarVec, vel.y / scalarVec };
 		// calculate friction force
 		forceAmount = mass * gravity;						// force = mass * acc
@@ -85,14 +84,21 @@ bool Physics::bbOverlapTest(const GameObj& A, const GameObj& B)
 	return true;
 }
 
-bool Physics::isOverlap(const GameObj& A, const GameObj& B, int type)
+bool Physics::isCollidable(Obj lName, Obj rName)
 {
-	switch (type)
+	if (lName == Obj::BULLET && rName == Obj::PLAYER) return false;
+	else if (lName == Obj::BULLET && rName == Obj::BULLET) return false;
+
+	return true;
+}
+
+bool Physics::isOverlap(Obj lName, Obj rName, const GameObj& A, const GameObj& B, int collisionType)
+{
+	switch (collisionType)
 	{
 	case 0:
-		return bbOverlapTest(A, B);
-		break;
-	case 1:
+		if (isCollidable(lName, rName)) return bbOverlapTest(A, B);
+		return false;
 		break;
 	}
 }

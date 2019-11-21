@@ -4,7 +4,7 @@
 class TexMgr final
 {
 private:
-	using TextureContainer = std::unique_ptr<std::map<Obj, int>>;
+	using TextureContainer = std::unique_ptr<std::map<Tex, int>>;
 private:
 	static TexMgr* instance;
 	std::unique_ptr<class Renderer> renderer{};
@@ -17,6 +17,6 @@ public:
 
 	void init();
 
-	int getTexture(Obj name) const;
+	int getTexture(Tex name) const;
 };
 

@@ -22,6 +22,7 @@ public:
 	const Vector& getPos(Vector pos, Vector vel, Vector acc, float eTime);
 	const Vector& getVelByFric(Vector vel, float mass, float fricCoef, float eTime);
 
-	bool isOverlap(const GameObj& A, const GameObj& B, int type = 0);
+	bool isCollidable(Obj lName, Obj rName);
+	bool isOverlap(Obj lName, Obj rName, const GameObj& A, const GameObj& B, int collisionType = 0);
 	void processCollision(GameObj& A, GameObj& B);
 };

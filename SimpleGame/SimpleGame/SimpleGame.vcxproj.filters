@@ -19,9 +19,6 @@
     <Filter Include="소스 파일\Renderer">
       <UniqueIdentifier>{9208c3ad-cd24-400c-b921-35b2d8884355}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\GameController">
-      <UniqueIdentifier>{4d9806e2-b95e-4328-af5d-a46faeb96317}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\GameObj\Player">
       <UniqueIdentifier>{98c07434-7013-4d52-8db1-3afaaae49269}</UniqueIdentifier>
     </Filter>
@@ -55,6 +52,12 @@
     <Filter Include="소스 파일\GameMgr\TexMgr">
       <UniqueIdentifier>{d7c01a28-d51f-41be-a6b7-d5af0d98ffac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\GameObj\Enemy">
+      <UniqueIdentifier>{b65c14ab-d528-4359-9be2-0faf4928fd67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\GameMgr\GameController">
+      <UniqueIdentifier>{4d9806e2-b95e-4328-af5d-a46faeb96317}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -82,7 +85,7 @@
       <Filter>헤더 파일\struct</Filter>
     </ClInclude>
     <ClInclude Include="GameController.h">
-      <Filter>소스 파일\GameController</Filter>
+      <Filter>소스 파일\GameMgr\GameController</Filter>
     </ClInclude>
     <ClInclude Include="Direction.h">
       <Filter>헤더 파일\struct</Filter>
@@ -111,6 +114,9 @@
     <ClInclude Include="TexMgr.h">
       <Filter>소스 파일\GameMgr\TexMgr</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>소스 파일\GameObj\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -129,7 +135,7 @@
       <Filter>소스 파일\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="GameController.cpp">
-      <Filter>소스 파일\GameController</Filter>
+      <Filter>소스 파일\GameMgr\GameController</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>소스 파일\GameObj\Player</Filter>
@@ -148,6 +154,9 @@
     </ClCompile>
     <ClCompile Include="TexMgr.cpp">
       <Filter>소스 파일\GameMgr\TexMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>소스 파일\GameObj\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

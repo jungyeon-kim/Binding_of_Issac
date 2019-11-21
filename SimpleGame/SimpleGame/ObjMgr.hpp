@@ -1,16 +1,16 @@
 #pragma once
 
 template<typename T>
-void ObjMgr::addObject(Obj objName, const Vector& pos)
+void ObjMgr::addObject(Obj name, const Vector& pos)
 {
-	if (obj->size() < MAX_OBJECT) obj->emplace(objName, make_unique<T>(objName, pos));
+	if (obj->size() < MAX_OBJECT) obj->emplace(name, make_unique<T>(pos));
 	else cout << "Object is full. \n";
 }
 
 template<typename T>
-void ObjMgr::addObject(Obj objName, const Vector& pos, const Vector& vel)
+void ObjMgr::addObject(Obj name, const Vector& pos, const Vector& vel)
 {
-	if (obj->size() < MAX_OBJECT) obj->emplace(objName, make_unique<T>(objName, pos, vel));
+	if (obj->size() < MAX_OBJECT) obj->emplace(name, make_unique<T>(pos, vel));
 	else cout << "Object is full. \n";
 }
 

@@ -2,29 +2,27 @@
 #include "Player.h"
 #include "Physics.h"
 #include "Renderer.h"
-#include "GameController.h"
 #include "TexMgr.h"
+#include "GameController.h"
 
 using namespace std;
 
-Player::Player(Obj name, const Vector & pos)
+Player::Player(const Vector & pos)
 {
-	init(name, pos);
+	init(pos);
 }
 
 Player::~Player()
 {
 }
 
-void Player::init(Obj name, const Vector& pos)
+void Player::init(const Vector& pos)
 {
 	gameCon = GameController::getInstance();
 	coolTime = make_unique<map<Skill, float>>();
 	period = make_unique<map<Skill, float>>();
 
-	texID = texture->getTexture(name);
-
-	setCoolTime();
+	texID = texture->getTexture(Tex::ISAC);
 
 	forceAmount = 20.0f;
 	fricCoef = 0.8f;
@@ -35,6 +33,8 @@ void Player::init(Obj name, const Vector& pos)
 	objVol = { meter(), meter(), meter() };
 	objCol = { 0.5f, 0.7f, 0.0f, 1.0f };
 	objMass = 1.0f;
+
+	setCoolTime();
 }
 
 void Player::update(float eTime)

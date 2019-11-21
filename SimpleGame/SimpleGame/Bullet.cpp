@@ -2,46 +2,47 @@
 #include "Bullet.h"
 #include "Physics.h"
 #include "Renderer.h"
-#include "GameController.h"
 #include "TexMgr.h"
+#include "GameController.h"
 
 using namespace std;
 
-Bullet::Bullet(Obj name, const Vector& pos)
+Bullet::Bullet(const Vector& pos)
 {
-	init(name, pos);
+	init(pos);
 }
 
-Bullet::Bullet(Obj name, const Vector& pos, const Vector& vel)
+Bullet::Bullet(const Vector& pos, const Vector& vel)
 {
-	init(name, pos, vel);
+	init(pos, vel);
 }
 
 Bullet::~Bullet()
 {
 }
 
-void Bullet::init(Obj name, const Vector& pos)
+void Bullet::init(const Vector& pos)
 {
 	gameCon = GameController::getInstance();
 
-	texID = texture->getTexture(name);
+	texID = texture->getTexture(Tex::TEST);
 
 	forceAmount = 8.0f;
-	addForce();
 	fricCoef = 1.0f;
 	objForce;				// No initialize for addForce()
 	objPos = pos;
 	objVel;
 	objAcc;
-	objVol = { meter() / 2, meter() / 2, 0 };
+	objVol = { meter(0.25), meter(0.25), meter(0.25) };
 	objCol = { 0.5f, 1.0f, 0.5f, 1.0f };
-	objMass = 1.0f;
+	objMass = 0.2f;
+
+	addForce();
 }
 
-void Bullet::init(Obj name, const Vector& pos, const Vector& vel)
+void Bullet::init(const Vector& pos, const Vector& vel)
 {
-	init(name, pos);
+	init(pos);
 	objVel = objForce + vel;
 }
 
