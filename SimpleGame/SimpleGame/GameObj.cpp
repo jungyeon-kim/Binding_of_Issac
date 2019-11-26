@@ -22,6 +22,11 @@ void GameObj::init()
 	physics = make_unique<Physics>();
 }
 
+void GameObj::takeDamage(float damage)
+{
+	hp -= damage;
+}
+
 float GameObj::getForceAmount() const
 {
 	return forceAmount;
@@ -67,6 +72,16 @@ Color GameObj::getCol() const
 	return objCol;
 }
 
+float GameObj::getHP() const
+{
+	return hp;
+}
+
+float GameObj::getDamage() const
+{
+	return damage;
+}
+
 void GameObj::setForceAmount(float amount)
 {
 	forceAmount = amount;
@@ -110,4 +125,14 @@ void GameObj::setVol(const Vector& vol)
 void GameObj::setCol(const Color& col)
 {
 	objCol = col;
+}
+
+void GameObj::setHP(float hp)
+{
+	this->hp = hp;
+}
+
+void GameObj::setDamage(float damage)
+{
+	this->damage = damage;
 }

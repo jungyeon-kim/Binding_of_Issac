@@ -26,6 +26,8 @@ void Bullet::init(const Vector& pos)
 	gameCon = GameController::getInstance();
 
 	texID = texture->getTexture(Tex::TEST);
+	hp = 1;
+	damage = 25;
 
 	forceAmount = 8.0f;
 	fricCoef = 1.0f;

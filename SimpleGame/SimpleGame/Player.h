@@ -23,6 +23,5 @@ public:
 
 	bool isEndCoolTime(Skill name) const;
 	void resetCoolTime(Skill name);
-
 	void setCoolTime();
 };

@@ -16,6 +16,8 @@ Enemy::~Enemy()
 void Enemy::init(const Vector& pos)
 {
 	texID = texture->getTexture(Tex::TEST);
+	hp = 100;
+	damage = 10;
 
 	forceAmount = 10.0f;
 	fricCoef = 0.8f;

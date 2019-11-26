@@ -10,6 +10,8 @@ protected:
 	Color objCol{};
 
 	int texID{};
+	float hp{};
+	float damage{};
 
 	class TexMgr* texture{};
 	std::unique_ptr<class Renderer> renderer{};
@@ -24,6 +26,8 @@ public:
 	virtual void render() = 0;
 	virtual void addForce() = 0;
 
+	void takeDamage(float damage);
+
 	float getForceAmount() const;
 	float getFricCoef() const;
 	float getMass() const;
@@ -33,6 +37,8 @@ public:
 	Vector getAcc() const;
 	Vector getVol() const;
 	Color getCol() const;
+	float getHP() const;
+	float getDamage() const;
 
 	void setForceAmount(float amount);
 	void setFricCoef(float coef);
@@ -43,4 +49,6 @@ public:
 	void setAcc(const Vector& acc);
 	void setVol(const Vector& vol);
 	void setCol(const Color& color);
+	void setHP(float hp);
+	void setDamage(float damage);
 };

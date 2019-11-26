@@ -49,7 +49,11 @@ void ObjMgr::update(float eTime)
 	for (auto i = obj->begin(); i != obj->end(); ++i)
 		for (auto j = i; j != obj->end(); ++j)
 			if (physics->isOverlap(i->first, j->first, *i->second, *j->second) && i != j)
+			{
 				physics->processCollision(*i->second, *j->second);
+				i->second->takeDamage(j->second->getDamage());
+				j->second->takeDamage(i->second->getDamage());
+			}
 
 	garbageCollect();
 
@@ -80,8 +84,13 @@ void ObjMgr::garbageCollect()
 		case Obj::PLAYER:
 			++i;
 			break;
+		case Obj::ENEMY:
+			if (i->second->getHP() <= 0) i = obj->erase(i);
+			else ++i;
+			break;
 		case Obj::BULLET:
 			if (!physics->getScalar(i->second->getVel())) i = obj->erase(i);
+			else if (i->second->getHP() <= 0) i = obj->erase(i);
 			else ++i;
 			break;
 		default:

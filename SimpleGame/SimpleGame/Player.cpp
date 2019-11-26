@@ -23,6 +23,8 @@ void Player::init(const Vector& pos)
 	period = make_unique<map<Skill, float>>();
 
 	texID = texture->getTexture(Tex::ISAC);
+	hp = 100;
+	damage = 0;
 
 	forceAmount = 20.0f;
 	fricCoef = 0.8f;
