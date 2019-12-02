@@ -15,6 +15,14 @@ float Physics::getScalar(const Vector& vec)
 	return sqrtf(pow(vec.x, 2) + pow(vec.y, 2) + pow(vec.z, 2));
 }
 
+Vector Physics::getUnit(const Vector& vec)
+{
+	float scalarVec{ getScalar(vec) };
+
+	if (scalarVec) return { vec.x / scalarVec, vec.y / scalarVec, vec.z / scalarVec };
+	else return { 0, 0, 0 };
+}
+
 // acc = force / mass
 const Vector& Physics::getAcc(Vector acc, Vector force, float mass)
 {
@@ -42,24 +50,25 @@ const Vector& Physics::getPos(Vector pos, Vector vel, Vector acc, float eTime)
 // calculate friction force & apply to velocity
 const Vector& Physics::getVelByFric(Vector vel, float mass, float fricCoef, float eTime)
 {
-	// normalize vector
-	scalarVec = getScalar(vel);
+	float scalarVec{ getScalar(vel) };
 
-	if (scalarVec > 0) 
+	if (scalarVec) 
 	{
-		unitVec = { vel.x / scalarVec, vel.y / scalarVec };
+		// normalize vector
+		const Vector& unitVec{ vel.x / scalarVec, vel.y / scalarVec, vel.z / scalarVec };
 		// calculate friction force
-		forceAmount = mass * gravity;						// force = mass * acc
-		fricForce = {										// fricForce = -unitVec * forceAmount * fricCoef
+		float forceAmount{ mass * gravity };							// force = mass * acc
+		const Vector& fricForce{										// fricForce = -unitVec * forceAmount * fricCoef
 			-unitVec.x * forceAmount * fricCoef,
 			-unitVec.y * forceAmount * fricCoef
 		};
 		// acceleration by fricForce
-		acc = { fricForce.x / mass, fricForce.y / mass };	// acc = force / mass (음의 가속도)
+		const Vector& acc{ fricForce.x / mass, fricForce.y / mass };	// acc = force / mass (음의 가속도)
 		// update velocity
-		this->vel = {										// vel = vel + acc * eTime (속도 감소)
+		this->vel = {													// vel = vel + acc * eTime (속도 감소)
 			vel.x + acc.x * eTime,
-			vel.y + acc.y * eTime
+			vel.y + acc.y * eTime,
+			vel.z + acc.z * eTime
 		};
 		if (this->vel.x * vel.x < 0) vel.x = 0;
 		else vel.x = this->vel.x;
@@ -86,8 +95,8 @@ bool Physics::bbOverlapTest(const GameObj& A, const GameObj& B)
 
 bool Physics::isCollidable(Obj lName, Obj rName)
 {
-	if (lName == Obj::BULLET && rName == Obj::PLAYER) return false;
-	else if (lName == Obj::BULLET && rName == Obj::BULLET) return false;
+	if (lName == rName)	return false;
+	else if (lName == Obj::BULLET && rName == Obj::PLAYER) return false;
 
 	return true;
 }
@@ -111,6 +120,6 @@ void Physics::processCollision(GameObj& A, GameObj& B)
 	aFinalVel = A.getVel() * (aMass - bMass) / (aMass + bMass) + B.getVel() * 2.0f * bMass / (aMass + bMass);
 	bFinalVel = B.getVel() * (bMass - aMass) / (bMass + aMass) + A.getVel() * 2.0f * aMass / (bMass + aMass);
 
-	A.setVel(aFinalVel);
-	B.setVel(bFinalVel);
+	A.setVel(aFinalVel + getUnit(aFinalVel) *  B.getVol() / meter(2));
+	B.setVel(bFinalVel + getUnit(bFinalVel) *  A.getVol() / meter(2));
 }

@@ -5,11 +5,7 @@ class GameObj;
 class Physics
 {
 private:
-	float forceAmount{};	// 힘의 양
-	float scalarVec{};		// 벡터의 크기(길이)
-	Vector unitVec{};		// 단위벡터
-	Vector fricForce{};		// 마찰력
-	Vector vel{}, acc{};
+	Vector vel{};
 
 	bool bbOverlapTest(const GameObj& A, const GameObj& B);
 public:
@@ -17,6 +13,7 @@ public:
 	~Physics();
 
 	float getScalar(const Vector& vec);
+	Vector getUnit(const Vector& vec);
 	const Vector& getAcc(Vector acc, Vector force, float mass);
 	const Vector& getVel(Vector vel, Vector acc, float eTime);
 	const Vector& getPos(Vector pos, Vector vel, Vector acc, float eTime);

@@ -8,8 +8,6 @@
 #include <assert.h>
 #include <cstdlib>
 
-#include "Dependencies\glew.h"
-
 #include "Dependencies\glm/glm.hpp"
 #include "Dependencies\glm/gtc/matrix_transform.hpp"
 #include "Dependencies\glm/gtx/euler_angles.hpp"
