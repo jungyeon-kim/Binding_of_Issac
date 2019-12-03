@@ -120,6 +120,6 @@ void Physics::processCollision(GameObj& A, GameObj& B)
 	aFinalVel = A.getVel() * (aMass - bMass) / (aMass + bMass) + B.getVel() * 2.0f * bMass / (aMass + bMass);
 	bFinalVel = B.getVel() * (bMass - aMass) / (bMass + aMass) + A.getVel() * 2.0f * aMass / (bMass + aMass);
 
-	A.setVel(aFinalVel + getUnit(aFinalVel) *  B.getVol() / meter(2));
-	B.setVel(bFinalVel + getUnit(bFinalVel) *  A.getVol() / meter(2));
+	A.setVel(aFinalVel + getUnit(aFinalVel) *  (A.getVol() + B.getVol()) / meter());
+	B.setVel(bFinalVel + getUnit(bFinalVel) *  (A.getVol() + B.getVol()) / meter());
 }

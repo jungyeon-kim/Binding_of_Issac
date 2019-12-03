@@ -32,7 +32,7 @@ void ObjMgr::init()
 	addObject<Player>(Obj::PLAYER, { 0.0f, 0.0f, 0.0f });
 	addObject<Enemy>(Obj::ENEMY, { meter(2), 0.0f, 0.0f });
 	addObject<Enemy>(Obj::ENEMY, { meter(2), meter(3), 0.0f });
-	addObject<Enemy>(Obj::ENEMY, { meter(-2), meter(-1), 0.0f });
+	addObject<Enemy>(Obj::ENEMY, { meter(-5), meter(), 0.0f });
 }
 
 void ObjMgr::update(float eTime)

@@ -19,7 +19,7 @@ void Enemy::init(const Vector& pos)
 	hp = 100.0f;
 	damage = 10.0f;
 
-	forceAmount = 10.0f;
+	forceAmount = 9.0f;
 	fricCoef = 0.8f;
 	objForce;
 	objPos = pos;
@@ -27,12 +27,13 @@ void Enemy::init(const Vector& pos)
 	objAcc;
 	objVol = { meter(2), meter(2), meter() };
 	objCol = { 0.5f, 0.7f, 0.0f, 1.0f };
-	objMass = 5.0f;
+	objMass = 2.0f;
 }
 
 void Enemy::update(float eTime)
 {
 	objForce = { 0.0f, 0.0f, 0.0f };
+	addForce();
 
 	// update Physics
 	objAcc = physics->getAcc(objAcc, objForce, objMass);
