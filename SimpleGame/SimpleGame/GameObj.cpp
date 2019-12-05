@@ -22,6 +22,11 @@ void GameObj::init()
 	physics = make_unique<Physics>();
 }
 
+void GameObj::update(float eTime)
+{
+	prevObjPos = objPos;
+}
+
 float GameObj::getForceAmount() const
 {
 	return forceAmount;
@@ -60,6 +65,11 @@ Vector GameObj::getAcc() const
 Vector GameObj::getVol() const
 {
 	return objVol;
+}
+
+Vector GameObj::getPrevPos() const
+{
+	return prevObjPos;
 }
 
 Color GameObj::getCol() const

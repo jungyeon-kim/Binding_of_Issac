@@ -7,6 +7,7 @@ protected:
 	float fricCoef{};		// ¸¶Âû °è¼ö
 	float objMass{};
 	Vector objPos{}, objVel{}, objAcc{}, objVol{}, objForce{};
+	Vector prevObjPos{};
 	Color objCol{};
 
 	std::vector<int> texID{};
@@ -32,6 +33,7 @@ public:
 	Vector getVel() const;
 	Vector getAcc() const;
 	Vector getVol() const;
+	Vector getPrevPos() const;
 	Color getCol() const;
 
 	void setForceAmount(float amount);

@@ -33,6 +33,8 @@ void Enemy::init(const Vector& pos)
 
 void Enemy::update(float eTime)
 {
+	GameActor::update(eTime);
+
 	objForce = { 0.0f, 0.0f, 0.0f };
 	addForce();
 

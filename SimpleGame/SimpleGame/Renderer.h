@@ -32,10 +32,7 @@ public:
 		float size, 
 		float r, float g, float b, float a);
 
-	void DrawSolidRect(
-		float x, float y, float z,
-		float sizeX, float sizeY, float sizeZ,
-		float r, float g, float b, float a);
+	void DrawSolidRect(Vector pos, Vector vol, Color col);
 
 	void DrawSolidRectGauge(Vector pos, Vector rpos, Vector vol, Color col,float percent);
 

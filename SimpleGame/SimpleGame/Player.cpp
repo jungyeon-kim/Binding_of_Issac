@@ -43,6 +43,8 @@ void Player::init(const Vector& pos)
 
 void Player::update(float eTime)
 {
+	GameActor::update(eTime);
+
 	objForce = { 0.0f, 0.0f, 0.0f };
 	addForce();
 

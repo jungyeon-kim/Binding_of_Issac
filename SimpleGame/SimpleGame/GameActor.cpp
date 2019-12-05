@@ -10,6 +10,11 @@ GameActor::~GameActor()
 {
 }
 
+void GameActor::update(float eTime)
+{
+	GameObj::update(eTime);
+}
+
 void GameActor::takeDamage(float damage)
 {
 	currHP -= damage;

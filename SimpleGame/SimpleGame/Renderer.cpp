@@ -328,10 +328,7 @@ void Renderer::DrawSolidRect(float x, float y, float z, float size, float r, flo
 	glDisable(GL_BLEND);
 }
 
-void Renderer::DrawSolidRect(
-	float x, float y, float z, 
-	float sizeX, float sizeY, float sizeZ,
-	float r, float g, float b, float a)
+void Renderer::DrawSolidRect(Vector pos, Vector vol, Color col)
 {
 	//Program select
 	GLuint shader = m_SolidRectShader;
@@ -351,10 +348,10 @@ void Renderer::DrawSolidRect(
 	GLuint uColor = glGetUniformLocation(shader, "u_Color");
 	GLuint uDepth = glGetUniformLocation(shader, "u_Depth");
 
-	glUniform3f(uTrans, x, y, z);
-	glUniform3f(uScale, sizeX, sizeY, sizeZ);
-	glUniform4f(uColor, r, g, b, a);
-	glUniform1f(uDepth, (y + m_WindowSizeY / 2.f) / m_WindowSizeY);
+	glUniform3f(uTrans, pos.x, pos.y, pos.z);
+	glUniform3f(uScale, vol.x, vol.y, vol.z);
+	glUniform4f(uColor, col.r, col.g, col.b, col.a);
+	glUniform1f(uDepth, (pos.y + m_WindowSizeY / 2.f) / m_WindowSizeY);
 	glUniformMatrix4fv(uProjView, 1, GL_FALSE, &m_m4ProjView[0][0]);
 	glUniformMatrix4fv(uRotToCam, 1, GL_FALSE, &m_m4Model[0][0]);
 

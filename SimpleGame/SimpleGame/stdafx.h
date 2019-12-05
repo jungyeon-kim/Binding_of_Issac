@@ -24,7 +24,7 @@
 #include "Direction.h"
 
 enum class Tex { TEST, ISAC_HEAD, ISAC_BODY, BASIC_BULLET };
-enum class Obj { PLAYER, ENEMY, BULLET };
+enum class Obj { PLAYER, ENEMY, BULLET, BLOCK_BOX };
 enum class Skill { SHOOT };
 
 constexpr float meter(float centiMeter = 1)

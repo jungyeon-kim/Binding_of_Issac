@@ -155,6 +155,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BlockBox.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="GameActor.h" />
@@ -176,6 +177,7 @@
     <ClInclude Include="Direction.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BlockBox.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="GameActor.cpp" />
     <ClCompile Include="GameController.cpp" />

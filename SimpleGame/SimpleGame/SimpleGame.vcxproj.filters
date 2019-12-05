@@ -58,6 +58,9 @@
     <Filter Include="소스 파일\Renderer\shaders">
       <UniqueIdentifier>{aa86e47f-445f-4440-9a76-173363b46c4e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\GameObj\StaticMesh">
+      <UniqueIdentifier>{05f03e71-2c3d-4427-a596-28cda5cc93da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -120,6 +123,9 @@
     <ClInclude Include="GameActor.h">
       <Filter>소스 파일\GameObj</Filter>
     </ClInclude>
+    <ClInclude Include="BlockBox.h">
+      <Filter>소스 파일\GameObj\StaticMesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -163,6 +169,9 @@
     </ClCompile>
     <ClCompile Include="GameActor.cpp">
       <Filter>소스 파일\GameObj</Filter>
+    </ClCompile>
+    <ClCompile Include="BlockBox.cpp">
+      <Filter>소스 파일\GameObj\StaticMesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -50,6 +50,8 @@ void Bullet::init(const Vector& pos, const Vector& vel)
 
 void Bullet::update(float eTime)
 {
+	GameActor::update(eTime);
+
 	objForce = { 0.0f, 0.0f, 0.0f };
 
 	// update Physics
