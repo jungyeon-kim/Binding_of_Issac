@@ -22,7 +22,7 @@
 #include "Color.h"
 #include "Direction.h"
 
-enum class Tex { TEST, ISAC };
+enum class Tex { TEST, ISAC, BASIC_BULLET };
 enum class Obj { PLAYER, ENEMY, BULLET };
 enum class Skill { SHOOT };
 
@@ -33,7 +33,7 @@ constexpr float meter(float centiMeter = 1)
 
 constexpr int frame{ 8 };
 
-constexpr int wndSizeX{ static_cast<int>(meter(19.20f)) };
-constexpr int wndSizeY{ static_cast<int>(meter(10.80f)) };
+constexpr int wndSizeX{ static_cast<int>(meter(19.0f)) };
+constexpr int wndSizeY{ static_cast<int>(meter(10.0f)) };
 
 constexpr float gravity{ static_cast<float>(9.8f) };

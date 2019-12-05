@@ -87,12 +87,12 @@ void ObjMgr::garbageCollect()
 			++i;
 			break;
 		case Obj::ENEMY:
-			if (i->second->getHP() <= 0) i = obj->erase(i);
+			if (i->second->getCurrHP() <= 0) i = obj->erase(i);
 			else ++i;
 			break;
 		case Obj::BULLET:
 			if (!physics->getScalar(i->second->getVel())) i = obj->erase(i);
-			else if (i->second->getHP() <= 0) i = obj->erase(i);
+			else if (i->second->getCurrHP() <= 0) i = obj->erase(i);
 			else ++i;
 			break;
 		default:

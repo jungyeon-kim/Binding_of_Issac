@@ -117,6 +117,9 @@
     <ClInclude Include="Enemy.h">
       <Filter>소스 파일\GameObj\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="GameActor.h">
+      <Filter>소스 파일\GameObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -157,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>소스 파일\GameObj\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="GameActor.cpp">
+      <Filter>소스 파일\GameObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

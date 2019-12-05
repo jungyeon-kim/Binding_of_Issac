@@ -19,11 +19,12 @@ Player::~Player()
 void Player::init(const Vector& pos)
 {
 	gameCon = GameController::getInstance();
-	coolTime = make_unique<map<Skill, float>>();
-	period = make_unique<map<Skill, float>>();
+	maxCoolTime = make_unique<map<Skill, float>>();
+	currCoolTime = make_unique<map<Skill, float>>();
 
 	texID = texture->getTexture(Tex::ISAC);
 	maxHP = 100.0f;
+	currHP = maxHP;
 	damage = 0.0f;
 
 	forceAmount = 20.0f;
@@ -51,22 +52,30 @@ void Player::update(float eTime)
 	objPos = physics->getPos(objPos, objVel, objAcc, eTime);
 
 	// update CoolTime
-	for (auto& cool : *coolTime)
+	for (auto& cool : *currCoolTime)
 		if (cool.second)
 		{
 			cool.second -= eTime;
 			if (cool.second < 0) cool.second = 0;
 		}
+
+	// update Rendering Data
+	if (!(++animCycle % 10)) ++nextAnimX %= 10;
+	if (objCol.a != 1.0f) ++alphaCnt;
+	if (alphaCnt > 20)
+	{
+		objCol.a = 1.0f;
+		alphaCnt = 0.0f;
+	}
 }
 
 void Player::render()
 {
-	static int i{};
-	renderer->DrawTextureRectAnim(objPos, objVol, objCol, texID, 10, 4, i, 0);
-	++i = i % 10;
-	//renderer->DrawTextureRect(objPos, objVol, objCol, texID);
-	renderer->DrawSolidRectGauge(objPos, { 0.0f, meter(0.6), 0.0f }, { meter(), meter(0.15), 0.0f },
-		{ 1.0f, 0.0f, 0.0f, 1.0f }, 100.0f);
+	renderer->DrawTextureRectAnim(objPos, objVol, objCol, texID, 10, 4, nextAnimX, 0);
+	renderer->DrawSolidRectGauge(objPos, { 0.0f, meter(0.7), 0.0f }, { objVol.x, meter(0.15), 0.0f },
+		{ 0.8f, 0.8f, 0.8f, 0.8f }, 100.0f);
+	renderer->DrawSolidRectGauge(objPos, { 0.0f, meter(0.7), 0.0f }, { objVol.x, meter(0.15), 0.0f },
+		{ 1.0f, 0.0f, 0.0f, 0.8f }, (currHP / maxHP) * 100.0f);
 }
 
 void Player::addForce()
@@ -77,18 +86,25 @@ void Player::addForce()
 	if (gameCon->getDir().right) objForce.x += forceAmount;
 }
 
+void Player::takeDamage(float damage)
+{
+	GameObj::takeDamage(damage);
+
+	objCol.a = 0.2f;
+}
+
 bool Player::isEndCoolTime(Skill name) const
 {
-	return !(*coolTime)[name];
+	return !(*currCoolTime)[name];
 }
 
 void Player::resetCoolTime(Skill name)
 {
-	(*coolTime)[name] = (*period)[name];
+	(*currCoolTime)[name] = (*maxCoolTime)[name];
 }
 
 void Player::setCoolTime()
 {
-	coolTime->emplace(Skill::SHOOT, 0.0f);
-	period->emplace(Skill::SHOOT, 0.4f);
+	currCoolTime->emplace(Skill::SHOOT, 0.0f);
+	maxCoolTime->emplace(Skill::SHOOT, 0.4f);
 }

@@ -26,8 +26,7 @@ public:
 	virtual void update(float eTime) = 0;
 	virtual void render() = 0;
 	virtual void addForce() = 0;
-
-	void takeDamage(float damage);
+	virtual void takeDamage(float damage);
 
 	float getForceAmount() const;
 	float getFricCoef() const;

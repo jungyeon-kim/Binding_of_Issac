@@ -25,6 +25,7 @@ void TexMgr::init()
 	texture = make_unique<map<Tex, int>>();
 
 	texture->emplace(Tex::ISAC, renderer->GenPngTexture("./textures/body.png"));
+	texture->emplace(Tex::BASIC_BULLET, renderer->GenPngTexture("./textures/bullet.png"));
 	texture->emplace(Tex::TEST, renderer->GenPngTexture("./textures/TestImg.png"));
 }
 

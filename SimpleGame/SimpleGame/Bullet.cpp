@@ -25,8 +25,9 @@ void Bullet::init(const Vector& pos)
 {
 	gameCon = GameController::getInstance();
 
-	texID = texture->getTexture(Tex::TEST);
+	texID = texture->getTexture(Tex::BASIC_BULLET);
 	maxHP = 1.0f;
+	currHP = maxHP;
 	damage = 25.0f;
 
 	forceAmount = 11.0f;
