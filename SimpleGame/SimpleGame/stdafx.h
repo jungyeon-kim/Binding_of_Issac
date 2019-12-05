@@ -11,6 +11,7 @@
 #include <fstream>
 #include <memory>
 #include <algorithm>
+#include <vector>
 #include <map>
 #include <unordered_map>
 
@@ -22,7 +23,7 @@
 #include "Color.h"
 #include "Direction.h"
 
-enum class Tex { TEST, ISAC, BASIC_BULLET };
+enum class Tex { TEST, ISAC_HEAD, ISAC_BODY, BASIC_BULLET };
 enum class Obj { PLAYER, ENEMY, BULLET };
 enum class Skill { SHOOT };
 

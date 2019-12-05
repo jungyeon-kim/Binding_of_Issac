@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "GameActor.h"
+#include "Physics.h"
 
 GameActor::GameActor()
 {

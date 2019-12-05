@@ -7,9 +7,10 @@ class Player : public GameActor
 private:
 	using CoolTimeContainer = std::unique_ptr<std::map<Skill, float>>;
 private:
-	static constexpr int MAX_SPEED{ 7 };
+	static constexpr float MAX_VEL{ 7 };
 	int animCycle{};
-	int nextAnimX{};
+	int nextHeadAnimX{};
+	int nextBodyAnimX{};
 	int alphaCnt{};
 
 	class GameController* gameCon{};

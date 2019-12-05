@@ -22,7 +22,8 @@ void Player::init(const Vector& pos)
 	maxCoolTime = make_unique<map<Skill, float>>();
 	currCoolTime = make_unique<map<Skill, float>>();
 
-	texID = texture->getTexture(Tex::ISAC);
+	texID.emplace_back(texture->getTexture(Tex::ISAC_BODY));
+	texID.emplace_back(texture->getTexture(Tex::ISAC_HEAD));
 	maxHP = 100.0f;
 	currHP = maxHP;
 	damage = 0.0f;
@@ -47,7 +48,7 @@ void Player::update(float eTime)
 
 	// update Physics
 	objAcc = physics->getAcc(objAcc, objForce, objMass);
-	if (physics->getScalar(objVel) < MAX_SPEED) objVel = physics->getVel(objVel, objAcc, eTime);
+	objVel = physics->getVel(objVel, objAcc, eTime, MAX_VEL);
 	objVel = physics->getVelByFric(objVel, objMass, fricCoef, eTime);
 	objPos = physics->getPos(objPos, objVel, objAcc, eTime);
 
@@ -60,7 +61,12 @@ void Player::update(float eTime)
 		}
 
 	// update Rendering Data
-	if (!(++animCycle % 10)) ++nextAnimX %= 10;
+	if (!(++animCycle % 10))
+	{
+		++nextHeadAnimX %= 2;
+		++nextBodyAnimX %= 10;
+		animCycle = 0;
+	}
 	if (objCol.a != 1.0f) ++alphaCnt;
 	if (alphaCnt > 20)
 	{
@@ -71,7 +77,22 @@ void Player::update(float eTime)
 
 void Player::render()
 {
-	renderer->DrawTextureRectAnim(objPos, objVol, objCol, texID, 10, 4, nextAnimX, 0);
+	const Vector& bodyPos{ objPos.x, objPos.y - meter(0.2), objPos.z };
+	const Vector& bodyVol{ objVol.x / 2.0f, objVol.y / 2.0f, objVol.z };
+	const Vector& headPos{ objPos.x, objPos.y + meter(0.2), objPos.z };
+	const Vector& headVol{ objVol.x / 1.3f, objVol.y / 1.4f, objVol.z };
+
+	if (!gameCon->isMove()) renderer->DrawTextureRectAnim(bodyPos, bodyVol, objCol, texID[0], 10, 4, 0, 1);
+	else if (gameCon->getDir().up) renderer->DrawTextureRectAnim(bodyPos, bodyVol, objCol, texID[0], 10, 4, nextBodyAnimX, 0);
+	else if (gameCon->getDir().down) renderer->DrawTextureRectAnim(bodyPos, bodyVol, objCol, texID[0], 10, 4, nextBodyAnimX, 1);
+	else if (gameCon->getDir().left) renderer->DrawTextureRectAnim(bodyPos, bodyVol, objCol, texID[0], 10, 4, nextBodyAnimX, 2);
+	else if (gameCon->getDir().right) renderer->DrawTextureRectAnim(bodyPos, bodyVol, objCol, texID[0], 10, 4, nextBodyAnimX, 3);
+	if (!gameCon->isShoot()) renderer->DrawTextureRectAnim(headPos, headVol, objCol, texID[1], 2, 4, 0, 1);
+	else if (gameCon->getShoot().up) renderer->DrawTextureRectAnim(headPos, headVol, objCol, texID[1], 2, 4, nextHeadAnimX, 0);
+	else if (gameCon->getShoot().down) renderer->DrawTextureRectAnim(headPos, headVol, objCol, texID[1], 2, 4, nextHeadAnimX, 1);
+	else if (gameCon->getShoot().left) renderer->DrawTextureRectAnim(headPos, headVol, objCol, texID[1], 2, 4, nextHeadAnimX, 2);
+	else if (gameCon->getShoot().right) renderer->DrawTextureRectAnim(headPos, headVol, objCol, texID[1], 2, 4, nextHeadAnimX, 3);
+
 	renderer->DrawSolidRectGauge(objPos, { 0.0f, meter(0.7), 0.0f }, { objVol.x, meter(0.15), 0.0f },
 		{ 0.8f, 0.8f, 0.8f, 0.8f }, 100.0f);
 	renderer->DrawSolidRectGauge(objPos, { 0.0f, meter(0.7), 0.0f }, { objVol.x, meter(0.15), 0.0f },

@@ -15,7 +15,7 @@ Enemy::~Enemy()
 
 void Enemy::init(const Vector& pos)
 {
-	texID = texture->getTexture(Tex::TEST);
+	texID.emplace_back(texture->getTexture(Tex::TEST));
 	maxHP = 100.0f;
 	currHP = maxHP;
 	damage = 10.0f;
@@ -45,7 +45,7 @@ void Enemy::update(float eTime)
 
 void Enemy::render()
 {
-	renderer->DrawTextureRect(objPos, objVol, objCol, texID);
+	renderer->DrawTextureRect(objPos, objVol, objCol, texID[0]);
 	renderer->DrawSolidRectGauge(objPos, { 0.0f, meter(0.7), 0.0f }, { objVol.x, meter(0.15), 0.0f },
 		{ 0.8f, 0.8f, 0.8f, 0.8f }, 100.0f);
 	renderer->DrawSolidRectGauge(objPos, { 0.0f, meter(0.7), 0.0f }, { objVol.x, meter(0.15), 0.0f },

@@ -9,7 +9,7 @@ protected:
 	Vector objPos{}, objVel{}, objAcc{}, objVol{}, objForce{};
 	Color objCol{};
 
-	int texID{};
+	std::vector<int> texID{};
 
 	class TexMgr* texture{};
 	std::unique_ptr<class Renderer> renderer{};

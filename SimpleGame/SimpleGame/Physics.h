@@ -15,7 +15,7 @@ public:
 	float getScalar(const Vector& vec);
 	Vector getUnit(const Vector& vec);
 	const Vector& getAcc(Vector acc, Vector force, float mass);
-	const Vector& getVel(Vector vel, Vector acc, float eTime);
+	const Vector& getVel(Vector vel, Vector acc, float eTime, float maxVel = 10.0f);
 	const Vector& getPos(Vector pos, Vector vel, Vector acc, float eTime);
 	const Vector& getVelByFric(Vector vel, float mass, float fricCoef, float eTime);
 

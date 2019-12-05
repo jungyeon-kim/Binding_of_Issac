@@ -100,6 +100,11 @@ void GameController::specialKeyUpInput(int key, int x, int y)
 	}
 }
 
+bool GameController::isMove() const
+{
+	return (objDir.up || objDir.down || objDir.left || objDir.right);
+}
+
 bool GameController::isShoot() const
 {
 	return (objShoot.up || objShoot.down || objShoot.left || objShoot.right);

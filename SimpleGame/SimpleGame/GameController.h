@@ -20,6 +20,7 @@ public:
 	void specialKeyDownInput(int key, int x, int y);
 	void specialKeyUpInput(int key, int x, int y);
 
+	bool isMove() const;
 	bool isShoot() const;
 
 	const Direction& getShoot() const;

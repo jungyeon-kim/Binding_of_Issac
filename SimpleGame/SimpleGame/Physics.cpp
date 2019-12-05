@@ -32,9 +32,9 @@ const Vector& Physics::getAcc(Vector acc, Vector force, float mass)
 }
 
 // vel = vel + acc * eTime
-const Vector& Physics::getVel(Vector vel, Vector acc, float eTime)
+const Vector& Physics::getVel(Vector vel, Vector acc, float eTime, float maxVel)
 {
-	vel = vel + acc * eTime;
+	if (getScalar(vel) < maxVel) vel = vel + acc * eTime;
 
 	return vel;
 }
