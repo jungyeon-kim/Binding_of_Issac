@@ -26,20 +26,19 @@ void Bullet::init(const Vector& pos)
 	gameCon = GameController::getInstance();
 
 	texID = texture->getTexture(Tex::TEST);
-	hp = 1.0f;
+	maxHP = 1.0f;
 	damage = 25.0f;
 
-	forceAmount = 8.0f;
+	forceAmount = 11.0f;
 	fricCoef = 1.0f;
+	addForce();
 	objForce;				// No initialize for addForce()
 	objPos = pos;
-	objVel;
+	objVel = objForce;
 	objAcc;
 	objVol = { meter(0.25), meter(0.25), meter(0.25) };
-	objCol = { 0.5f, 1.0f, 0.5f, 1.0f };
+	objCol = { 1.0f, 1.0f, 1.0f, 1.0f };
 	objMass = 0.2f;
-
-	addForce();
 }
 
 void Bullet::init(const Vector& pos, const Vector& vel)

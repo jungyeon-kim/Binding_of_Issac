@@ -8,6 +8,8 @@
 #include <assert.h>
 #include <cstdlib>
 
+#include "Dependencies\glew.h"
+
 #include "Dependencies\glm/glm.hpp"
 #include "Dependencies\glm/gtc/matrix_transform.hpp"
 #include "Dependencies\glm/gtx/euler_angles.hpp"
@@ -35,15 +37,22 @@ public:
 		float sizeX, float sizeY, float sizeZ,
 		float r, float g, float b, float a);
 
-	void DrawTextureRect(
-		const Vector& pos,
-		const Vector& vol,
-		const Color& col,
-		int textureID);
+	void DrawSolidRectGauge(Vector pos, Vector rpos, Vector vol, Color col,float percent);
+
+	void DrawTextureRect(Vector pos, Vector vol, Color col, int texID);
+
+	void DrawTextureRectAnim(
+		Vector pos, Vector vol, Color col,
+		int textureID,
+		int totalX,
+		int totalY,
+		int currX,
+		int currY);
 
 	int GenPngTexture(char * filePath, GLuint sampling = GL_NEAREST);
 	int GenBmpTexture(char * filePath, GLuint sampling = GL_NEAREST);
 	bool DeleteTexture(int idx, bool printLog = false);
+
 private:
 	void Initialize(int windowSizeX, int windowSizeY);
 	bool ReadFile(char* filename, std::string *target);
@@ -72,7 +81,9 @@ private:
 	//GL resources :: must destory before exit
 	GLuint m_VBORect = 0;
 	GLuint m_SolidRectShader = 0;
+	GLuint m_SOlidRectGaugeShader = 0;
 	GLuint m_TextureRectShader = 0;
+	GLuint m_TextureRectAnimShader = 0;
 	int m_Textures[MAX_TEXTURES];
 };
 

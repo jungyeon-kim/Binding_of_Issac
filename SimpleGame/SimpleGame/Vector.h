@@ -12,11 +12,27 @@ struct Vector
 
 		return *this;
 	}
+	Vector operator+(float rhs)
+	{
+		x += rhs;
+		y += rhs;
+		z += rhs;
+
+		return *this;
+	}
 	Vector operator-(const Vector& rhs)
 	{
 		x -= rhs.x;
 		y -= rhs.y;
 		z -= rhs.z;
+
+		return *this;
+	}
+	Vector operator-(float rhs)
+	{
+		x -= rhs;
+		y -= rhs;
+		z -= rhs;
 
 		return *this;
 	}
@@ -33,6 +49,14 @@ struct Vector
 		x *= rhs;
 		y *= rhs;
 		z *= rhs;
+
+		return *this;
+	}
+	Vector operator/(const Vector& rhs)
+	{
+		x /= rhs.x;
+		y /= rhs.y;
+		z /= rhs.z;
 
 		return *this;
 	}

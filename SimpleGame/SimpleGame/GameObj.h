@@ -10,7 +10,8 @@ protected:
 	Color objCol{};
 
 	int texID{};
-	float hp{};
+	float maxHP{};
+	float currHP{};
 	float damage{};
 
 	class TexMgr* texture{};
@@ -37,7 +38,8 @@ public:
 	Vector getAcc() const;
 	Vector getVol() const;
 	Color getCol() const;
-	float getHP() const;
+	float getMaxHP() const;
+	float getCurrHP() const;
 	float getDamage() const;
 
 	void setForceAmount(float amount);
@@ -49,6 +51,7 @@ public:
 	void setAcc(const Vector& acc);
 	void setVol(const Vector& vol);
 	void setCol(const Color& color);
-	void setHP(float hp);
+	void setMaxHP(float maxHP);
+	void setCurrHP(float currHP);
 	void setDamage(float damage);
 };

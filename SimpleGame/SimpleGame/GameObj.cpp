@@ -24,7 +24,7 @@ void GameObj::init()
 
 void GameObj::takeDamage(float damage)
 {
-	hp -= damage;
+	currHP -= damage;
 }
 
 float GameObj::getForceAmount() const
@@ -72,9 +72,14 @@ Color GameObj::getCol() const
 	return objCol;
 }
 
-float GameObj::getHP() const
+float GameObj::getMaxHP() const
 {
-	return hp;
+	return maxHP;
+}
+
+float GameObj::getCurrHP() const
+{
+	return currHP;
 }
 
 float GameObj::getDamage() const
@@ -127,9 +132,14 @@ void GameObj::setCol(const Color& col)
 	objCol = col;
 }
 
-void GameObj::setHP(float hp)
+void GameObj::setMaxHP(float maxHP)
 {
-	this->hp = hp;
+	this->maxHP = maxHP;
+}
+
+void GameObj::setCurrHP(float currHP)
+{
+	this->currHP = currHP;
 }
 
 void GameObj::setDamage(float damage)

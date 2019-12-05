@@ -26,7 +26,7 @@ void Enemy::init(const Vector& pos)
 	objVel;
 	objAcc;
 	objVol = { meter(2), meter(2), meter() };
-	objCol = { 0.5f, 0.7f, 0.0f, 1.0f };
+	objCol = { 1.0f, 1.0f, 1.0f, 1.0f };
 	objMass = 2.0f;
 }
 

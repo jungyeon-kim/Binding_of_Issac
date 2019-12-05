@@ -23,7 +23,7 @@ void Player::init(const Vector& pos)
 	period = make_unique<map<Skill, float>>();
 
 	texID = texture->getTexture(Tex::ISAC);
-	hp = 100.0f;
+	maxHP = 100.0f;
 	damage = 0.0f;
 
 	forceAmount = 20.0f;
@@ -33,7 +33,7 @@ void Player::init(const Vector& pos)
 	objVel;
 	objAcc;
 	objVol = { meter(), meter(), meter() };
-	objCol = { 0.5f, 0.7f, 0.0f, 1.0f };
+	objCol = { 1.0f, 1.0f, 1.0f, 1.0f };
 	objMass = 1.0f;
 
 	setCoolTime();
@@ -61,7 +61,12 @@ void Player::update(float eTime)
 
 void Player::render()
 {
-	renderer->DrawTextureRect(objPos, objVol, objCol, texID);
+	static int i{};
+	renderer->DrawTextureRectAnim(objPos, objVol, objCol, texID, 10, 4, i, 0);
+	++i = i % 10;
+	//renderer->DrawTextureRect(objPos, objVol, objCol, texID);
+	renderer->DrawSolidRectGauge(objPos, { 0.0f, meter(0.6), 0.0f }, { meter(), meter(0.15), 0.0f },
+		{ 1.0f, 0.0f, 0.0f, 1.0f }, 100.0f);
 }
 
 void Player::addForce()

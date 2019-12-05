@@ -36,13 +36,15 @@ void Renderer::Initialize(int windowSizeX, int windowSizeY)
 
 	//Load shaders
 	m_SolidRectShader = CompileShaders("./Shaders/SolidRect.vs", "./Shaders/SolidRect.fs");
+	m_SOlidRectGaugeShader = CompileShaders("./Shaders/SolidRectGauge.vs", "./Shaders/SolidRectGauge.fs");
 	m_TextureRectShader = CompileShaders("./Shaders/TextureRect.vs", "./Shaders/TextureRect.fs");
+	m_TextureRectAnimShader = CompileShaders("./Shaders/TextureRectAnim.vs", "./Shaders/TextureRectAnim.fs");
 	
 	//Create VBOs
 	CreateVertexBufferObjects();
 
 	//Initialize camera settings
-	m_v3Camera_Position = glm::vec3(0.f, -1000.f, 1000.f);
+	m_v3Camera_Position = glm::vec3(0.f, 0.f, 1000.f);
 	m_v3Camera_Lookat = glm::vec3(0.f, 0.f, 0.f);
 	m_v3Camera_Up = glm::vec3(0.f, 1.f, 0.f);
 	m_m4View = glm::lookAt(
@@ -63,7 +65,7 @@ void Renderer::Initialize(int windowSizeX, int windowSizeY)
 	//m_m4ProjView = m_m4PersProj * m_m4View;
 
 	//Initialize model transform matrix :; used for rotating quad normal to parallel to camera direction
-	m_m4Model = glm::rotate(glm::mat4(1.0f), glm::radians(45.f), glm::vec3(1.f, 0.f, 0.f));
+	m_m4Model = glm::rotate(glm::mat4(1.0f), glm::radians(0.f), glm::vec3(1.f, 0.f, 0.f));
 
 	m_Initialized = true;
 }
@@ -110,8 +112,8 @@ int Renderer::GenPngTexture(char * filePath, GLuint sampling)
 	}
 
 	glBindTexture(GL_TEXTURE_2D, temp);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, static_cast<float>(sampling));
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, static_cast<float>(sampling));
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, sampling);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, sampling);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &image[0]);
 
 	return temp;
@@ -139,8 +141,8 @@ int Renderer::GenBmpTexture(char * filePath, GLuint sampling)
 	}
 
 	glBindTexture(GL_TEXTURE_2D, temp);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, static_cast<float>(sampling));
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, static_cast<float>(sampling));
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, sampling);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, sampling);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, &rawImage[0]);
 
 	return temp;
@@ -182,7 +184,7 @@ void Renderer::AddShader(GLuint ShaderProgram, const char* pShaderText, GLenum S
 	const GLchar* p[1];
 	p[0] = pShaderText;
 	GLint Lengths[1];
-	Lengths[0] = static_cast<GLint>(strlen(pShaderText));
+	Lengths[0] = strlen(pShaderText);
 	//쉐이더 코드를 쉐이더 오브젝트에 할당
 	glShaderSource(ShaderObj, 1, p, Lengths);
 
@@ -280,7 +282,7 @@ GLuint Renderer::CompileShaders(char* filenameVS, char* filenameFS)
 	}
 
 	glUseProgram(ShaderProgram);
-	//std::cout << filenameVS << ", " << filenameFS << " Shader compiling is done.\n";
+	std::cout << filenameVS << ", " << filenameFS << " Shader compiling is done.\n";
 
 	return ShaderProgram;
 }
@@ -303,10 +305,12 @@ void Renderer::DrawSolidRect(float x, float y, float z, float size, float r, flo
 	GLuint uTrans = glGetUniformLocation(shader, "u_Trans");
 	GLuint uScale = glGetUniformLocation(shader, "u_Scale");
 	GLuint uColor = glGetUniformLocation(shader, "u_Color");
+	GLuint uDepth = glGetUniformLocation(shader, "u_Depth");
 
 	glUniform3f(uTrans, x, y, z);
 	glUniform3f(uScale, size, size, size);
 	glUniform4f(uColor, r, g, b, a);
+	glUniform1f(uDepth, (y + m_WindowSizeY / 2.f) / m_WindowSizeY);
 	glUniformMatrix4fv(uProjView, 1, GL_FALSE, &m_m4ProjView[0][0]);
 	glUniformMatrix4fv(uRotToCam, 1, GL_FALSE, &m_m4Model[0][0]);
 
@@ -345,10 +349,12 @@ void Renderer::DrawSolidRect(
 	GLuint uTrans = glGetUniformLocation(shader, "u_Trans");
 	GLuint uScale = glGetUniformLocation(shader, "u_Scale");
 	GLuint uColor = glGetUniformLocation(shader, "u_Color");
+	GLuint uDepth = glGetUniformLocation(shader, "u_Depth");
 
 	glUniform3f(uTrans, x, y, z);
 	glUniform3f(uScale, sizeX, sizeY, sizeZ);
 	glUniform4f(uColor, r, g, b, a);
+	glUniform1f(uDepth, (y + m_WindowSizeY / 2.f) / m_WindowSizeY);
 	glUniformMatrix4fv(uProjView, 1, GL_FALSE, &m_m4ProjView[0][0]);
 	glUniformMatrix4fv(uRotToCam, 1, GL_FALSE, &m_m4Model[0][0]);
 
@@ -366,11 +372,52 @@ void Renderer::DrawSolidRect(
 	glDisable(GL_BLEND);
 }
 
-void Renderer::DrawTextureRect(
-	const Vector& pos,
-	const Vector& vol,
-	const Color& col,
-	int textureID)
+void Renderer::DrawSolidRectGauge(
+	Vector pos, Vector rpos, Vector vol, Color col,
+	float percent)
+{
+	//Program select
+	GLuint shader = m_SOlidRectGaugeShader;
+
+	glUseProgram(shader);
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+
+	GLuint uProjView = glGetUniformLocation(shader, "u_ProjView");
+	GLuint uRotToCam = glGetUniformLocation(shader, "u_RotToCam");
+	GLuint uTrans = glGetUniformLocation(shader, "u_Trans");
+	GLuint uScale = glGetUniformLocation(shader, "u_Scale");
+	GLuint uColor = glGetUniformLocation(shader, "u_Color");
+	GLuint uDepth = glGetUniformLocation(shader, "u_Depth");
+	GLuint uGauge = glGetUniformLocation(shader, "u_Gauge");
+
+	glUniform3f(uTrans, pos.x + rpos.x, pos.y + rpos.y, pos.z + rpos.z);
+	glUniform3f(uScale, vol.x, vol.y, vol.z);
+	glUniform4f(uColor, col.r, col.g, col.b, col.a);
+	glUniform1f(uGauge, percent/100.f);
+	glUniform1f(uDepth, (pos.y + m_WindowSizeY / 2.f) / m_WindowSizeY);
+	glUniformMatrix4fv(uProjView, 1, GL_FALSE, &m_m4ProjView[0][0]);
+	glUniformMatrix4fv(uRotToCam, 1, GL_FALSE, &m_m4Model[0][0]);
+
+	int attribPosition = glGetAttribLocation(shader, "a_Position");
+	glEnableVertexAttribArray(attribPosition);
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBORect);
+	glVertexAttribPointer(attribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
+
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+
+	glDisableVertexAttribArray(attribPosition);
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	glDisable(GL_BLEND);
+}
+
+void Renderer::DrawTextureRect(Vector pos, Vector vol, Color col, int texID)
 {
 	//Program select
 	GLuint shader = m_TextureRectShader;
@@ -389,6 +436,7 @@ void Renderer::DrawTextureRect(
 	GLuint uScale = glGetUniformLocation(shader, "u_Scale");
 	GLuint uColor = glGetUniformLocation(shader, "u_Color");
 	GLuint uTexture = glGetUniformLocation(shader, "u_Texture");
+	GLuint uDepth = glGetUniformLocation(shader, "u_Depth");
 
 	glUniformMatrix4fv(uProjView, 1, GL_FALSE, &m_m4ProjView[0][0]);
 	glUniformMatrix4fv(uRotToCam, 1, GL_FALSE, &m_m4Model[0][0]);
@@ -396,9 +444,73 @@ void Renderer::DrawTextureRect(
 	glUniform3f(uScale, vol.x, vol.y, vol.z);
 	glUniform4f(uColor, col.r, col.g, col.b, col.a);
 	glUniform1i(uTexture, 0);
+	glUniform1f(uDepth, (pos.y + m_WindowSizeY/2.f)/ m_WindowSizeY);
 
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, textureID);
+	glBindTexture(GL_TEXTURE_2D, texID);
+
+	int attribPosition = glGetAttribLocation(shader, "a_Position");
+	glEnableVertexAttribArray(attribPosition);
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBORect);
+	glVertexAttribPointer(attribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
+
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+
+	glDisableVertexAttribArray(attribPosition);
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	glDisable(GL_BLEND);
+	glDisable(GL_DEPTH_TEST);
+}
+
+void Renderer::DrawTextureRectAnim(
+	Vector pos, Vector vol, Color col,
+	int texID,
+	int totalX,
+	int totalY, 
+	int currX, 
+	int currY)
+{
+	//Program select
+	GLuint shader = m_TextureRectAnimShader;
+
+	glUseProgram(shader);
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+
+	GLuint uProjView = glGetUniformLocation(shader, "u_ProjView");
+	GLuint uRotToCam = glGetUniformLocation(shader, "u_RotToCam");
+	GLuint uTrans = glGetUniformLocation(shader, "u_Trans");
+	GLuint uScale = glGetUniformLocation(shader, "u_Scale");
+	GLuint uColor = glGetUniformLocation(shader, "u_Color");
+	GLuint uTexture = glGetUniformLocation(shader, "u_Texture");
+	GLuint uDepth = glGetUniformLocation(shader, "u_Depth");
+
+	GLuint uTotalSeqX = glGetUniformLocation(shader, "u_TotalSeqX");
+	GLuint uTotalSeqY = glGetUniformLocation(shader, "u_TotalSeqY");
+	GLuint uCurrSeqX = glGetUniformLocation(shader, "u_CurrSeqX");
+	GLuint uCurrSeqY = glGetUniformLocation(shader, "u_CurrSeqY");
+
+
+	glUniformMatrix4fv(uProjView, 1, GL_FALSE, &m_m4ProjView[0][0]);
+	glUniformMatrix4fv(uRotToCam, 1, GL_FALSE, &m_m4Model[0][0]);
+	glUniform3f(uTrans, pos.x, pos.y, pos.z);
+	glUniform3f(uScale, vol.x, vol.y, vol.z);
+	glUniform4f(uColor, col.r, col.g, col.b, col.a);
+	glUniform1i(uTexture, 0);
+	glUniform1f(uDepth, (pos.y + m_WindowSizeY / 2.f) / m_WindowSizeY);
+	glUniform1f(uTotalSeqX, (float)totalX);
+	glUniform1f(uTotalSeqY, (float)totalY);
+	glUniform1f(uCurrSeqX, (float)currX);
+	glUniform1f(uCurrSeqY, (float)currY);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texID);
 
 	int attribPosition = glGetAttribLocation(shader, "a_Position");
 	glEnableVertexAttribArray(attribPosition);
