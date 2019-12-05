@@ -1,8 +1,8 @@
 #pragma once
 
-#include "GameObj.h"
+#include "GameActor.h"
 
-class Player : public GameObj
+class Player : public GameActor
 {
 private:
 	using CoolTimeContainer = std::unique_ptr<std::map<Skill, float>>;

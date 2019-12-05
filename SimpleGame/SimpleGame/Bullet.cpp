@@ -30,7 +30,7 @@ void Bullet::init(const Vector& pos)
 	currHP = maxHP;
 	damage = 25.0f;
 
-	forceAmount = 11.0f;
+	forceAmount = 10.0f;
 	fricCoef = 1.0f;
 	addForce();
 	objForce;				// No initialize for addForce()

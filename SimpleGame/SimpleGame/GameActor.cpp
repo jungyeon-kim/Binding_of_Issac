@@ -9,18 +9,37 @@ GameActor::~GameActor()
 {
 }
 
-void GameActor::init(const Vector & pos)
+void GameActor::takeDamage(float damage)
 {
+	currHP -= damage;
 }
 
-void GameActor::update(float eTime)
+float GameActor::getMaxHP() const
 {
+	return maxHP;
 }
 
-void GameActor::render()
+float GameActor::getCurrHP() const
 {
+	return currHP;
 }
 
-void GameActor::addForce()
+float GameActor::getDamage() const
 {
+	return damage;
+}
+
+void GameActor::setMaxHP(float maxHP)
+{
+	this->maxHP = maxHP;
+}
+
+void GameActor::setCurrHP(float currHP)
+{
+	this->currHP = currHP;
+}
+
+void GameActor::setDamage(float damage)
+{
+	this->damage = damage;
 }

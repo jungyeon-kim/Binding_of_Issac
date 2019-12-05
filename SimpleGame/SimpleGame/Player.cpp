@@ -88,7 +88,7 @@ void Player::addForce()
 
 void Player::takeDamage(float damage)
 {
-	GameObj::takeDamage(damage);
+	GameActor::takeDamage(damage);
 
 	objCol.a = 0.2f;
 }

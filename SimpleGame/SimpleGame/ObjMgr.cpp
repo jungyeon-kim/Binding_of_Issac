@@ -52,9 +52,12 @@ void ObjMgr::update(float eTime)
 		for (auto j = i; j != obj->end(); ++j)
 			if (physics->isOverlap(i->first, j->first, *i->second, *j->second) && i != j)
 			{
+				const auto& actorI{ dynamic_cast<GameActor*>(i->second.get()) };
+				const auto& actorJ{ dynamic_cast<GameActor*>(j->second.get()) };
+
 				physics->processCollision(*i->second, *j->second);
-				i->second->takeDamage(j->second->getDamage());
-				j->second->takeDamage(i->second->getDamage());
+				actorI->takeDamage(actorJ->getDamage());
+				actorJ->takeDamage(actorI->getDamage());
 			}
 
 	garbageCollect();
@@ -81,22 +84,26 @@ void ObjMgr::deleteObject(Obj name)
 void ObjMgr::garbageCollect()
 {
 	for (auto& i = obj->cbegin(); i != obj->cend();)
+	{
+		const auto& actor{ dynamic_cast<GameActor*>(i->second.get()) };
+
 		switch (i->first)
 		{
 		case Obj::PLAYER:
 			++i;
 			break;
 		case Obj::ENEMY:
-			if (i->second->getCurrHP() <= 0) i = obj->erase(i);
+			if (actor->getCurrHP() <= 0) i = obj->erase(i);
 			else ++i;
 			break;
 		case Obj::BULLET:
 			if (!physics->getScalar(i->second->getVel())) i = obj->erase(i);
-			else if (i->second->getCurrHP() <= 0) i = obj->erase(i);
+			else if (actor->getCurrHP() <= 0) i = obj->erase(i);
 			else ++i;
 			break;
 		default:
 			++i;
 			break;
 		}
+	}
 }

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "GameObj.h"
+#include "GameActor.h"
 
-class Enemy : public GameObj
+class Enemy : public GameActor
 {
 public:
 	Enemy(const Vector& pos);

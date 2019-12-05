@@ -1,8 +1,8 @@
 #pragma once
 
-#include "GameObj.h"
+#include "GameActor.h"
 
-class Bullet : public GameObj
+class Bullet : public GameActor
 {
 private:
 	class GameController* gameCon{};
