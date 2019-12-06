@@ -14,7 +14,6 @@ private:
 	int nextBodyAnimX{};
 	int alphaCnt{};
 
-	class ObjMgr* objMgr{};
 	CoolTimeContainer maxCoolTime{};
 	CoolTimeContainer currCoolTime{};
 public:

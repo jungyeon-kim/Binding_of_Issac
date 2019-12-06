@@ -4,8 +4,6 @@
 
 class PlayerBullet : public GameActor
 {
-private:
-	class GameController* gameCon{};
 public:
 	PlayerBullet(const Vector& pos);
 	PlayerBullet(const Vector& pos, const Vector& vel);

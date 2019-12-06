@@ -25,7 +25,7 @@
 	--------------------------------------------  */
 
 #define gameMgr GameMgr::getInstance()
-#define gameCon GameCon::getInstance()
+#define gameCon GameController::getInstance()
 #define objMgr ObjMgr::getInstance()
 #define scnMgr ScnMgr::getInstance()
 #define texMgr TexMgr::getInstance()

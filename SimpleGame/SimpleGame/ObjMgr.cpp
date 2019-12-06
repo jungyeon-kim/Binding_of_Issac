@@ -25,7 +25,6 @@ ObjMgr* ObjMgr::getInstance()
 
 void ObjMgr::init()
 {
-	ScnMgr::getInstance();
 	physics = make_unique<Physics>();
 	obj = make_unique<multimap<Obj, unique_ptr<GameObj>, greater<>>>();
 }

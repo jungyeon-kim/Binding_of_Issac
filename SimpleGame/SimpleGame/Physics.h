@@ -6,7 +6,7 @@ class Physics
 {
 private:
 	Vector vel{};
-
+private:
 	bool bbOverlapTest(const GameObj& A, const GameObj& B);
 public:
 	Physics();

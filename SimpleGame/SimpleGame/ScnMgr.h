@@ -13,8 +13,6 @@ private:
 	std::vector<int> texID{};
 
 	static ScnMgr* instance;
-	class ObjMgr* objMgr{};
-	class TexMgr* texMgr{};
 	std::unique_ptr<class Renderer> renderer{};
 private:
 	ScnMgr();

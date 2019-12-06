@@ -18,8 +18,6 @@ GameObj::~GameObj()
 
 void GameObj::init()
 {
-	texture = TexMgr::getInstance();
-	gameCon = GameController::getInstance();
 	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
 	physics = make_unique<Physics>();
 }

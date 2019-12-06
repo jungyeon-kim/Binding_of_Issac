@@ -20,12 +20,11 @@ Player::~Player()
 
 void Player::init(const Vector& pos)
 {
-	objMgr = ObjMgr::getInstance();
 	maxCoolTime = make_unique<map<Skill, float>>();
 	currCoolTime = make_unique<map<Skill, float>>();
 
-	texID.emplace_back(texture->getTexture(Tex::ISAC_BODY));
-	texID.emplace_back(texture->getTexture(Tex::ISAC_HEAD));
+	texID.emplace_back(texMgr->getTexture(Tex::ISAC_BODY));
+	texID.emplace_back(texMgr->getTexture(Tex::ISAC_HEAD));
 
 	maxHP = 100.0f;
 	currHP = maxHP;

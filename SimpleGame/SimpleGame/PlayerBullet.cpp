@@ -23,9 +23,7 @@ PlayerBullet::~PlayerBullet()
 
 void PlayerBullet::init(const Vector& pos)
 {
-	gameCon = GameController::getInstance();
-
-	texID.emplace_back(texture->getTexture(Tex::BASIC_BULLET));
+	texID.emplace_back(texMgr->getTexture(Tex::BASIC_BULLET));
 	maxHP = 1.0f;
 	currHP = maxHP;
 	damage = 25.0f;

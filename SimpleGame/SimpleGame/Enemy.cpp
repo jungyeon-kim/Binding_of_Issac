@@ -15,7 +15,7 @@ Enemy::~Enemy()
 
 void Enemy::init(const Vector& pos)
 {
-	texID.emplace_back(texture->getTexture(Tex::TEST));
+	texID.emplace_back(texMgr->getTexture(Tex::TEST));
 	maxHP = 100.0f;
 	currHP = maxHP;
 	damage = 10.0f;

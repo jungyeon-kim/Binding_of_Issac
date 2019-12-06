@@ -7,9 +7,6 @@ private:
 	int currTime{}, prevTime{}, elapsedTime{};
 
 	static GameMgr* instance;
-	class ObjMgr* objMgr{};
-	class ScnMgr* scnMgr{};
-	class GameController* gameCon{};
 private:
 	GameMgr();
 	~GameMgr();

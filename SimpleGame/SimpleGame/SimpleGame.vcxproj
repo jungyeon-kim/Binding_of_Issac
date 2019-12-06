@@ -152,9 +152,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="BlockBox.h" />
     <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="Color.h" />

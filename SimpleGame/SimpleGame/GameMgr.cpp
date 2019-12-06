@@ -25,9 +25,6 @@ GameMgr* GameMgr::getInstance()
 
 void GameMgr::init()
 {
-	objMgr = ObjMgr::getInstance();
-	scnMgr = ScnMgr::getInstance();
-	gameCon = GameController::getInstance();
 }
 
 void GameMgr::update(float eTime)
