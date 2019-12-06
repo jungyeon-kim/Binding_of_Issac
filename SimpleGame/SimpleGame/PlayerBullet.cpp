@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Bullet.h"
+#include "PlayerBullet.h"
 #include "Physics.h"
 #include "Renderer.h"
 #include "TexMgr.h"
@@ -7,21 +7,21 @@
 
 using namespace std;
 
-Bullet::Bullet(const Vector& pos)
+PlayerBullet::PlayerBullet(const Vector& pos)
 {
 	init(pos);
 }
 
-Bullet::Bullet(const Vector& pos, const Vector& vel)
+PlayerBullet::PlayerBullet(const Vector& pos, const Vector& vel)
 {
 	init(pos, vel);
 }
 
-Bullet::~Bullet()
+PlayerBullet::~PlayerBullet()
 {
 }
 
-void Bullet::init(const Vector& pos)
+void PlayerBullet::init(const Vector& pos)
 {
 	gameCon = GameController::getInstance();
 
@@ -42,13 +42,13 @@ void Bullet::init(const Vector& pos)
 	objMass = 0.2f;
 }
 
-void Bullet::init(const Vector& pos, const Vector& vel)
+void PlayerBullet::init(const Vector& pos, const Vector& vel)
 {
 	init(pos);
 	objVel = objForce + vel;
 }
 
-void Bullet::update(float eTime)
+void PlayerBullet::update(float eTime)
 {
 	GameActor::update(eTime);
 
@@ -61,14 +61,14 @@ void Bullet::update(float eTime)
 	objPos = physics->getPos(objPos, objVel, objAcc, eTime);
 }
 
-void Bullet::render()
+void PlayerBullet::render()
 {
 	renderer->DrawTextureRect(objPos, objVol, objCol, texID[0]);
 
 	GameObj::render();		// 셰이더가 z축 기준으로 렌더링 되게 바뀌면 맨 앞에서 호출할 예정
 }
 
-void Bullet::addForce()
+void PlayerBullet::addForce()
 {
 	if (gameCon->getShoot().up) objForce.y += forceAmount;
 	else if (gameCon->getShoot().down) objForce.y -= forceAmount;

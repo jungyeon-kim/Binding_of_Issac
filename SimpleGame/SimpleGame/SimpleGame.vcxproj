@@ -156,7 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlockBox.h" />
-    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="GameActor.h" />
     <ClInclude Include="GameController.h" />
@@ -179,7 +179,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BlockBox.cpp" />
-    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="PlayerBullet.cpp" />
     <ClCompile Include="GameActor.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="GameMgr.cpp" />

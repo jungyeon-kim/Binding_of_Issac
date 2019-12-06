@@ -10,7 +10,6 @@ private:
 	static constexpr int MAX_OBJECT{ 5000 };
 
 	static ObjMgr* instance;
-	class GameController* gameCon{};
 	std::unique_ptr<class Physics> physics{};
 	ObjContainer<std::unique_ptr<class GameObj>> obj{};
 private:
@@ -28,6 +27,8 @@ public:
 	template <typename T>
 	void addObject(Obj name, const Vector& pos, const Vector& vel);
 	void deleteObject(Obj name);
+	void deleteAllObject();
+	void deleteAllObjectByException(Obj exceptedName);
 	void garbageCollect();
 
 	template <typename T>

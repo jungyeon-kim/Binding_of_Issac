@@ -6,11 +6,15 @@
 
 #include <tchar.h>
 #include <math.h>
+#include <assert.h>
+
 #include <iostream>
 #include <cstdlib>
+#include <random>
 #include <fstream>
 #include <memory>
 #include <algorithm>
+#include <iterator>
 #include <array>
 #include <vector>
 #include <map>
@@ -20,12 +24,18 @@
 					custom area	бщ
 	--------------------------------------------  */
 
+#define gameMgr GameMgr::getInstance()
+#define gameCon GameCon::getInstance()
+#define objMgr ObjMgr::getInstance()
+#define scnMgr ScnMgr::getInstance()
+#define texMgr TexMgr::getInstance()
+
 #include "Vector.h"
 #include "Color.h"
 #include "Direction.h"
 
-enum class Tex { TEST, ISAC_HEAD, ISAC_BODY, BASIC_BULLET };
-enum class Obj { BLOCK_BOX, PORTAL_BOX, PLAYER, ENEMY, BULLET };
+enum class Tex { TEST, BACK_GROUND, ISAC_HEAD, ISAC_BODY, BASIC_BULLET };
+enum class Obj { NONE, BLOCK_BOX, PORTAL_BOX, PLAYER, ENEMY, PLAYER_BULLET, ENEMY_BULLET };
 
 constexpr float meter(float centiMeter = 1)
 {

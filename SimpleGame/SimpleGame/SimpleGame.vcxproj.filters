@@ -99,9 +99,6 @@
     <ClInclude Include="Physics.h">
       <Filter>소스 파일\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>소스 파일\GameObj\Bullet</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>소스 파일\GameObj\Player</Filter>
     </ClInclude>
@@ -132,6 +129,9 @@
     <ClInclude Include="ScnMgr.h">
       <Filter>소스 파일\GameMgr\ScnMgr</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerBullet.h">
+      <Filter>소스 파일\GameObj\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -154,9 +154,6 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>소스 파일\GameObj\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>소스 파일\GameObj\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Physics.cpp">
       <Filter>소스 파일\Physics</Filter>
@@ -181,6 +178,9 @@
     </ClCompile>
     <ClCompile Include="ScnMgr.cpp">
       <Filter>소스 파일\GameMgr\ScnMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBullet.cpp">
+      <Filter>소스 파일\GameObj\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

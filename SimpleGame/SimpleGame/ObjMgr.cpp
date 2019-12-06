@@ -1,7 +1,7 @@
 #include "stdafx.h"		
 #include "ObjMgr.h"
+#include "ScnMgr.h"
 #include "Physics.h"
-#include "GameController.h"
 #include "GameActor.h"
 
 using namespace std;
@@ -25,8 +25,8 @@ ObjMgr* ObjMgr::getInstance()
 
 void ObjMgr::init()
 {
+	ScnMgr::getInstance();
 	physics = make_unique<Physics>();
-	gameCon = GameController::getInstance();
 	obj = make_unique<multimap<Obj, unique_ptr<GameObj>, greater<>>>();
 }
 
@@ -55,9 +55,6 @@ void ObjMgr::update(float eTime)
 
 void ObjMgr::render()
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.2f, 0.5f, 0.5f, 1.0f);
-
 	for (const auto& obj : *obj) obj.second->render();
 }
 
@@ -69,6 +66,21 @@ void ObjMgr::deleteObject(Obj name)
 	else cout << "Cannot delete. " << static_cast<int>(name) << " Object is not exist. \n";
 }
 
+void ObjMgr::deleteAllObject()
+{
+	for (auto& i = obj->cbegin(); i != obj->cend();) 
+		i = obj->erase(i);
+}
+
+void ObjMgr::deleteAllObjectByException(Obj exceptedName)
+{
+	for (auto& i = obj->cbegin(); i != obj->cend();)
+	{
+		if (i->first != exceptedName) i = obj->erase(i);
+		else ++i;
+	}
+}
+
 void ObjMgr::garbageCollect()
 {
 	for (auto& i = obj->cbegin(); i != obj->cend();)
@@ -77,6 +89,9 @@ void ObjMgr::garbageCollect()
 
 		switch (i->first)
 		{
+		case Obj::BLOCK_BOX: case Obj::PORTAL_BOX:
+			++i;
+			break;
 		case Obj::PLAYER:
 			++i;
 			break;
@@ -84,7 +99,7 @@ void ObjMgr::garbageCollect()
 			if (actor->getCurrHP() <= 0) i = obj->erase(i);
 			else ++i;
 			break;
-		case Obj::BULLET:
+		case Obj::PLAYER_BULLET: case Obj::ENEMY_BULLET:
 			if (!physics->getScalar(i->second->getVel())) i = obj->erase(i);
 			else if (actor->getCurrHP() <= 0) i = obj->erase(i);
 			else ++i;

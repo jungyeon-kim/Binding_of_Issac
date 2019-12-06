@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Player.h"
-#include "Bullet.h"
+#include "PlayerBullet.h"
 #include "Physics.h"
 #include "Renderer.h"
 #include "TexMgr.h"
@@ -26,6 +26,7 @@ void Player::init(const Vector& pos)
 
 	texID.emplace_back(texture->getTexture(Tex::ISAC_BODY));
 	texID.emplace_back(texture->getTexture(Tex::ISAC_HEAD));
+
 	maxHP = 100.0f;
 	currHP = maxHP;
 	damage = 0.0f;
@@ -59,7 +60,7 @@ void Player::update(float eTime)
 	// Decide whether to spawn a Bullet from Player
 	if (gameCon->isShoot() && isEndCoolTime(Skill::SHOOT))
 	{
-		objMgr->addObject<Bullet>(Obj::BULLET, objPos, objVel);
+		objMgr->addObject<PlayerBullet>(Obj::PLAYER_BULLET, objPos, objVel);
 		resetCoolTime(Skill::SHOOT);
 	}
 
@@ -82,7 +83,7 @@ void Player::update(float eTime)
 	if (alphaCnt > 20)
 	{
 		objCol.a = 1.0f;
-		alphaCnt = 0.0f;
+		alphaCnt = 0;
 	}
 }
 

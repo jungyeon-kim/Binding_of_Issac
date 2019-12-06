@@ -1,8 +1,5 @@
 #include "stdafx.h"
 #include "GameMgr.h"
-#include "GameController.h"
-
-GameMgr* gameMgr{};
 
 void Init(int argc, char** argv)
 {
@@ -19,6 +16,9 @@ void Init(int argc, char** argv)
 
 void RenderScene(int temp)
 {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0.2f, 0.5f, 0.5f, 1.0f);
+
 	gameMgr->update(static_cast<float>(gameMgr->getElapsedTime()) / 1000);
 	gameMgr->render();
 
@@ -61,8 +61,6 @@ void SpecialKeyUpInput(int key, int x, int y)
 int main(int argc, char **argv)
 {
 	Init(argc, argv);
-
-	gameMgr = GameMgr::getInstance();
 
 	glutDisplayFunc(Display);
 	glutIdleFunc(Idle);

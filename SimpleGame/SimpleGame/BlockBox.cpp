@@ -22,8 +22,10 @@ void BlockBox::init(const Vector& pos)
 	objVel;
 	objAcc;
 	objVol = { meter(0.95), meter(0.95), meter(0.95) };
-	objCol = { 0.5f, 0.5f, 0.5f, 1.0f };
+	objCol = { 1.0f, 1.0f, 1.0f, 1.0f };
 	objMass = 1.0f;
+
+	debugCol = { 1.0f, 0.0f, 0.0f, 0.0f };
 }
 
 void BlockBox::update(float eTime)
