@@ -78,6 +78,10 @@ void GameController::specialKeyDownInput(int key, int x, int y)
 	case GLUT_KEY_RIGHT:
 		objShoot = { false, false, false, true };
 		break;
+	case GLUT_KEY_F5:
+		if (!onDebugMode) onDebugMode = true;
+		else onDebugMode = false;
+		break;
 	}
 }
 
@@ -108,6 +112,11 @@ bool GameController::isMove() const
 bool GameController::isShoot() const
 {
 	return (objShoot.up || objShoot.down || objShoot.left || objShoot.right);
+}
+
+bool GameController::isRunDebugMode() const
+{
+	return onDebugMode;
 }
 
 const Direction& GameController::getShoot() const

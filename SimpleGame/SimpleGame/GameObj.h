@@ -9,10 +9,12 @@ protected:
 	Vector objPos{}, objVel{}, objAcc{}, objVol{}, objForce{};
 	Vector prevObjPos{};
 	Color objCol{};
+	Color debugCol{};
 
 	std::vector<int> texID{};
 
 	class TexMgr* texture{};
+	class GameController* gameCon{};
 	std::unique_ptr<class Renderer> renderer{};
 	std::unique_ptr<class Physics> physics{};
 public:

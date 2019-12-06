@@ -169,6 +169,7 @@
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="ScnMgr.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="TexMgr.h" />
@@ -188,6 +189,7 @@
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="ScnMgr.cpp" />
     <ClCompile Include="SimpleGame.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>

@@ -4,8 +4,10 @@
 class GameController final
 {
 private:
+	bool onDebugMode{};
 	Direction objShoot{};
 	Direction objDir{};
+
 	static GameController* instance;
 private:
 	GameController();
@@ -22,6 +24,7 @@ public:
 
 	bool isMove() const;
 	bool isShoot() const;
+	bool isRunDebugMode() const;
 
 	const Direction& getShoot() const;
 	const Direction& getDir() const;

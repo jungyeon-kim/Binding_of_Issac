@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "GameObj.h"
+#include "TexMgr.h"
+#include "GameController.h"
 #include "Renderer.h"
 #include "Physics.h"
-#include "TexMgr.h"
 
 using namespace std;
 
@@ -18,6 +19,7 @@ GameObj::~GameObj()
 void GameObj::init()
 {
 	texture = TexMgr::getInstance();
+	gameCon = GameController::getInstance();
 	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
 	physics = make_unique<Physics>();
 }
@@ -25,6 +27,14 @@ void GameObj::init()
 void GameObj::update(float eTime)
 {
 	prevObjPos = objPos;
+
+	if (gameCon->isRunDebugMode()) debugCol.a = 0.3f;
+	else debugCol.a = 0.0f;
+}
+
+void GameObj::render()
+{
+	renderer->DrawSolidRect(objPos, objVol, debugCol);
 }
 
 float GameObj::getForceAmount() const

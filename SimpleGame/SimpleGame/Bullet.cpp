@@ -64,6 +64,8 @@ void Bullet::update(float eTime)
 void Bullet::render()
 {
 	renderer->DrawTextureRect(objPos, objVol, objCol, texID[0]);
+
+	GameObj::render();		// 셰이더가 z축 기준으로 렌더링 되게 바뀌면 맨 앞에서 호출할 예정
 }
 
 void Bullet::addForce()

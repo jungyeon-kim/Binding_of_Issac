@@ -1,5 +1,6 @@
 #pragma once
 
+// Do not use this on constructor of ObjMgr class.
 template<typename T>
 void ObjMgr::addObject(Obj name, const Vector& pos)
 {
@@ -7,6 +8,7 @@ void ObjMgr::addObject(Obj name, const Vector& pos)
 	else cout << "Object is full. \n";
 }
 
+// Do not use this on constructor of ObjMgr class.
 template<typename T>
 void ObjMgr::addObject(Obj name, const Vector& pos, const Vector& vel)
 {

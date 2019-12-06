@@ -5,6 +5,7 @@
 class Player : public GameActor
 {
 private:
+	enum class Skill { SHOOT };
 	using CoolTimeContainer = std::unique_ptr<std::map<Skill, float>>;
 private:
 	static constexpr float MAX_VEL{ 7 };
@@ -13,7 +14,7 @@ private:
 	int nextBodyAnimX{};
 	int alphaCnt{};
 
-	class GameController* gameCon{};
+	class ObjMgr* objMgr{};
 	CoolTimeContainer maxCoolTime{};
 	CoolTimeContainer currCoolTime{};
 public:

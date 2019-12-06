@@ -16,14 +16,14 @@ BlockBox::~BlockBox()
 void BlockBox::init(const Vector& pos)
 {
 	forceAmount;
-	fricCoef = 9999.0f;
+	fricCoef = numeric_limits<float>::max();
 	objForce;
 	objPos = pos;
 	objVel;
 	objAcc;
-	objVol = { meter(), meter(), meter() };
-	objCol = { 1.0f, 1.0f, 1.0f, 1.0f };
-	objMass = 9999.0f;
+	objVol = { meter(0.95), meter(0.95), meter(0.95) };
+	objCol = { 0.5f, 0.5f, 0.5f, 1.0f };
+	objMass = 1.0f;
 }
 
 void BlockBox::update(float eTime)
@@ -42,7 +42,7 @@ void BlockBox::update(float eTime)
 
 void BlockBox::render()
 {
-	renderer->DrawSolidRect(objPos, objVol, objCol);
+	GameObj::render();		// 셰이더가 z축 기준으로 렌더링 되게 바뀌면 맨 앞에서 호출할 예정
 }
 
 void BlockBox::addForce()

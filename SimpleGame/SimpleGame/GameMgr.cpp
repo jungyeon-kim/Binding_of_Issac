@@ -1,6 +1,7 @@
 #include "stdafx.h"		
 #include "GameMgr.h"
 #include "ObjMgr.h"
+#include "ScnMgr.h"
 #include "GameController.h"
 
 using namespace std;
@@ -24,8 +25,9 @@ GameMgr* GameMgr::getInstance()
 
 void GameMgr::init()
 {
-	gameCon = GameController::getInstance();
 	objMgr = ObjMgr::getInstance();
+	scnMgr = ScnMgr::getInstance();
+	gameCon = GameController::getInstance();
 }
 
 void GameMgr::update(float eTime)

@@ -1,9 +1,11 @@
 #include "stdafx.h"
 #include "Player.h"
+#include "Bullet.h"
 #include "Physics.h"
 #include "Renderer.h"
 #include "TexMgr.h"
 #include "GameController.h"
+#include "ObjMgr.h"
 
 using namespace std;
 
@@ -18,7 +20,7 @@ Player::~Player()
 
 void Player::init(const Vector& pos)
 {
-	gameCon = GameController::getInstance();
+	objMgr = ObjMgr::getInstance();
 	maxCoolTime = make_unique<map<Skill, float>>();
 	currCoolTime = make_unique<map<Skill, float>>();
 
@@ -47,12 +49,19 @@ void Player::update(float eTime)
 
 	objForce = { 0.0f, 0.0f, 0.0f };
 	addForce();
-
+	      
 	// update Physics
 	objAcc = physics->getAcc(objAcc, objForce, objMass);
 	objVel = physics->getVel(objVel, objAcc, eTime, MAX_VEL);
 	objVel = physics->getVelByFric(objVel, objMass, fricCoef, eTime);
 	objPos = physics->getPos(objPos, objVel, objAcc, eTime);
+
+	// Decide whether to spawn a Bullet from Player
+	if (gameCon->isShoot() && isEndCoolTime(Skill::SHOOT))
+	{
+		objMgr->addObject<Bullet>(Obj::BULLET, objPos, objVel);
+		resetCoolTime(Skill::SHOOT);
+	}
 
 	// update CoolTime
 	for (auto& cool : *currCoolTime)
@@ -99,6 +108,8 @@ void Player::render()
 		{ 0.8f, 0.8f, 0.8f, 0.8f }, 100.0f);
 	renderer->DrawSolidRectGauge(objPos, { 0.0f, meter(0.7), 0.0f }, { objVol.x, meter(0.15), 0.0f },
 		{ 1.0f, 0.0f, 0.0f, 0.8f }, (currHP / maxHP) * 100.0f);
+
+	GameObj::render();		// 셰이더가 z축 기준으로 렌더링 되게 바뀌면 맨 앞에서 호출할 예정
 }
 
 void Player::addForce()

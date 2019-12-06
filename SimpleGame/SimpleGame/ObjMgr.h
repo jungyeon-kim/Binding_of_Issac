@@ -16,6 +16,12 @@ private:
 private:
 	ObjMgr();
 	~ObjMgr();
+public:
+	static ObjMgr* getInstance();
+
+	void init();
+	void update(float eTime);
+	void render();
 
 	template <typename T>
 	void addObject(Obj name, const Vector& pos);
@@ -23,12 +29,6 @@ private:
 	void addObject(Obj name, const Vector& pos, const Vector& vel);
 	void deleteObject(Obj name);
 	void garbageCollect();
-public:
-	static ObjMgr* getInstance();
-
-	void init();
-	void update(float eTime);
-	void render();
 
 	template <typename T>
 	T* tryGetObj(Obj name) const;

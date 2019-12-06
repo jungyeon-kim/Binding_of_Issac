@@ -2,7 +2,7 @@
 #include "ObjMgr.h"
 #include "Physics.h"
 #include "GameController.h"
-#include "ObjectSet.h"
+#include "GameActor.h"
 
 using namespace std;
 
@@ -28,28 +28,10 @@ void ObjMgr::init()
 	physics = make_unique<Physics>();
 	gameCon = GameController::getInstance();
 	obj = make_unique<multimap<Obj, unique_ptr<GameObj>, greater<>>>();
-
-	addObject<Player>(Obj::PLAYER, { 0.0f, 0.0f, 0.0f });
-	// test
-	addObject<Enemy>(Obj::ENEMY, { meter(2), 0.0f, 0.0f });
-	addObject<Enemy>(Obj::ENEMY, { meter(2), meter(3), 0.0f });
-	addObject<Enemy>(Obj::ENEMY, { meter(-5), meter(), 0.0f });
-	addObject<BlockBox>(Obj::BLOCK_BOX, { meter(-6), meter(-2), 0.0f });
-	//
 }
 
 void ObjMgr::update(float eTime)
 {
-	const auto& player{ tryGetObj<Player>(Obj::PLAYER) };
-
-	if (player)
-		// Decide whether to spawn a Bullet of Player
-		if (gameCon->isShoot() && player->isEndCoolTime(Skill::SHOOT))
-		{
-			addObject<Bullet>(Obj::BULLET, player->getPos(), player->getVel());
-			player->resetCoolTime(Skill::SHOOT);
-		}
-
 	// Check & Process to collision
 	for (auto i = obj->begin(); i != obj->end(); ++i)
 		for (auto j = i; j != obj->end(); ++j)

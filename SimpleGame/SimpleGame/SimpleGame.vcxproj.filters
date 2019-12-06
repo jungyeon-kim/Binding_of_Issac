@@ -61,6 +61,9 @@
     <Filter Include="소스 파일\GameObj\StaticMesh">
       <UniqueIdentifier>{05f03e71-2c3d-4427-a596-28cda5cc93da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\GameMgr\ScnMgr">
+      <UniqueIdentifier>{f30cf407-4823-4419-8cce-70713061234a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -126,6 +129,9 @@
     <ClInclude Include="BlockBox.h">
       <Filter>소스 파일\GameObj\StaticMesh</Filter>
     </ClInclude>
+    <ClInclude Include="ScnMgr.h">
+      <Filter>소스 파일\GameMgr\ScnMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -172,6 +178,9 @@
     </ClCompile>
     <ClCompile Include="BlockBox.cpp">
       <Filter>소스 파일\GameObj\StaticMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="ScnMgr.cpp">
+      <Filter>소스 파일\GameMgr\ScnMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
