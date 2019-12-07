@@ -72,7 +72,8 @@ void Player::update(float eTime)
 		}
 
 	// update Rendering Cycle
-	doAnimCycle(10, 2, 10);
+	doAnimCycle(10, 2, 0, 0);
+	doAnimCycle(10, 10, 0, 1);
 	if (objCol.a != 1.0f)
 		if (!(++alphaCnt % 20))
 		{
@@ -96,15 +97,15 @@ void Player::render()
 	static const Vector& headVol{ objVol.x * 1.1f, objVol.y, objVol.z };
 
 	if (!gameCon->isMove()) renderer->DrawTextureRectAnim(bodyPos, bodyVol, objCol, texID[0], 10, 4, 0, 1);
-	else if (gameCon->getDir().up) renderer->DrawTextureRectAnim(bodyPos, bodyVol, objCol, texID[0], 10, 4, nextBodyAnimX, 0);
-	else if (gameCon->getDir().down) renderer->DrawTextureRectAnim(bodyPos, bodyVol, objCol, texID[0], 10, 4, nextBodyAnimX, 1);
-	else if (gameCon->getDir().left) renderer->DrawTextureRectAnim(bodyPos, bodyVol, objCol, texID[0], 10, 4, nextBodyAnimX, 2);
-	else if (gameCon->getDir().right) renderer->DrawTextureRectAnim(bodyPos, bodyVol, objCol, texID[0], 10, 4, nextBodyAnimX, 3);
+	else if (gameCon->getDir().up) renderer->DrawTextureRectAnim(bodyPos, bodyVol, objCol, texID[0], 10, 4, nextAnimX[0], 0);
+	else if (gameCon->getDir().down) renderer->DrawTextureRectAnim(bodyPos, bodyVol, objCol, texID[0], 10, 4, nextAnimX[0], 1);
+	else if (gameCon->getDir().left) renderer->DrawTextureRectAnim(bodyPos, bodyVol, objCol, texID[0], 10, 4, nextAnimX[0], 2);
+	else if (gameCon->getDir().right) renderer->DrawTextureRectAnim(bodyPos, bodyVol, objCol, texID[0], 10, 4, nextAnimX[0], 3);
 	if (!gameCon->isShoot()) renderer->DrawTextureRectAnim(headPos, headVol, objCol, texID[1], 2, 4, 0, 1);
-	else if (gameCon->getShoot().up) renderer->DrawTextureRectAnim(headPos, headVol, objCol, texID[1], 2, 4, nextHeadAnimX, 0);
-	else if (gameCon->getShoot().down) renderer->DrawTextureRectAnim(headPos, headVol, objCol, texID[1], 2, 4, nextHeadAnimX, 1);
-	else if (gameCon->getShoot().left) renderer->DrawTextureRectAnim(headPos, headVol, objCol, texID[1], 2, 4, nextHeadAnimX, 2);
-	else if (gameCon->getShoot().right) renderer->DrawTextureRectAnim(headPos, headVol, objCol, texID[1], 2, 4, nextHeadAnimX, 3);
+	else if (gameCon->getShoot().up) renderer->DrawTextureRectAnim(headPos, headVol, objCol, texID[1], 2, 4, nextAnimX[1], 0);
+	else if (gameCon->getShoot().down) renderer->DrawTextureRectAnim(headPos, headVol, objCol, texID[1], 2, 4, nextAnimX[1], 1);
+	else if (gameCon->getShoot().left) renderer->DrawTextureRectAnim(headPos, headVol, objCol, texID[1], 2, 4, nextAnimX[1], 2);
+	else if (gameCon->getShoot().right) renderer->DrawTextureRectAnim(headPos, headVol, objCol, texID[1], 2, 4, nextAnimX[1], 3);
 
 	renderer->DrawSolidRectGauge(objPos, { 0.0f, meter(0.7f), 0.0f }, { objVol.x, meter(0.15f), 0.0f },
 		{ 0.8f, 0.8f, 0.8f, 0.8f }, 100.0f);
@@ -132,16 +133,6 @@ void Player::takeDamage(float damage)
 	{
 		objCol.a = 0.2f;
 		canDamaged = false;
-	}
-}
-
-void Player::doAnimCycle(int cyclePeriod, int nextXPeriod, int nextYPeriod)
-{
-	if (!(++animCycle % cyclePeriod))
-	{
-		++nextHeadAnimX %= nextXPeriod;
-		++nextBodyAnimX %= nextYPeriod;
-		animCycle = 0;
 	}
 }
 

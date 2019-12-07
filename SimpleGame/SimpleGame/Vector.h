@@ -4,70 +4,79 @@ struct Vector
 {
 	float x{}, y{}, z{};
 
-	Vector operator+(const Vector& rhs)
+	friend Vector operator-(Vector rhs)
 	{
-		x += rhs.x;
-		y += rhs.y;
-		z += rhs.z;
+		rhs.x *= -1;
+		rhs.y *= -1;
+		rhs.z *= -1;
 
-		return *this;
+		return rhs;
 	}
-	Vector operator+(float rhs)
+	friend Vector operator+(Vector lhs, const Vector& rhs)
 	{
-		x += rhs;
-		y += rhs;
-		z += rhs;
+		lhs.x += rhs.x;
+		lhs.y += rhs.y;
+		lhs.z += rhs.z;
 
-		return *this;
+		return lhs;
 	}
-	Vector operator-(const Vector& rhs)
+	friend Vector operator+(Vector lhs, float rhs)
 	{
-		x -= rhs.x;
-		y -= rhs.y;
-		z -= rhs.z;
+		lhs.x += rhs;
+		lhs.y += rhs;
+		lhs.z += rhs;
 
-		return *this;
+		return lhs;
 	}
-	Vector operator-(float rhs)
+	friend Vector operator-(Vector lhs, const Vector& rhs)
 	{
-		x -= rhs;
-		y -= rhs;
-		z -= rhs;
+		lhs.x -= rhs.x;
+		lhs.y -= rhs.y;
+		lhs.z -= rhs.z;
 
-		return *this;
+		return lhs;
 	}
-	Vector operator*(const Vector& rhs)
+	friend Vector operator-(Vector lhs, float rhs)
 	{
-		x *= rhs.x;
-		y *= rhs.y;
-		z *= rhs.z;
+		lhs.x -= rhs;
+		lhs.y -= rhs;
+		lhs.z -= rhs;
 
-		return *this;
+		return lhs;
 	}
-	Vector operator*(float rhs)
+	friend Vector operator*(Vector lhs, const Vector& rhs)
 	{
-		x *= rhs;
-		y *= rhs;
-		z *= rhs;
+		lhs.x *= rhs.x;
+		lhs.y *= rhs.y;
+		lhs.z *= rhs.z;
 
-		return *this;
+		return lhs;
 	}
-	Vector operator/(const Vector& rhs)
+	friend Vector operator*(Vector lhs, float rhs)
 	{
-		x /= rhs.x;
-		y /= rhs.y;
-		z /= rhs.z;
+		lhs.x *= rhs;
+		lhs.y *= rhs;
+		lhs.z *= rhs;
 
-		return *this;
+		return lhs;
 	}
-	Vector operator/(float rhs)
+	friend Vector operator/(Vector lhs, const Vector& rhs)
 	{
-		x /= rhs;
-		y /= rhs;
-		z /= rhs;
+		lhs.x /= rhs.x;
+		lhs.y /= rhs.y;
+		lhs.z /= rhs.z;
 
-		return *this;
+		return lhs;
 	}
+	friend Vector operator/(Vector lhs, float rhs)
+	{
+		lhs.x /= rhs;
+		lhs.y /= rhs;
+		lhs.z /= rhs;
+
+		return lhs;
+	}
+
 	bool operator<(const Vector& rhs)
 	{
 		return this->x < rhs.x || this->y < rhs.y || this->z < rhs.z;

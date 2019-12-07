@@ -10,10 +10,7 @@ private:
 private:
 	static constexpr float MAX_VEL{ 7 };
 
-	int nextHeadAnimX{};
-	int nextBodyAnimX{};
 	int alphaCnt{};
-
 	int canDamagedCycle{};
 	bool canDamaged{};
 
@@ -28,7 +25,7 @@ public:
 	virtual void render() override;
 	virtual void addForce() override;
 	virtual void takeDamage(float damage) override;
-	virtual void doAnimCycle(int cyclePeriod, int nextXPeriod, int nextYPeriod) override;
+	//virtual void doAnimCycle(int cyclePeriod, int nextXPeriod, int nextYPeriod) override;
 	virtual bool isReadyToDestroy() override;
 
 	bool isEndCoolTime(Skill name) const;

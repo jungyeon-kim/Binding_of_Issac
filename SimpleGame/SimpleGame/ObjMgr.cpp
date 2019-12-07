@@ -61,7 +61,7 @@ void ObjMgr::deleteObject(Obj name)
 	const auto& target{ obj->find(name) };
 
 	if (target != obj->end()) obj->erase(target);
-	else cout << "Cannot delete. " << static_cast<int>(name) << " Object is not exist. \n";
+	else cout << "deleteObject:: Cannot delete. " << static_cast<int>(name) << " Object is not exist. \n";
 }
 
 void ObjMgr::deleteAllObject()

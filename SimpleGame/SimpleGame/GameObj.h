@@ -3,8 +3,8 @@
 class GameObj abstract
 {
 protected:
-	float forceAmount{};	// ÈûÀÇ ¾ç
-	float fricCoef{};		// ¸¶Âû °è¼ö
+	float forceAmount{};
+	float fricCoef{};
 	float objMass{};
 	Vector objPos{}, objVel{}, objAcc{}, objVol{}, objForce{};
 	Vector prevObjPos{};

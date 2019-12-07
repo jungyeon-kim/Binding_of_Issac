@@ -55,21 +55,15 @@ const Vector& Physics::getVelByFric(Vector vel, float mass, float fricCoef, floa
 	if (scalarVec) 
 	{
 		// normalize vector
-		const Vector& unitVec{ vel.x / scalarVec, vel.y / scalarVec, vel.z / scalarVec };
+		const Vector& unitVec{ vel / scalarVec };
 		// calculate friction force
 		float forceAmount{ mass * gravity };							// force = mass * acc
-		const Vector& fricForce{										// fricForce = -unitVec * forceAmount * fricCoef
-			-unitVec.x * forceAmount * fricCoef,
-			-unitVec.y * forceAmount * fricCoef
-		};
+		const Vector& fricForce{ -unitVec * forceAmount * fricCoef };	// fricForce = -unitVec * forceAmount * fricCoef
 		// acceleration by fricForce
-		const Vector& acc{ fricForce.x / mass, fricForce.y / mass };	// acc = force / mass (음의 가속도)
+		const Vector& acc{ fricForce / mass };							// acc = force / mass (음의 가속도)
 		// update velocity
-		this->vel = {													// vel = vel + acc * eTime (속도 감소)
-			vel.x + acc.x * eTime,
-			vel.y + acc.y * eTime,
-			vel.z + acc.z * eTime
-		};
+		this->vel = { vel + acc * eTime };								// vel = vel + acc * eTime (속도 감소)
+
 		if (this->vel.x * vel.x < 0) vel.x = 0;
 		else vel.x = this->vel.x;
 		if (this->vel.y * vel.y < 0) vel.y = 0;
@@ -110,6 +104,9 @@ bool Physics::isOverlap(Obj lName, Obj rName, const GameObj& A, const GameObj& B
 		{
 		case 0:
 			if (isCollidable(lName, rName)) return bbOverlapTest(A, B);
+			return false;
+			break;
+		default:
 			return false;
 			break;
 		}

@@ -2,12 +2,25 @@
 #include "GameActor.h"
 #include "Physics.h"
 
+using namespace std;
+
 GameActor::GameActor()
 {
+	init();
 }
 
 GameActor::~GameActor()
 {
+}
+
+void GameActor::init()
+{
+	// must initialize it because of onAnimEnded().
+	for (int i = 0; i < MAX_ANIM_NUM; ++i)
+	{
+		finalAnimX[i] = -1;
+		finalAnimY[i] = -1;
+	}
 }
 
 void GameActor::update(float eTime)
@@ -25,14 +38,27 @@ void GameActor::takeDamage(float damage)
 	currHP -= damage;
 }
 
-void GameActor::doAnimCycle(int cyclePeriod, int nextXPeriod, int nextYPeriod)
+void GameActor::doAnimCycle(int cyclePeriod, int nextXPeriod, int nextYPeriod, int idx)
 {
-	if (!(++animCycle % cyclePeriod))
+	if (idx < 10)
 	{
-		++nextAnimX %= nextXPeriod;
-		if (!nextAnimX && nextYPeriod) ++nextAnimY %= nextYPeriod;
-		animCycle = 0;
+		finalAnimX[idx] = nextXPeriod - 1;
+		finalAnimY[idx] = nextYPeriod - 1;
+
+		if (!(++animCycle[idx] % cyclePeriod))
+		{
+			++nextAnimX[idx] %= nextXPeriod;
+			if (!nextAnimX[idx] && nextYPeriod) ++nextAnimY[idx] %= nextYPeriod;
+			animCycle[idx] = 0;
+		}
 	}
+	else
+		cout << "doAnimCycle:: Maximum animation index is 9. \n";
+}
+
+bool GameActor::onAnimEnded(int idx)
+{
+	return nextAnimX[idx] == finalAnimX[idx] && nextAnimY[idx] == finalAnimY[idx];
 }
 
 float GameActor::getMaxHP() const
