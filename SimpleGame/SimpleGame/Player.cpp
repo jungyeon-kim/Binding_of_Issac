@@ -23,8 +23,8 @@ void Player::init(const Vector& pos)
 	maxCoolTime = make_unique<map<Skill, float>>();
 	currCoolTime = make_unique<map<Skill, float>>();
 
-	texID.emplace_back(texMgr->getTexture(Tex::ISAC_BODY));
-	texID.emplace_back(texMgr->getTexture(Tex::ISAC_HEAD));
+	texID.emplace_back(texMgr->getTexture(Tex::PLAYER_BODY));
+	texID.emplace_back(texMgr->getTexture(Tex::PLAYER_HEAD));
 
 	maxHP = 100.0f;
 	currHP = maxHP;
@@ -36,7 +36,7 @@ void Player::init(const Vector& pos)
 	objPos = pos;
 	objVel;
 	objAcc;
-	objVol = { meter(), meter(), meter() };
+	objVol = { meter(0.7f), meter(0.7f), meter(0.7f) };
 	objCol = { 1.0f, 1.0f, 1.0f, 1.0f };
 	objMass = 1.0f;
 
@@ -71,27 +71,29 @@ void Player::update(float eTime)
 			if (cool.second < 0) cool.second = 0;
 		}
 
-	// update Rendering Data
-	if (!(++animCycle % 10))
+	// update Rendering Cycle
+	doAnimCycle(10, 2, 10);
+	if (objCol.a != 1.0f)
+		if (!(++alphaCnt % 20))
+		{
+			objCol.a = 1.0f;
+			alphaCnt = 0;
+		}
+
+	// update CanDamaged Cycle
+	if (!(++canDamagedCycle % 40))
 	{
-		++nextHeadAnimX %= 2;
-		++nextBodyAnimX %= 10;
-		animCycle = 0;
-	}
-	if (objCol.a != 1.0f) ++alphaCnt;
-	if (alphaCnt > 20)
-	{
-		objCol.a = 1.0f;
-		alphaCnt = 0;
+		canDamaged = true;
+		canDamagedCycle = 0;
 	}
 }
 
 void Player::render()
 {
-	const Vector& bodyPos{ objPos.x, objPos.y - meter(0.2), objPos.z };
-	const Vector& bodyVol{ objVol.x / 2.0f, objVol.y / 2.0f, objVol.z };
-	const Vector& headPos{ objPos.x, objPos.y + meter(0.2), objPos.z };
-	const Vector& headVol{ objVol.x / 1.3f, objVol.y / 1.4f, objVol.z };
+	const Vector& bodyPos{ objPos.x, objPos.y - meter(0.2f), objPos.z };
+	const Vector& headPos{ objPos.x, objPos.y + meter(0.2f), objPos.z };
+	static const Vector& bodyVol{ objVol.x / 1.5f, objVol.y / 1.5f, objVol.z };
+	static const Vector& headVol{ objVol.x * 1.1f, objVol.y, objVol.z };
 
 	if (!gameCon->isMove()) renderer->DrawTextureRectAnim(bodyPos, bodyVol, objCol, texID[0], 10, 4, 0, 1);
 	else if (gameCon->getDir().up) renderer->DrawTextureRectAnim(bodyPos, bodyVol, objCol, texID[0], 10, 4, nextBodyAnimX, 0);
@@ -104,12 +106,12 @@ void Player::render()
 	else if (gameCon->getShoot().left) renderer->DrawTextureRectAnim(headPos, headVol, objCol, texID[1], 2, 4, nextHeadAnimX, 2);
 	else if (gameCon->getShoot().right) renderer->DrawTextureRectAnim(headPos, headVol, objCol, texID[1], 2, 4, nextHeadAnimX, 3);
 
-	renderer->DrawSolidRectGauge(objPos, { 0.0f, meter(0.7), 0.0f }, { objVol.x, meter(0.15), 0.0f },
+	renderer->DrawSolidRectGauge(objPos, { 0.0f, meter(0.7f), 0.0f }, { objVol.x, meter(0.15f), 0.0f },
 		{ 0.8f, 0.8f, 0.8f, 0.8f }, 100.0f);
-	renderer->DrawSolidRectGauge(objPos, { 0.0f, meter(0.7), 0.0f }, { objVol.x, meter(0.15), 0.0f },
+	renderer->DrawSolidRectGauge(objPos, { 0.0f, meter(0.7f), 0.0f }, { objVol.x, meter(0.15f), 0.0f },
 		{ 1.0f, 0.0f, 0.0f, 0.8f }, (currHP / maxHP) * 100.0f);
 
-	GameObj::render();		// 셰이더가 z축 기준으로 렌더링 되게 바뀌면 맨 앞에서 호출할 예정
+	GameActor::render();		// 셰이더가 z축 기준으로 렌더링 되게 바뀌면 맨 앞에서 호출할 예정
 }
 
 void Player::addForce()
@@ -124,7 +126,28 @@ void Player::takeDamage(float damage)
 {
 	GameActor::takeDamage(damage);
 
-	objCol.a = 0.2f;
+	if (!canDamaged) 
+		currHP += damage;
+	else
+	{
+		objCol.a = 0.2f;
+		canDamaged = false;
+	}
+}
+
+void Player::doAnimCycle(int cyclePeriod, int nextXPeriod, int nextYPeriod)
+{
+	if (!(++animCycle % cyclePeriod))
+	{
+		++nextHeadAnimX %= nextXPeriod;
+		++nextBodyAnimX %= nextYPeriod;
+		animCycle = 0;
+	}
+}
+
+bool Player::isReadyToDestroy()
+{
+	return false;
 }
 
 bool Player::isEndCoolTime(Skill name) const

@@ -11,6 +11,7 @@ protected:
 	Color objCol{};
 	Color debugCol{};
 
+	bool canCollide{};
 	std::vector<int> texID{};
 
 	std::unique_ptr<class Renderer> renderer{};
@@ -24,6 +25,10 @@ public:
 	virtual void update(float eTime) = 0;
 	virtual void render() = 0;
 	virtual void addForce() = 0;
+	virtual bool isReadyToDestroy() = 0;
+
+	bool getEnableCollision() const;
+	void setEnableCollision(bool boolean);
 
 	float getForceAmount() const;
 	float getFricCoef() const;

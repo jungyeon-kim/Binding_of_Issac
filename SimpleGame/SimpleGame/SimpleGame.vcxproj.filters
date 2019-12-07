@@ -58,11 +58,11 @@
     <Filter Include="소스 파일\Renderer\shaders">
       <UniqueIdentifier>{aa86e47f-445f-4440-9a76-173363b46c4e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\GameObj\StaticMesh">
-      <UniqueIdentifier>{05f03e71-2c3d-4427-a596-28cda5cc93da}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\GameMgr\ScnMgr">
       <UniqueIdentifier>{f30cf407-4823-4419-8cce-70713061234a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\GameObj\StaticObj">
+      <UniqueIdentifier>{05f03e71-2c3d-4427-a596-28cda5cc93da}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -114,20 +114,23 @@
     <ClInclude Include="TexMgr.h">
       <Filter>소스 파일\GameMgr\TexMgr</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>소스 파일\GameObj\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="GameActor.h">
       <Filter>소스 파일\GameObj</Filter>
     </ClInclude>
     <ClInclude Include="BlockBox.h">
-      <Filter>소스 파일\GameObj\StaticMesh</Filter>
+      <Filter>소스 파일\GameObj\StaticObj</Filter>
     </ClInclude>
     <ClInclude Include="ScnMgr.h">
       <Filter>소스 파일\GameMgr\ScnMgr</Filter>
     </ClInclude>
     <ClInclude Include="PlayerBullet.h">
       <Filter>소스 파일\GameObj\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="MomsHand.h">
+      <Filter>소스 파일\GameObj\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Tentacle.h">
+      <Filter>소스 파일\GameObj\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -164,20 +167,23 @@
     <ClCompile Include="TexMgr.cpp">
       <Filter>소스 파일\GameMgr\TexMgr</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>소스 파일\GameObj\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="GameActor.cpp">
       <Filter>소스 파일\GameObj</Filter>
     </ClCompile>
     <ClCompile Include="BlockBox.cpp">
-      <Filter>소스 파일\GameObj\StaticMesh</Filter>
+      <Filter>소스 파일\GameObj\StaticObj</Filter>
     </ClCompile>
     <ClCompile Include="ScnMgr.cpp">
       <Filter>소스 파일\GameMgr\ScnMgr</Filter>
     </ClCompile>
     <ClCompile Include="PlayerBullet.cpp">
       <Filter>소스 파일\GameObj\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="MomsHand.cpp">
+      <Filter>소스 파일\GameObj\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Tentacle.cpp">
+      <Filter>소스 파일\GameObj\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

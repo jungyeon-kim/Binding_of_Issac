@@ -104,13 +104,18 @@ bool Physics::isCollidable(Obj lName, Obj rName)
 
 bool Physics::isOverlap(Obj lName, Obj rName, const GameObj& A, const GameObj& B, int collisionType)
 {
-	switch (collisionType)
+	if (A.getEnableCollision() && B.getEnableCollision())
 	{
-	case 0:
-		if (isCollidable(lName, rName)) return bbOverlapTest(A, B);
-		return false;
-		break;
+		switch (collisionType)
+		{
+		case 0:
+			if (isCollidable(lName, rName)) return bbOverlapTest(A, B);
+			return false;
+			break;
+		}
 	}
+	else 
+		return false;
 }
 
 void Physics::processCollision(GameObj& A, GameObj& B)

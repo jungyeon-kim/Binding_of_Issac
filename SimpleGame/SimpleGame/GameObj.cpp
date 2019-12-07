@@ -20,6 +20,8 @@ void GameObj::init()
 {
 	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
 	physics = make_unique<Physics>();
+
+	canCollide = true;
 }
 
 void GameObj::update(float eTime)
@@ -33,6 +35,16 @@ void GameObj::update(float eTime)
 void GameObj::render()
 {
 	renderer->DrawSolidRect(objPos, objVol, debugCol);
+}
+
+bool GameObj::getEnableCollision() const
+{
+	return canCollide;
+}
+
+void GameObj::setEnableCollision(bool boolean)
+{
+	canCollide = boolean;
 }
 
 float GameObj::getForceAmount() const

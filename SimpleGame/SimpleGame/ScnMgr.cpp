@@ -41,8 +41,8 @@ void ScnMgr::update(float eTime)
 void ScnMgr::render()
 {
 	// background test
-	renderer->DrawTextureRect({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f },
-		{ 1.0f, 1.0f, 1.0f, 1.0f }, texID[0]);
+	//renderer->DrawTextureRect({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f },
+		//{ 1.0f, 1.0f, 1.0f, 1.0f }, texID[0]);
 }
 
 bool ScnMgr::readTileData(string fileName)
@@ -75,10 +75,16 @@ void ScnMgr::setLevel(string fileName)
 		for (int i = 0; i < column; ++i)
 			for (int j = 0; j < row; ++j)
 			{
-				const Vector& tilePos{ meter(j - row / 2), meter(i - column / 2), 0.0f };
+				const Vector& tilePos{ 
+					meter(static_cast<float>(j - row / 2)), 
+					meter(static_cast<float>(i - column / 2)), 
+					0.0f };
 
 				switch (levelTile[i][j])
 				{
+				case -1:
+					objMgr->addObject<BlockBox>(Obj::BLOCK_BOX, tilePos, Tex::BLOCKBOX_ROCK);
+					break;
 				case 1:
 					objMgr->addObject<BlockBox>(Obj::BLOCK_BOX, tilePos);
 					break;
@@ -89,7 +95,10 @@ void ScnMgr::setLevel(string fileName)
 					objMgr->addObject<Player>(Obj::PLAYER, tilePos);
 					break;
 				case 4:
-					objMgr->addObject<Enemy>(Obj::ENEMY, tilePos);
+					objMgr->addObject<MomsHand>(Obj::ENEMY, tilePos);
+					break;
+				case 5:
+					objMgr->addObject<Tentacle>(Obj::ENEMY, tilePos);
 					break;
 				}
 			}

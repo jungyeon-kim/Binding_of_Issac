@@ -23,10 +23,12 @@ PlayerBullet::~PlayerBullet()
 
 void PlayerBullet::init(const Vector& pos)
 {
-	texID.emplace_back(texMgr->getTexture(Tex::BASIC_BULLET));
+	texID.emplace_back(texMgr->getTexture(Tex::PLAYER_BULLET));
+	texID.emplace_back(texMgr->getTexture(Tex::ENEMY_DEATH));
+
 	maxHP = 1.0f;
 	currHP = maxHP;
-	damage = 25.0f;
+	damage = 10.0f;
 
 	forceAmount = 10.0f;
 	fricCoef = 1.0f;
@@ -35,7 +37,7 @@ void PlayerBullet::init(const Vector& pos)
 	objPos = pos;
 	objVel = objForce;
 	objAcc;
-	objVol = { meter(0.25), meter(0.25), meter(0.25) };
+	objVol = { meter(0.25f), meter(0.25f), meter(0.25f) };
 	objCol = { 1.0f, 1.0f, 1.0f, 1.0f };
 	objMass = 0.2f;
 }
@@ -50,20 +52,36 @@ void PlayerBullet::update(float eTime)
 {
 	GameActor::update(eTime);
 
-	objForce = { 0.0f, 0.0f, 0.0f };
+	if (currHP > 0.0f && physics->getScalar(objVel))
+	{
+		objForce = { 0.0f, 0.0f, 0.0f };
 
-	// update Physics
-	objAcc = physics->getAcc(objAcc, objForce, objMass);
-	objVel = physics->getVel(objVel, objAcc, eTime);
-	objVel = physics->getVelByFric(objVel, objMass, fricCoef, eTime);
-	objPos = physics->getPos(objPos, objVel, objAcc, eTime);
+		// update Physics
+		objAcc = physics->getAcc(objAcc, objForce, objMass);
+		objVel = physics->getVel(objVel, objAcc, eTime);
+		objVel = physics->getVelByFric(objVel, objMass, fricCoef, eTime);
+		objPos = physics->getPos(objPos, objVel, objAcc, eTime);
+	}
+	else
+	{
+		setEnableCollision(false);
+		doAnimCycle(3, 4, 4);
+	}
 }
 
 void PlayerBullet::render()
 {
-	renderer->DrawTextureRect(objPos, objVol, objCol, texID[0]);
+	if (currHP > 0.0f && physics->getScalar(objVel))
+	{
+		renderer->DrawTextureRect(objPos, objVol, objCol, texID[0]);
+	}
+	else
+	{
+		static const Vector& deathAnimVol{ objVol.x * 2.0f, objVol.y * 2.0f, objVol.z };
+		renderer->DrawTextureRectAnim(objPos, deathAnimVol, objCol, texID[1], 4, 4, nextAnimX, nextAnimY);
+	}
 
-	GameObj::render();		// 셰이더가 z축 기준으로 렌더링 되게 바뀌면 맨 앞에서 호출할 예정
+	GameActor::render();		// 셰이더가 z축 기준으로 렌더링 되게 바뀌면 맨 앞에서 호출할 예정
 }
 
 void PlayerBullet::addForce()
@@ -72,4 +90,9 @@ void PlayerBullet::addForce()
 	else if (gameCon->getShoot().down) objForce.y -= forceAmount;
 	else if (gameCon->getShoot().left) objForce.x -= forceAmount;
 	else if (gameCon->getShoot().right) objForce.x += forceAmount;
+}
+
+bool PlayerBullet::isReadyToDestroy()
+{
+	return (currHP <= 0.0f || !physics->getScalar(objVel)) && nextAnimX == 3 && nextAnimY == 3;
 }

@@ -1,6 +1,5 @@
 #include "stdafx.h"		
 #include "ObjMgr.h"
-#include "ScnMgr.h"
 #include "Physics.h"
 #include "GameActor.h"
 
@@ -95,12 +94,11 @@ void ObjMgr::garbageCollect()
 			++i;
 			break;
 		case Obj::ENEMY:
-			if (actor->getCurrHP() <= 0) i = obj->erase(i);
+			if (actor->isReadyToDestroy()) i = obj->erase(i);
 			else ++i;
 			break;
 		case Obj::PLAYER_BULLET: case Obj::ENEMY_BULLET:
-			if (!physics->getScalar(i->second->getVel())) i = obj->erase(i);
-			else if (actor->getCurrHP() <= 0) i = obj->erase(i);
+			if (actor->isReadyToDestroy()) i = obj->erase(i);
 			else ++i;
 			break;
 		default:

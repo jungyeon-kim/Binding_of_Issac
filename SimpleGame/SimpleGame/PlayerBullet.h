@@ -14,4 +14,5 @@ public:
 	virtual void update(float eTime) override;
 	virtual void render() override;
 	virtual void addForce() override;
+	virtual bool isReadyToDestroy() override;
 };

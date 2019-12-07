@@ -26,6 +26,8 @@ public:
 	void addObject(Obj name, const Vector& pos);
 	template <typename T>
 	void addObject(Obj name, const Vector& pos, const Vector& vel);
+	template <typename T>
+	void addObject(Obj name, const Vector& pos, Tex texID);
 	void deleteObject(Obj name);
 	void deleteAllObject();
 	void deleteAllObjectByException(Obj exceptedName);

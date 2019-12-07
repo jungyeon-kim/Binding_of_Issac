@@ -25,6 +25,16 @@ void GameActor::takeDamage(float damage)
 	currHP -= damage;
 }
 
+void GameActor::doAnimCycle(int cyclePeriod, int nextXPeriod, int nextYPeriod)
+{
+	if (!(++animCycle % cyclePeriod))
+	{
+		++nextAnimX %= nextXPeriod;
+		if (!nextAnimX && nextYPeriod) ++nextAnimY %= nextYPeriod;
+		animCycle = 0;
+	}
+}
+
 float GameActor::getMaxHP() const
 {
 	return maxHP;

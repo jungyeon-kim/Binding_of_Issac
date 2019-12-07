@@ -26,9 +26,13 @@ void TexMgr::init()
 
 	texture->emplace(Tex::TEST, renderer->GenPngTexture("./Textures/TestImg.png"));
 	texture->emplace(Tex::BACK_GROUND, renderer->GenPngTexture("./Textures/BACK_GROUND.png"));
-	texture->emplace(Tex::ISAC_HEAD, renderer->GenPngTexture("./Textures/ISAC_HEAD.png"));
-	texture->emplace(Tex::ISAC_BODY, renderer->GenPngTexture("./Textures/ISAC_BODY.png"));
-	texture->emplace(Tex::BASIC_BULLET, renderer->GenPngTexture("./Textures/BASIC_BULLET.png"));
+	texture->emplace(Tex::BLOCKBOX_ROCK, renderer->GenPngTexture("./Textures/BLOCKBOX_ROCK.png"));
+	texture->emplace(Tex::PLAYER_HEAD, renderer->GenPngTexture("./Textures/PLAYER_HEAD.png"));
+	texture->emplace(Tex::PLAYER_BODY, renderer->GenPngTexture("./Textures/PLAYER_BODY.png"));
+	texture->emplace(Tex::PLAYER_BULLET, renderer->GenPngTexture("./Textures/PLAYER_BULLET.png"));
+	texture->emplace(Tex::ENEMY_DEATH, renderer->GenPngTexture("./Textures/ENEMY_DEATH.png"));
+	texture->emplace(Tex::ENEMY_MOMS_HAND, renderer->GenPngTexture("./Textures/ENEMY_MOMS_HAND.png"));
+	texture->emplace(Tex::ENEMY_TENTACLE, renderer->GenPngTexture("./Textures/ENEMY_TENTACLE.png"));
 }
 
 int TexMgr::getTexture(Tex name) const

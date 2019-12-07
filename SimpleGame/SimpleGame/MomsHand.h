@@ -1,20 +1,21 @@
 #pragma once
 
-#include "GameObj.h"
+#include "GameActor.h"
 
-class BlockBox : public GameObj
+class MomsHand : public GameActor
 {
 private:
+	float dirX{}, dirY{};
+
 	std::random_device seed{};
 	std::default_random_engine dre{ seed() };
-	std::uniform_int_distribution<> uid{ 0, 100 };
+	std::uniform_int_distribution<> uidX{ -1, 1 };
+	std::uniform_int_distribution<> uidY{ -1, 1 };
 public:
-	BlockBox(const Vector& pos);
-	BlockBox(const Vector& pos, Tex texID);
-	virtual ~BlockBox();
+	MomsHand(const Vector& pos);
+	~MomsHand();
 
 	virtual void init(const Vector & pos) override;
-	virtual void init(const Vector& pos, Tex texID);
 	virtual void update(float eTime) override;
 	virtual void render() override;
 	virtual void addForce() override;
