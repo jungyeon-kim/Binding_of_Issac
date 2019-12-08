@@ -16,7 +16,7 @@ MomsHand::~MomsHand()
 void MomsHand::init(const Vector& pos)
 {
 	texID.emplace_back(texMgr->getTexture(Tex::ENEMY_MOMS_HAND));
-	texID.emplace_back(texMgr->getTexture(Tex::ENEMY_DEATH1));
+	texID.emplace_back(texMgr->getTexture(Tex::P_BLOOD1));
 
 	maxHP = 100.0f;
 	currHP = maxHP;
@@ -28,7 +28,7 @@ void MomsHand::init(const Vector& pos)
 	objPos = pos;
 	objVel;
 	objAcc;
-	objVol = { meter(2.0f), meter(2.0f), meter(2.0f) };
+	objVol = { meter(), meter(), meter() };
 	objCol = { 1.0f, 1.0f, 1.0f, 1.0f };
 	objMass = 2.0f;
 }
@@ -61,7 +61,8 @@ void MomsHand::render()
 {
 	if (currHP > 0.0f)
 	{
-		renderer->DrawTextureRectAnim(objPos, objVol, objCol, texID[0], 5, 2, nextAnimX[0], nextAnimY[0]);
+		static const Vector& texVol{ objVol.x * 2.0f, objVol.y * 2.0f, objVol.z };
+		renderer->DrawTextureRectAnim(objPos, texVol, objCol, texID[0], 5, 2, nextAnimX[0], nextAnimY[0]);
 		renderer->DrawSolidRectGauge(objPos, { 0.0f, meter(0.7f), 0.0f }, { objVol.x, meter(0.15f), 0.0f },
 			{ 0.8f, 0.8f, 0.8f, 0.8f }, 100.0f);
 		renderer->DrawSolidRectGauge(objPos, { 0.0f, meter(0.7f), 0.0f }, { objVol.x, meter(0.15f), 0.0f },
@@ -69,8 +70,8 @@ void MomsHand::render()
 	}
 	else
 	{
-		static const Vector& deathAnimVol{ objVol.x * 2.0f, objVol.y * 2.0f, objVol.z };
-		renderer->DrawTextureRectAnim(objPos, deathAnimVol, objCol, texID[1], 4, 4, nextAnimX[1], nextAnimY[1]);
+		static const Vector& texVol{ objVol.x * 4.0f, objVol.y * 4.0f, objVol.z };
+		renderer->DrawTextureRectAnim(objPos, texVol, objCol, texID[1], 4, 4, nextAnimX[1], nextAnimY[1]);
 	}
 
 	GameActor::render();		// 셰이더가 z축 기준으로 렌더링 되게 바뀌면 맨 앞에서 호출할 예정

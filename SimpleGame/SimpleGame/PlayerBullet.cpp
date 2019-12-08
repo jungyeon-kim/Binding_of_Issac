@@ -24,7 +24,7 @@ PlayerBullet::~PlayerBullet()
 void PlayerBullet::init(const Vector& pos)
 {
 	texID.emplace_back(texMgr->getTexture(Tex::PLAYER_BULLET));
-	texID.emplace_back(texMgr->getTexture(Tex::ENEMY_DEATH1));
+	texID.emplace_back(texMgr->getTexture(Tex::P_BLOOD3));
 
 	maxHP = 1.0f;
 	currHP = maxHP;
@@ -77,9 +77,9 @@ void PlayerBullet::render()
 	}
 	else
 	{
-		static const Vector& deathAnimVol{ objVol.x * 4.0f, objVol.y * 4.0f, objVol.z };
-		static const Color& deathAnimCol{ 0.0f, 0.0f, 0.0f, 1.0f };
-		renderer->DrawTextureRectAnim(objPos, deathAnimVol, deathAnimCol, texID[1], 4, 4, nextAnimX[0], nextAnimY[0]);
+		static const Vector& texVol{ objVol.x * 3.0f, objVol.y * 3.0f, objVol.z };
+		static const Color& texCol{ 0.0f, 1.0f, 1.0f, 1.0f };
+		renderer->DrawTextureRectAnim(objPos, texVol, texCol, texID[1], 4, 4, nextAnimX[0], nextAnimY[0]);
 	}
 
 	GameActor::render();		// 셰이더가 z축 기준으로 렌더링 되게 바뀌면 맨 앞에서 호출할 예정

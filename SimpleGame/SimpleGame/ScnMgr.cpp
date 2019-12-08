@@ -41,8 +41,7 @@ void ScnMgr::update(float eTime)
 void ScnMgr::render()
 {
 	// background test
-	renderer->DrawTextureRect({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f },
-		{ 1.0f, 1.0f, 1.0f, 1.0f }, texID[0]);
+	//renderer->DrawTextureRect({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[0]);
 }
 
 bool ScnMgr::readTileData(string fileName)
