@@ -11,7 +11,7 @@ protected:
 	Color objCol{};
 	Color debugCol{};
 
-	bool canCollide{};
+	bool enableCollsion{};
 	std::vector<int> texID{};
 
 	std::unique_ptr<class Renderer> renderer{};

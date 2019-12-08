@@ -2,11 +2,13 @@
 *.db
 *.db-shm
 *.db-wal
-*.obj
 *.idb
+*.obj
+*.iobj
 *.pdb
+*.ipdb
 *.exe
 *.ilk
 *.log
-*.pch
 *.tlog
+*.pch

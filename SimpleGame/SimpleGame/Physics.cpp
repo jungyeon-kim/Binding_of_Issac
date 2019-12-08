@@ -111,8 +111,8 @@ bool Physics::isOverlap(Obj lName, Obj rName, const GameObj& A, const GameObj& B
 			break;
 		}
 	}
-	else 
-		return false;
+	
+	return false;
 }
 
 void Physics::processCollision(GameObj& A, GameObj& B)

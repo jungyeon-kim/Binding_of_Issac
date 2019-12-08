@@ -83,7 +83,7 @@ void Player::update(float eTime)
 		}
 
 	// update CanDamaged Cycle
-	if (!(++canDamagedCycle % 40))
+	if (!(++canDamagedCycle % 60))
 	{
 		canDamaged = true;
 		canDamagedCycle = 0;

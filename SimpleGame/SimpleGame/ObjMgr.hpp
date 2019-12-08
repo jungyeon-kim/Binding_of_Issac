@@ -19,7 +19,7 @@ void ObjMgr::addObject(Obj name, const Vector& pos, const Vector& vel)
 
 // Do not use this on constructor of ObjMgr class.
 template<typename T>
-inline void ObjMgr::addObject(Obj name, const Vector & pos, Tex texID)
+void ObjMgr::addObject(Obj name, const Vector & pos, Tex texID)
 {
 	if (obj->size() < MAX_OBJECT) obj->emplace(name, make_unique<T>(pos, texID));
 	else cout << "addObject:: Object is full. \n";
