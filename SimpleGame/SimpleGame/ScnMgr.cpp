@@ -29,6 +29,7 @@ void ScnMgr::init()
 	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
 
 	texID.emplace_back(texMgr->getTexture(Tex::BACK_GROUND));
+	texID.emplace_back(texMgr->getTexture(Tex::FRONT_FRAME));
 
 	setLevel("Levels/STAGE1.txt");
 	objMgr->addObject<Player>(Obj::PLAYER, { 0, 0, 0 });
@@ -41,7 +42,8 @@ void ScnMgr::update(float eTime)
 void ScnMgr::render()
 {
 	// background test
-	//renderer->DrawTextureRect({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[0]);
+	//renderer->DrawTextureRect({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[0]);
+	//renderer->DrawTextureRect({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[1]);
 }
 
 bool ScnMgr::readTileData(string fileName)
@@ -88,7 +90,7 @@ void ScnMgr::setLevel(string fileName)
 					objMgr->addObject<BlockBox>(Obj::BLOCK_BOX, tilePos);
 					break;
 				case 2:
-					//objMgr->addObject<PortalBox>(Obj::PORTAL_BOX, tilePos);
+					objMgr->addObject<PortalBox>(Obj::PORTAL_BOX, tilePos);
 					break;
 				case 3:
 					objMgr->addObject<Player>(Obj::PLAYER, tilePos);

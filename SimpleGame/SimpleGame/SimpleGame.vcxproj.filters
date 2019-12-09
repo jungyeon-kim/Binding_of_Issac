@@ -120,9 +120,6 @@
     <ClInclude Include="BlockBox.h">
       <Filter>소스 파일\GameObj\StaticObj</Filter>
     </ClInclude>
-    <ClInclude Include="ScnMgr.h">
-      <Filter>소스 파일\GameMgr\ScnMgr</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerBullet.h">
       <Filter>소스 파일\GameObj\Bullet</Filter>
     </ClInclude>
@@ -131,6 +128,15 @@
     </ClInclude>
     <ClInclude Include="Tentacle.h">
       <Filter>소스 파일\GameObj\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="ScnMgr.h">
+      <Filter>소스 파일\GameMgr\ScnMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Enum.h">
+      <Filter>헤더 파일\Struct</Filter>
+    </ClInclude>
+    <ClInclude Include="PortalBox.h">
+      <Filter>소스 파일\GameObj\StaticObj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +190,9 @@
     </ClCompile>
     <ClCompile Include="Tentacle.cpp">
       <Filter>소스 파일\GameObj\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="PortalBox.cpp">
+      <Filter>소스 파일\GameObj\StaticObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

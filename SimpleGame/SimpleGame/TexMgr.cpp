@@ -26,6 +26,7 @@ void TexMgr::init()
 
 	texture->emplace(Tex::TEST, renderer->GenPngTexture("./Textures/TestImg.png"));
 	texture->emplace(Tex::BACK_GROUND, renderer->GenPngTexture("./Textures/BACK_GROUND.png"));
+	texture->emplace(Tex::FRONT_FRAME, renderer->GenPngTexture("./Textures/FRONT_FRAME.png"));
 	texture->emplace(Tex::BLOCKBOX_ROCK, renderer->GenPngTexture("./Textures/BLOCKBOX_ROCK.png"));
 
 	texture->emplace(Tex::P_BLOOD1, renderer->GenPngTexture("./Textures/P_BLOOD1.png"));

@@ -98,33 +98,33 @@ bool Physics::isCollidable(Obj lName, Obj rName)
 
 bool Physics::isOverlap(Obj lName, Obj rName, const GameObj& A, const GameObj& B, int collisionType)
 {
-	if (A.getEnableCollision() && B.getEnableCollision())
+	switch (collisionType)
 	{
-		switch (collisionType)
-		{
-		case 0:
-			if (isCollidable(lName, rName)) return bbOverlapTest(A, B);
-			return false;
-			break;
-		default:
-			return false;
-			break;
-		}
+	case 0:
+		if (isCollidable(lName, rName)) return bbOverlapTest(A, B);
+		return false;
+		break;
+	default:
+		return false;
+		break;
 	}
-	
+
 	return false;
 }
 
 void Physics::processCollision(GameObj& A, GameObj& B)
 {
-	float aMass{ A.getMass() }, bMass{ B.getMass() };
-	Vector aFinalVel{}, bFinalVel{};
+	if (A.getEnableCollision() && B.getEnableCollision())
+	{
+		float aMass{ A.getMass() }, bMass{ B.getMass() };
+		Vector aFinalVel{}, bFinalVel{};
 
-	aFinalVel = A.getVel() * (aMass - bMass) / (aMass + bMass) + B.getVel() * 2.0f * bMass / (aMass + bMass);
-	bFinalVel = B.getVel() * (bMass - aMass) / (bMass + aMass) + A.getVel() * 2.0f * aMass / (bMass + aMass);
+		aFinalVel = A.getVel() * (aMass - bMass) / (aMass + bMass) + B.getVel() * 2.0f * bMass / (aMass + bMass);
+		bFinalVel = B.getVel() * (bMass - aMass) / (bMass + aMass) + A.getVel() * 2.0f * aMass / (bMass + aMass);
 
-	A.setPos(A.getPrevPos());
-	B.setPos(B.getPrevPos());
-	A.setVel(aFinalVel);
-	B.setVel(bFinalVel);
+		A.setPos(A.getPrevPos());
+		B.setPos(B.getPrevPos());
+		A.setVel(aFinalVel);
+		B.setVel(bFinalVel);
+	}
 }

@@ -28,26 +28,13 @@
 #include "Vector.h"
 #include "Color.h"
 #include "Direction.h"
+#include "Enum.h"
 
 #define gameMgr GameMgr::getInstance()
 #define gameCon GameController::getInstance()
 #define objMgr ObjMgr::getInstance()
 #define scnMgr ScnMgr::getInstance()
 #define texMgr TexMgr::getInstance()
-
-enum class Tex { 
-	TEST, BACK_GROUND, BLOCKBOX_ROCK,
-	P_BLOOD1, P_BLOOD2, P_BLOOD3,
-	PLAYER_HEAD, PLAYER_BODY, 
-	PLAYER_BULLET, ENEMY_BULLET,
-	ENEMY_MOMS_HAND, ENEMY_TENTACLE
-};
-enum class Obj { 
-	NONE, 
-	BLOCK_BOX, PORTAL_BOX, 
-	PLAYER, PLAYER_BULLET, 
-	ENEMY, ENEMY_BULLET
-};
 
 constexpr float meter(float centiMeter = 1.0f)
 {

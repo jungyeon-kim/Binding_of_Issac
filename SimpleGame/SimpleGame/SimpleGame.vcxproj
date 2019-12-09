@@ -153,6 +153,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BlockBox.h" />
+    <ClInclude Include="Enum.h" />
     <ClInclude Include="MomsHand.h" />
     <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="Color.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="ObjMgr.hpp" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PortalBox.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ScnMgr.h" />
     <ClInclude Include="stdafx.h" />
@@ -187,6 +189,7 @@
     <ClCompile Include="ObjMgr.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PortalBox.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ScnMgr.cpp" />
     <ClCompile Include="SimpleGame.cpp">

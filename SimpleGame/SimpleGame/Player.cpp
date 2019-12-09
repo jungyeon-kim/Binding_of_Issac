@@ -72,8 +72,8 @@ void Player::update(float eTime)
 		}
 
 	// update Rendering Cycle
-	doAnimCycle(10, 2, 0, 0);
-	doAnimCycle(10, 10, 0, 1);
+	doAnimCycle(10, 10, 0, 0);
+	doAnimCycle(10, 2, 0, 1);
 
 	if (objCol.a != 1.0f)
 		if (!(++alphaCnt % 20))
@@ -83,11 +83,12 @@ void Player::update(float eTime)
 		}
 
 	// update CanDamaged Cycle
-	if (!(++canDamagedCycle % 60))
-	{
-		canDamaged = true;
-		canDamagedCycle = 0;
-	}
+	if (!canDamaged)
+		if (!(++canDamagedCycle % 60))
+		{
+			canDamaged = true;
+			canDamagedCycle = 0;
+		}
 }
 
 void Player::render()
@@ -108,11 +109,6 @@ void Player::render()
 	else if (gameCon->getShoot().left) renderer->DrawTextureRectAnim(heaTexPos, headTexVol, objCol, texID[1], 2, 4, nextAnimX[1], 2);
 	else if (gameCon->getShoot().right) renderer->DrawTextureRectAnim(heaTexPos, headTexVol, objCol, texID[1], 2, 4, nextAnimX[1], 3);
 
-	renderer->DrawSolidRectGauge(objPos, { 0.0f, meter(0.7f), 0.0f }, { objVol.x, meter(0.15f), 0.0f },
-		{ 0.8f, 0.8f, 0.8f, 0.8f }, 100.0f);
-	renderer->DrawSolidRectGauge(objPos, { 0.0f, meter(0.7f), 0.0f }, { objVol.x, meter(0.15f), 0.0f },
-		{ 1.0f, 0.0f, 0.0f, 0.8f }, (currHP / maxHP) * 100.0f);
-
 	GameActor::render();		// 셰이더가 z축 기준으로 렌더링 되게 바뀌면 맨 앞에서 호출할 예정
 }
 
@@ -124,14 +120,11 @@ void Player::addForce()
 	if (gameCon->getDir().right) objForce.x += forceAmount;
 }
 
-void Player::takeDamage(float damage)
+void Player::takeDamage(float damage, const GameActor& attacker)
 {
-	GameActor::takeDamage(damage);
-
-	if (!canDamaged) 
-		currHP += damage;
-	else
+	if (attacker.getEnableCollision() && canDamaged)
 	{
+		currHP -= damage;
 		objCol.a = 0.2f;
 		canDamaged = false;
 	}

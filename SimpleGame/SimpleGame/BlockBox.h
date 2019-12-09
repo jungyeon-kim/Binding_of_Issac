@@ -14,7 +14,7 @@ public:
 	virtual ~BlockBox();
 
 	virtual void init(const Vector & pos) override;
-	virtual void init(const Vector& pos, Tex texID);
+	void init(const Vector& pos, Tex texID);
 	virtual void update(float eTime) override;
 	virtual void render() override;
 	virtual void addForce() override;

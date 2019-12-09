@@ -8,7 +8,7 @@ private:
 	enum class Skill { SHOOT };
 	using CoolTimeContainer = std::unique_ptr<std::map<Skill, float>>;
 private:
-	static constexpr float MAX_VEL{ 7 };
+	static constexpr float MAX_VEL{ 5 };
 
 	int alphaCnt{};
 	int canDamagedCycle{};
@@ -24,7 +24,7 @@ public:
 	virtual void update(float eTime) override;
 	virtual void render() override;
 	virtual void addForce() override;
-	virtual void takeDamage(float damage) override;
+	virtual void takeDamage(float damage, const GameActor& attacker) override;
 	virtual bool isReadyToDestroy() override;
 
 	bool isEndCoolTime(Skill name) const;

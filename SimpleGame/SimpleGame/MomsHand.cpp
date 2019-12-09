@@ -61,12 +61,9 @@ void MomsHand::render()
 {
 	if (currHP > 0.0f)
 	{
+		const Vector& texPos{ objPos.x, objPos.y + meter(0.3f), objPos.z };
 		static const Vector& texVol{ objVol.x * 2.0f, objVol.y * 2.0f, objVol.z };
-		renderer->DrawTextureRectAnim(objPos, texVol, objCol, texID[0], 5, 2, nextAnimX[0], nextAnimY[0]);
-		renderer->DrawSolidRectGauge(objPos, { 0.0f, meter(0.7f), 0.0f }, { objVol.x, meter(0.15f), 0.0f },
-			{ 0.8f, 0.8f, 0.8f, 0.8f }, 100.0f);
-		renderer->DrawSolidRectGauge(objPos, { 0.0f, meter(0.7f), 0.0f }, { objVol.x, meter(0.15f), 0.0f },
-			{ 1.0f, 0.0f, 0.0f, 0.8f }, (currHP / maxHP) * 100.0f);
+		renderer->DrawTextureRectAnim(texPos, texVol, objCol, texID[0], 5, 2, nextAnimX[0], nextAnimY[0]);
 	}
 	else
 	{

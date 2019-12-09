@@ -24,7 +24,7 @@ public:
 	virtual void render() override = 0;
 	virtual void addForce() override = 0;
 	virtual bool isReadyToDestroy() override = 0;
-	virtual void takeDamage(float damage);
+	virtual void takeDamage(float damage, const GameActor& attacker);
 	// Maximum animation index is 9.
 	virtual void doAnimCycle(int cyclePeriod, int nextXPeriod, int nextYPeriod, int idx);
 	virtual bool onAnimEnded(int idx);

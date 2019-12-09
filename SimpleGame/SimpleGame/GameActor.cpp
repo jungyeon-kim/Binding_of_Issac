@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "GameActor.h"
+#include "GameController.h"
+#include "Renderer.h"
 #include "Physics.h"
 
 using namespace std;
@@ -31,11 +33,19 @@ void GameActor::update(float eTime)
 void GameActor::render()
 {
 	GameObj::render();
+
+	if (gameCon->isRunDebugMode())
+	{
+		renderer->DrawSolidRectGauge(objPos, { 0.0f, objVol.y / 2.0f, 0.0f },
+			{ objVol.x, meter(0.15f), 0.0f }, { 0.8f, 0.8f, 0.8f, 0.8f }, 100.0f);
+		renderer->DrawSolidRectGauge(objPos, { 0.0f, objVol.y / 2.0f, 0.0f },
+			{ objVol.x, meter(0.15f), 0.0f }, { 1.0f, 0.0f, 0.0f, 0.8f }, (currHP / maxHP) * 100.0f);
+	}
 }
 
-void GameActor::takeDamage(float damage)
+void GameActor::takeDamage(float damage, const GameActor& attacker)
 {
-	currHP -= damage;
+	if (attacker.getEnableCollision()) currHP -= damage;
 }
 
 void GameActor::doAnimCycle(int cyclePeriod, int nextXPeriod, int nextYPeriod, int idx)

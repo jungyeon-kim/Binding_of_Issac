@@ -18,7 +18,7 @@ void Tentacle::init(const Vector & pos)
 	texID.emplace_back(texMgr->getTexture(Tex::ENEMY_TENTACLE));
 	texID.emplace_back(texMgr->getTexture(Tex::P_BLOOD2));
 
-	maxHP = 50.0f;
+	maxHP = 20.0f;
 	currHP = maxHP;
 	damage = 20.0f;
 
@@ -63,10 +63,6 @@ void Tentacle::render()
 	{
 		static const Vector& texVol{ objVol.x * 1.8f, objVol.y * 1.8f, objVol.z };
 		renderer->DrawTextureRectAnim(objPos, texVol, objCol, texID[0], 6, 1, nextAnimX[0], 0);
-		renderer->DrawSolidRectGauge(objPos, { 0.0f, meter(0.7f), 0.0f }, { objVol.x, meter(0.15f), 0.0f },
-			{ 0.8f, 0.8f, 0.8f, 0.8f }, 100.0f);
-		renderer->DrawSolidRectGauge(objPos, { 0.0f, meter(0.7f), 0.0f }, { objVol.x, meter(0.15f), 0.0f },
-			{ 1.0f, 0.0f, 0.0f, 0.8f }, (currHP / maxHP) * 100.0f);
 	}
 	else
 	{

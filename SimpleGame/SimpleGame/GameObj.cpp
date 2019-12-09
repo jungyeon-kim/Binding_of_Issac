@@ -21,20 +21,18 @@ void GameObj::init()
 	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
 	physics = make_unique<Physics>();
 
+	debugCol.a = 0.3f;
 	enableCollsion = true;
 }
 
 void GameObj::update(float eTime)
 {
 	prevObjPos = objPos;
-
-	if (gameCon->isRunDebugMode()) debugCol.a = 0.3f;
-	else debugCol.a = 0.0f;
 }
 
 void GameObj::render()
 {
-	renderer->DrawSolidRect(objPos, objVol, debugCol);
+	if (gameCon->isRunDebugMode()) renderer->DrawSolidRect(objPos, objVol, debugCol);
 }
 
 bool GameObj::getEnableCollision() const

@@ -1,25 +1,26 @@
 #include "stdafx.h"
-#include "BlockBox.h"
+#include "PortalBox.h"
 #include "TexMgr.h"
-#include "Renderer.h"
 #include "Physics.h"
+#include "Renderer.h"
 
+using namespace std;
 
-BlockBox::BlockBox(const Vector& pos)
+PortalBox::PortalBox(const Vector& pos)
 {
 	init(pos);
 }
 
-BlockBox::BlockBox(const Vector & pos, Tex texID)
+PortalBox::PortalBox(const Vector& pos, Tex texID)
 {
 	init(pos, texID);
 }
 
-BlockBox::~BlockBox()
+PortalBox::~PortalBox()
 {
 }
 
-void BlockBox::init(const Vector& pos)
+void PortalBox::init(const Vector& pos)
 {
 	forceAmount;
 	fricCoef = numeric_limits<float>::max();
@@ -31,25 +32,17 @@ void BlockBox::init(const Vector& pos)
 	objCol = { 1.0f, 1.0f, 1.0f, 1.0f };
 	objMass = 1.0f;
 
-	debugCol = { 1.0f, 0.0f, 0.0f, 0.3f };
+	debugCol = { 0.0f, 0.0f, 1.0f, 0.3f };
 }
 
-void BlockBox::init(const Vector& pos, Tex texID)
+void PortalBox::init(const Vector& pos, Tex texID)
 {
 	init(pos);
 
 	this->texID.emplace_back(texMgr->getTexture(texID));
-
-	if (texID == Tex::BLOCKBOX_ROCK)
-		objCol = { 
-		static_cast<float>(uid(dre) / 100.0f), 
-		static_cast<float>(uid(dre) / 100.0f),
-		static_cast<float>(uid(dre) / 100.0f),
-		1.0f 
-	};
 }
 
-void BlockBox::update(float eTime)
+void PortalBox::update(float eTime)
 {
 	GameObj::update(eTime);
 
@@ -63,7 +56,7 @@ void BlockBox::update(float eTime)
 	objPos = physics->getPos(objPos, objVel, objAcc, eTime);
 }
 
-void BlockBox::render()
+void PortalBox::render()
 {
 	if (!texID.empty())
 	{
@@ -74,11 +67,11 @@ void BlockBox::render()
 	GameObj::render();		// 셰이더가 z축 기준으로 렌더링 되게 바뀌면 맨 앞에서 호출할 예정
 }
 
-void BlockBox::addForce()
+void PortalBox::addForce()
 {
 }
 
-bool BlockBox::isReadyToDestroy()
+bool PortalBox::isReadyToDestroy()
 {
 	return false;
 }

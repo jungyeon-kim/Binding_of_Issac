@@ -40,8 +40,8 @@ void ObjMgr::update(float eTime)
 
 				if (actorI && actorJ)
 				{
-					actorI->takeDamage(actorJ->getDamage());
-					actorJ->takeDamage(actorI->getDamage());
+					actorI->takeDamage(actorJ->getDamage(), *actorJ);
+					actorJ->takeDamage(actorI->getDamage(), *actorI);
 				}
 				physics->processCollision(*i->second, *j->second);
 			}
