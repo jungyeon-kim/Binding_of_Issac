@@ -42,7 +42,7 @@ void MomsHand::update(float eTime)
 		objForce = { 0.0f, 0.0f, 0.0f };
 		addForce();
 
-		// update Physics
+		// Update Physics
 		objAcc = physics->getAcc(objAcc, objForce, objMass);
 		objVel = physics->getVel(objVel, objAcc, eTime);
 		objVel = physics->getVelByFric(objVel, objMass, fricCoef, eTime);
@@ -52,8 +52,8 @@ void MomsHand::update(float eTime)
 	}
 	else
 	{
+		if (getEnableCollision()) setEnableCollision(false);
 		doAnimCycle(5, 4, 4, 1);
-		setEnableCollision(false);
 	}
 }
 

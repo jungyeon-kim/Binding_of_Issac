@@ -2,6 +2,7 @@
 #include "ObjMgr.h"
 #include "Physics.h"
 #include "GameActor.h"
+#include "ObjectSet.h"
 
 using namespace std;
 
@@ -35,6 +36,10 @@ void ObjMgr::update(float eTime)
 		for (auto j = i; j != obj->end(); ++j)
 			if (physics->isOverlap(i->first, j->first, *i->second, *j->second) && i != j)
 			{
+				// About All Objects
+				physics->processCollision(*i->second, *j->second);
+
+				// About All Actors
 				const auto& actorI{ dynamic_cast<GameActor*>(i->second.get()) };
 				const auto& actorJ{ dynamic_cast<GameActor*>(j->second.get()) };
 
@@ -43,7 +48,15 @@ void ObjMgr::update(float eTime)
 					actorI->takeDamage(actorJ->getDamage(), *actorJ);
 					actorJ->takeDamage(actorI->getDamage(), *actorI);
 				}
-				physics->processCollision(*i->second, *j->second);
+
+				// About PortalBox & Player
+				const auto& player{ dynamic_cast<Player*>(i->second.get()) };
+				const auto& portal{ dynamic_cast<PortalBox*>(j->second.get()) };
+
+				if (portal && player)
+				{
+					portal->setIsOpend(true);
+				}
 			}
 
 	garbageCollect();

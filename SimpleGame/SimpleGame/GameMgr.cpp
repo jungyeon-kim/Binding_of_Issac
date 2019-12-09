@@ -29,6 +29,7 @@ void GameMgr::init()
 
 void GameMgr::update(float eTime)
 {
+	scnMgr->update(eTime);
 	objMgr->update(eTime);
 }
 

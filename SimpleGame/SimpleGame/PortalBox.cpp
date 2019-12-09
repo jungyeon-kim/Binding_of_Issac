@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "PortalBox.h"
 #include "TexMgr.h"
+#include "ScnMgr.h"
 #include "Physics.h"
 #include "Renderer.h"
 
@@ -49,11 +50,18 @@ void PortalBox::update(float eTime)
 	objForce = { 0.0f, 0.0f, 0.0f };
 	addForce();
 
-	// update Physics
+	// Update Physics
 	objAcc = physics->getAcc(objAcc, objForce, objMass);
 	objVel = physics->getVel(objVel, objAcc, eTime);
 	objVel = physics->getVelByFric(objVel, objMass, fricCoef, eTime);
 	objPos = physics->getPos(objPos, objVel, objAcc, eTime);
+
+	// Check if you can go to the next level
+	if (isOpened)
+	{
+		scnMgr->setReadyToGoNextLevel(true);
+		isOpened = false;
+	}
 }
 
 void PortalBox::render()
@@ -74,4 +82,14 @@ void PortalBox::addForce()
 bool PortalBox::isReadyToDestroy()
 {
 	return false;
+}
+
+bool PortalBox::getIsOpend() const
+{
+	return isOpened;
+}
+
+void PortalBox::setIsOpend(bool boolean)
+{
+	isOpened = boolean;
 }

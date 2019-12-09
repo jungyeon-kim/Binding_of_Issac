@@ -56,7 +56,7 @@ void PlayerBullet::update(float eTime)
 	{
 		objForce = { 0.0f, 0.0f, 0.0f };
 
-		// update Physics
+		// Update Physics
 		objAcc = physics->getAcc(objAcc, objForce, objMass);
 		objVel = physics->getVel(objVel, objAcc, eTime);
 		objVel = physics->getVelByFric(objVel, objMass, fricCoef, eTime);
@@ -64,7 +64,7 @@ void PlayerBullet::update(float eTime)
 	}
 	else
 	{
-		setEnableCollision(false);
+		if (getEnableCollision()) setEnableCollision(false);
 		doAnimCycle(3, 4, 4, 0);
 	}
 }

@@ -4,6 +4,8 @@
 
 class PortalBox : public GameObj
 {
+private:
+	bool isOpened{};
 public:
 	PortalBox(const Vector& pos);
 	PortalBox(const Vector& pos, Tex texID);
@@ -15,5 +17,8 @@ public:
 	virtual void render() override;
 	virtual void addForce() override;
 	virtual bool isReadyToDestroy() override;
+
+	bool getIsOpend() const;
+	void setIsOpend(bool boolean);
 };
 

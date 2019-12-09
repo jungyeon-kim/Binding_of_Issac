@@ -31,12 +31,20 @@ void ScnMgr::init()
 	texID.emplace_back(texMgr->getTexture(Tex::BACK_GROUND));
 	texID.emplace_back(texMgr->getTexture(Tex::FRONT_FRAME));
 
-	setLevel("Levels/STAGE1.txt");
+	setLevel("Levels/STAGE" + to_string(levelNameIdx) + ".txt");
 	objMgr->addObject<Player>(Obj::PLAYER, { 0, 0, 0 });
 }
 
 void ScnMgr::update(float eTime)
 {
+	if (readyToGoNextLevel)
+	{
+		const auto& player{ objMgr->tryGetObj<Player>(Obj::PLAYER) };
+
+		if (player) player->setPos({ 0.0f, meter(-3.0f), 0.0f });
+		setLevel("Levels/STAGE" + to_string(++levelNameIdx) + ".txt");
+		readyToGoNextLevel = false;
+	}
 }
 
 void ScnMgr::render()
@@ -90,7 +98,7 @@ void ScnMgr::setLevel(string fileName)
 					objMgr->addObject<BlockBox>(Obj::BLOCK_BOX, tilePos);
 					break;
 				case 2:
-					objMgr->addObject<PortalBox>(Obj::PORTAL_BOX, tilePos);
+					objMgr->addObject<PortalBox>(Obj::PORTAL_BOX, tilePos, Tex::PORTALBOX_DOOR);
 					break;
 				case 3:
 					objMgr->addObject<Player>(Obj::PLAYER, tilePos);
@@ -104,4 +112,14 @@ void ScnMgr::setLevel(string fileName)
 				}
 			}
 	}
+}
+
+bool ScnMgr::getReadyToGoNextLevel() const
+{
+	return readyToGoNextLevel;
+}
+
+void ScnMgr::setReadyToGoNextLevel(bool boolean)
+{
+	readyToGoNextLevel = boolean;
 }

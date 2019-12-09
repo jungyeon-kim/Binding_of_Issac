@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "Player.h"
+#include "GameController.h"
+#include "ObjMgr.h"
+#include "TexMgr.h"
 #include "PlayerBullet.h"
 #include "Physics.h"
 #include "Renderer.h"
-#include "TexMgr.h"
-#include "GameController.h"
-#include "ObjMgr.h"
 
 using namespace std;
 
@@ -50,7 +50,7 @@ void Player::update(float eTime)
 	objForce = { 0.0f, 0.0f, 0.0f };
 	addForce();
 	      
-	// update Physics
+	// Update Physics
 	objAcc = physics->getAcc(objAcc, objForce, objMass);
 	objVel = physics->getVel(objVel, objAcc, eTime, MAX_VEL);
 	objVel = physics->getVelByFric(objVel, objMass, fricCoef, eTime);
@@ -63,7 +63,7 @@ void Player::update(float eTime)
 		resetCoolTime(Skill::SHOOT);
 	}
 
-	// update CoolTime
+	// Update CoolTime
 	for (auto& cool : *currCoolTime)
 		if (cool.second)
 		{
@@ -71,7 +71,7 @@ void Player::update(float eTime)
 			if (cool.second < 0) cool.second = 0;
 		}
 
-	// update Rendering Cycle
+	// Update Rendering Cycle
 	doAnimCycle(10, 10, 0, 0);
 	doAnimCycle(10, 2, 0, 1);
 
@@ -82,7 +82,7 @@ void Player::update(float eTime)
 			alphaCnt = 0;
 		}
 
-	// update CanDamaged Cycle
+	// Update CanDamaged Cycle
 	if (!canDamaged)
 		if (!(++canDamagedCycle % 60))
 		{
