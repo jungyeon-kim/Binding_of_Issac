@@ -26,13 +26,11 @@ ScnMgr* ScnMgr::getInstance()
 
 void ScnMgr::init()
 {
-	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
-
 	texID.emplace_back(texMgr->getTexture(Tex::BACK_GROUND));
 	texID.emplace_back(texMgr->getTexture(Tex::FRONT_FRAME));
 
 	setLevel("Levels/STAGE" + to_string(levelNameIdx) + ".txt");
-	objMgr->addObject<Player>(Obj::PLAYER, { 0, 0, 0 });
+	objMgr->addObject<Player>(Obj::PLAYER, { 0.0f, 0.0f, 0.0f });
 }
 
 void ScnMgr::update(float eTime)
@@ -50,8 +48,10 @@ void ScnMgr::update(float eTime)
 void ScnMgr::render()
 {
 	// background test
-	//renderer->DrawTextureRect({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, -1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[0]);
-	//renderer->DrawTextureRect({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[1]);
+	renderer->DrawGround({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[1], 0.0f);
+	renderer->DrawGround({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[0]);
+	//renderer->DrawTextureRect({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[0]);
+	//renderer->DrawTextureRect({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[1]);
 }
 
 bool ScnMgr::readTileData(string fileName)
@@ -86,7 +86,7 @@ void ScnMgr::setLevel(string fileName)
 			{
 				const Vector& tilePos{ 
 					meter(static_cast<float>(j - row / 2)), 
-					meter(static_cast<float>(i - column / 2)), 
+					meter(static_cast<float>(i - (column / 2 + 0.5f))), 
 					0.0f };
 
 				switch (levelTile[i][j])

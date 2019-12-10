@@ -27,7 +27,7 @@ void BlockBox::init(const Vector& pos)
 	objPos = pos;
 	objVel;
 	objAcc;
-	objVol = { meter(0.95f), meter(0.95f), meter(0.95f) };
+	objVol = { meter(0.95f), meter(0.95f), 0.0f };
 	objCol = { 1.0f, 1.0f, 1.0f, 1.0f };
 	objMass = 1.0f;
 
@@ -65,13 +65,13 @@ void BlockBox::update(float eTime)
 
 void BlockBox::render()
 {
+	GameObj::render();
+
 	if (!texID.empty())
 	{
 		static const Vector& texVol{ objVol * 1.1f };
 		renderer->DrawTextureRect(objPos, texVol, objCol, texID[0]);
 	}
-
-	GameObj::render();		// 셰이더가 z축 기준으로 렌더링 되게 바뀌면 맨 앞에서 호출할 예정
 }
 
 void BlockBox::addForce()

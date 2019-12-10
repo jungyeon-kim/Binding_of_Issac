@@ -21,7 +21,6 @@ TexMgr* TexMgr::getInstance()
 
 void TexMgr::init()
 {
-	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
 	texture = make_unique<map<Tex, int>>();
 
 	texture->emplace(Tex::TEST, renderer->GenPngTexture("./Textures/TestImg.png"));

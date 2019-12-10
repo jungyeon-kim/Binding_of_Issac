@@ -36,7 +36,7 @@ void Player::init(const Vector& pos)
 	objPos = pos;
 	objVel;
 	objAcc;
-	objVol = { meter(0.7f), meter(0.7f), meter(0.7f) };
+	objVol = { meter(0.7f), meter(0.7f), 0.0f };
 	objCol = { 1.0f, 1.0f, 1.0f, 1.0f };
 	objMass = 1.0f;
 
@@ -93,6 +93,8 @@ void Player::update(float eTime)
 
 void Player::render()
 {
+	GameActor::render();
+
 	const Vector& bodyTexPos{ objPos.x, objPos.y - meter(0.2f), objPos.z };
 	const Vector& heaTexPos{ objPos.x, objPos.y + meter(0.2f), objPos.z };
 	static const Vector& bodyTexVol{ objVol.x / 1.5f, objVol.y / 1.5f, objVol.z };
@@ -108,8 +110,6 @@ void Player::render()
 	else if (gameCon->getShoot().down) renderer->DrawTextureRectAnim(heaTexPos, headTexVol, objCol, texID[1], 2, 4, nextAnimX[1], 1);
 	else if (gameCon->getShoot().left) renderer->DrawTextureRectAnim(heaTexPos, headTexVol, objCol, texID[1], 2, 4, nextAnimX[1], 2);
 	else if (gameCon->getShoot().right) renderer->DrawTextureRectAnim(heaTexPos, headTexVol, objCol, texID[1], 2, 4, nextAnimX[1], 3);
-
-	GameActor::render();		// 셰이더가 z축 기준으로 렌더링 되게 바뀌면 맨 앞에서 호출할 예정
 }
 
 void Player::addForce()

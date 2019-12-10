@@ -64,6 +64,9 @@
     <Filter Include="헤더 파일\Struct">
       <UniqueIdentifier>{44489fc7-e2e8-4e31-b69c-d33c5d4f2449}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Sound">
+      <UniqueIdentifier>{698fb85a-c963-4587-af38-c37518c7c8cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -138,6 +141,9 @@
     <ClInclude Include="PortalBox.h">
       <Filter>소스 파일\GameObj\StaticObj</Filter>
     </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>소스 파일\Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -193,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="PortalBox.cpp">
       <Filter>소스 파일\GameObj\StaticObj</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>소스 파일\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

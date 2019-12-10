@@ -170,6 +170,7 @@
     <ClInclude Include="PortalBox.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ScnMgr.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Tentacle.h" />
     <ClInclude Include="TexMgr.h" />
@@ -195,6 +196,7 @@
     <ClCompile Include="SimpleGame.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

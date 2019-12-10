@@ -6,39 +6,57 @@
 #include "LoadPng.h"
 
 #define MAX_TEXTURES 1000
+#define MAX_PARTICLES 1000
 
 using namespace std;
 
+typedef struct S_PARTICLE{
+	GLuint VBO;
+	GLuint VertexCount;
+} S_PARTICLE;
+
 class Renderer
 {
-public:
+	///////////////////////////////////////////
+private:
+	static Renderer* instance;
+private:
 	Renderer(int windowSizeX, int windowSizeY);
 	~Renderer();
-
+public:
+	static Renderer* getInstance();
+	///////////////////////////////////////////
 	bool IsInitialized();
 
-	void DrawSolidRect(
-		float x, float y, float z, 
-		float size, 
-		float r, float g, float b, float a);
+	void DrawSolidRect(Vector pos, float size, Color col, bool bShadow = false);
+	void DrawSolidRect(Vector pos, Vector vol, Color col, bool bShadow = false);
+	void DrawSolidRectBorder(Vector pos, Vector vol, Color col);
+	void DrawSolidRectGauge(Vector pos, Vector rpos, Vector vol, Color col, float percent, bool bShadow = false);
+	void DrawTextureRect(Vector pos, Vector vol, Color col, int textureID, bool bShadow = false);
+	void DrawTextureRectAnim(Vector pos, Vector vol, Color col,
+		int textureID, int totalX, int totalY, int currX, int currY, bool bShadow = false);
 
-	void DrawSolidRect(Vector pos, Vector vol, Color col);
+	void DrawGround(Vector pos, Vector vol, Color col, int textureID, float depth = 1.f); 
+	void Renderer::DrawParticle(int particleObjectID, Vector pos, float size, Color col,
+		float gDirX, float gDirY, GLuint texID, float ratio, float timeInSeconds);
+	void Renderer::DrawParticle(int particleObjectID, Vector pos, float size, Color col,
+		float gDirX, float gDirY, GLuint texID, float ratio, float timeInSeconds, float depth);
 
-	void DrawSolidRectGauge(Vector pos, Vector rpos, Vector vol, Color col,float percent);
+	void SetCameraPos(float x, float y);
 
-	void DrawTextureRect(Vector pos, Vector vol, Color col, int texID);
+	int CreateParticleObject(
+		int particleCount,
+		float minX, float minY,
+		float maxX, float maxY,
+		float minSizeX, float minSizeY,
+		float maxSizeX, float maxSizeY,
+		float minVelX, float minVelY,
+		float maxVelX, float maxVelY);
 
-	void DrawTextureRectAnim(
-		Vector pos, Vector vol, Color col,
-		int textureID,
-		int totalX,
-		int totalY,
-		int currX,
-		int currY);
-
-	int GenPngTexture(char * filePath, GLuint sampling = GL_NEAREST);
-	int GenBmpTexture(char * filePath, GLuint sampling = GL_NEAREST);
+	int GenPngTexture(char* filePath, GLuint sampling = GL_NEAREST);
+	int GenBmpTexture(char* filePath, GLuint sampling = GL_NEAREST);
 	bool DeleteTexture(int idx, bool printLog = false);
+	bool DeleteParticle(int idx, bool printLog = false);
 
 private:
 	void Initialize(int windowSizeX, int windowSizeY);
@@ -46,6 +64,8 @@ private:
 	void AddShader(GLuint ShaderProgram, const char* pShaderText, GLenum ShaderType);
 	GLuint CompileShaders(char* filenameVS, char* filenameFS);
 	void CreateVertexBufferObjects();
+
+	void DrawShadow(Vector pos, Vector vol, Color col, int textureID);
 
 	bool m_Initialized = false;
 	
@@ -71,6 +91,10 @@ private:
 	GLuint m_SOlidRectGaugeShader = 0;
 	GLuint m_TextureRectShader = 0;
 	GLuint m_TextureRectAnimShader = 0;
+	GLuint m_ParticleShader = 0;
 	int m_Textures[MAX_TEXTURES];
+	S_PARTICLE m_Particles[MAX_TEXTURES];
+	GLuint m_ShadowTexture = 0;
+	GLuint m_VBORectBorder = 0;
 };
 

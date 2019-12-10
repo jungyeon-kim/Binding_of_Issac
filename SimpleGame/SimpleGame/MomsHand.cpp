@@ -28,7 +28,7 @@ void MomsHand::init(const Vector& pos)
 	objPos = pos;
 	objVel;
 	objAcc;
-	objVol = { meter(), meter(), meter() };
+	objVol = { meter(), meter(), 0.0f };
 	objCol = { 1.0f, 1.0f, 1.0f, 1.0f };
 	objMass = 2.0f;
 }
@@ -59,6 +59,8 @@ void MomsHand::update(float eTime)
 
 void MomsHand::render()
 {
+	GameActor::render();
+
 	if (currHP > 0.0f)
 	{
 		const Vector& texPos{ objPos.x, objPos.y + meter(0.3f), objPos.z };
@@ -70,8 +72,6 @@ void MomsHand::render()
 		static const Vector& texVol{ objVol.x * 4.0f, objVol.y * 4.0f, objVol.z };
 		renderer->DrawTextureRectAnim(objPos, texVol, objCol, texID[1], 4, 4, nextAnimX[1], nextAnimY[1]);
 	}
-
-	GameActor::render();		// 셰이더가 z축 기준으로 렌더링 되게 바뀌면 맨 앞에서 호출할 예정
 }
 
 void MomsHand::addForce()

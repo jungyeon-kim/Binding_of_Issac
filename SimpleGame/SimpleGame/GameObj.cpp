@@ -18,10 +18,9 @@ GameObj::~GameObj()
 
 void GameObj::init()
 {
-	renderer = make_unique<Renderer>(wndSizeX, wndSizeY);
 	physics = make_unique<Physics>();
 
-	debugCol.a = 0.3f;
+	debugCol = { 0.0f, 0.0f, 0.0f, 0.3f };
 	enableCollsion = true;
 }
 

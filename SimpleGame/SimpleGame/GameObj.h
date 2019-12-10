@@ -9,12 +9,13 @@ protected:
 	Vector objPos{}, objVel{}, objAcc{}, objVol{}, objForce{};
 	Vector prevObjPos{};
 	Color objCol{};
+	
+	Vector debugPos{};
 	Color debugCol{};
 
 	bool enableCollsion{};
 	std::vector<int> texID{};
 
-	std::unique_ptr<class Renderer> renderer{};
 	std::unique_ptr<class Physics> physics{};
 public:
 	GameObj();

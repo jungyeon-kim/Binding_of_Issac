@@ -28,7 +28,7 @@ void Tentacle::init(const Vector & pos)
 	objPos = pos;
 	objVel;
 	objAcc;
-	objVol = { meter(0.4f), meter(0.4f), meter(0.4f) };
+	objVol = { meter(0.4f), meter(0.4f), 0.0f };
 	objCol = { 1.0f, 1.0f, 1.0f, 1.0f };
 	objMass = 1.0f;
 }
@@ -59,6 +59,8 @@ void Tentacle::update(float eTime)
 
 void Tentacle::render()
 {
+	GameActor::render();
+
 	if (currHP > 0)
 	{
 		static const Vector& texVol{ objVol.x * 1.8f, objVol.y * 1.8f, objVol.z };
@@ -70,8 +72,6 @@ void Tentacle::render()
 		static const Vector& texVol{ objVol.x * 3.0f, objVol.y * 3.0f, objVol.z };
 		renderer->DrawTextureRectAnim(texPos, texVol, objCol, texID[1], 4, 4, nextAnimX[1], nextAnimY[1]);
 	}
-
-	GameActor::render();		// 셰이더가 z축 기준으로 렌더링 되게 바뀌면 맨 앞에서 호출할 예정
 }
 
 void Tentacle::addForce()
