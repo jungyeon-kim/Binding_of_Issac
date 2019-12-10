@@ -28,7 +28,7 @@ void PlayerBullet::init(const Vector& pos)
 
 	maxHP = 1.0f;
 	currHP = maxHP;
-	damage = 10.0f;
+	damage = 100.0f;
 
 	forceAmount = 10.0f;
 	fricCoef = 1.0f;

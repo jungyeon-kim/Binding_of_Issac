@@ -5,8 +5,6 @@
 class BlockBox : public GameObj
 {
 private:
-	std::random_device seed{};
-	std::default_random_engine dre{ seed() };
 	std::uniform_int_distribution<> uid{ 0, 100 };
 public:
 	BlockBox(const Vector& pos);

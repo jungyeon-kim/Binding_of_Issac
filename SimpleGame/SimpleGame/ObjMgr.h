@@ -1,6 +1,5 @@
 #pragma once
 
-// Singleton
 class ObjMgr final
 {
 private:
@@ -8,6 +7,8 @@ private:
 	using ObjContainer = std::unique_ptr<std::multimap<Obj, T, std::greater<>>>;
 private:
 	static constexpr int MAX_OBJECT{ 5000 };
+
+	int numOfEnemy{};
 
 	static ObjMgr* instance;
 	std::unique_ptr<class Physics> physics{};
@@ -35,6 +36,9 @@ public:
 
 	template <typename T>
 	T* tryGetObj(Obj name) const;
+
+	int getNumOfEnemy() const;
+	void setNumOfEnemy(int num);
 };
 
 #include "ObjMgr.hpp"

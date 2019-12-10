@@ -17,12 +17,14 @@ void MomsHand::init(const Vector& pos)
 {
 	texID.emplace_back(texMgr->getTexture(Tex::ENEMY_MOMS_HAND));
 	texID.emplace_back(texMgr->getTexture(Tex::P_BLOOD1));
+	nextAnimX[0] = randNextAnimXY(dre);
+	nextAnimY[0] = randNextAnimXY(dre);
 
 	maxHP = 100.0f;
 	currHP = maxHP;
 	damage = 10.0f;
 
-	forceAmount = 25.0f;
+	forceAmount = 30.0f;
 	fricCoef = 1.0f;
 	objForce;
 	objPos = pos;
@@ -63,7 +65,7 @@ void MomsHand::render()
 
 	if (currHP > 0.0f)
 	{
-		const Vector& texPos{ objPos.x, objPos.y + meter(0.3f), objPos.z };
+		const Vector& texPos{ objPos.x, objPos.y + meter(0.2f), objPos.z };
 		static const Vector& texVol{ objVol.x * 2.0f, objVol.y * 2.0f, objVol.z };
 		renderer->DrawTextureRectAnim(texPos, texVol, objCol, texID[0], 5, 2, nextAnimX[0], nextAnimY[0]);
 	}

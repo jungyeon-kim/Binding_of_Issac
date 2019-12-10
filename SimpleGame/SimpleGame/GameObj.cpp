@@ -31,7 +31,7 @@ void GameObj::update(float eTime)
 
 void GameObj::render()
 {
-	if (gameCon->isRunDebugMode()) renderer->DrawSolidRect(objPos, objVol, debugCol);
+	if (gameCon->isRunDebugMode()) renderer->DrawSolidRect(objPos, objVol, debugCol, 0.0f);
 }
 
 bool GameObj::getEnableCollision() const

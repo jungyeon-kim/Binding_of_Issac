@@ -29,7 +29,7 @@ void PortalBox::init(const Vector& pos)
 	objPos = pos;
 	objVel;
 	objAcc;
-	objVol = { meter(0.95f), meter(0.95f), 0.0f };
+	objVol = { meter(0.7f), meter(0.7f), 0.0f };
 	objCol = { 1.0f, 1.0f, 1.0f, 1.0f };
 	objMass = 1.0f;
 
@@ -55,13 +55,6 @@ void PortalBox::update(float eTime)
 	objVel = physics->getVel(objVel, objAcc, eTime);
 	objVel = physics->getVelByFric(objVel, objMass, fricCoef, eTime);
 	objPos = physics->getPos(objPos, objVel, objAcc, eTime);
-
-	// Check if you can go to the next level
-	if (isOpened)
-	{
-		scnMgr->setReadyToGoNextLevel(true);
-		isOpened = false;
-	}
 }
 
 void PortalBox::render()
@@ -70,8 +63,8 @@ void PortalBox::render()
 
 	if (!texID.empty())
 	{
-		static const Vector& texVol{ objVol * 1.1f };
-		renderer->DrawTextureRect(objPos, texVol, objCol, texID[0]);
+		static const Vector& texVol{ objVol * 1.5f };
+		renderer->DrawTextureRect(objPos, texVol, objCol, texID[0], false, 1.0f);
 	}
 }
 
@@ -84,12 +77,7 @@ bool PortalBox::isReadyToDestroy()
 	return false;
 }
 
-bool PortalBox::getIsOpend() const
+void PortalBox::tryOpenDoor()
 {
-	return isOpened;
-}
-
-void PortalBox::setIsOpend(bool boolean)
-{
-	isOpened = boolean;
+	scnMgr->tryChangeLevel();
 }

@@ -36,10 +36,10 @@ void GameActor::render()
 
 	if (gameCon->isRunDebugMode())
 	{
-		renderer->DrawSolidRectGauge(objPos, { 0.0f, objVol.y / 2.0f, 0.0f },
-			{ objVol.x, meter(0.15f), 0.0f }, { 0.8f, 0.8f, 0.8f, 0.8f }, 100.0f);
-		renderer->DrawSolidRectGauge(objPos, { 0.0f, objVol.y / 2.0f, 0.0f },
-			{ objVol.x, meter(0.15f), 0.0f }, { 1.0f, 0.0f, 0.0f, 0.8f }, (currHP / maxHP) * 100.0f);
+		renderer->DrawSolidRectGauge(objPos, { 0.0f, objVol.y / 1.5f, 0.0f },
+			{ objVol.x, meter(0.15f), 0.0f }, { 0.8f, 0.8f, 0.8f, 0.3f }, 100.0f);
+		renderer->DrawSolidRectGauge(objPos, { 0.0f, objVol.y / 1.5f, 0.0f },
+			{ objVol.x, meter(0.15f), 0.0f }, { 1.0f, 0.0f, 0.0f, 0.3f }, (currHP / maxHP) * 100.0f);
 	}
 }
 

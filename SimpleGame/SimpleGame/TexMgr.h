@@ -1,6 +1,5 @@
 #pragma once
 
-// Singleton
 class TexMgr final
 {
 private:

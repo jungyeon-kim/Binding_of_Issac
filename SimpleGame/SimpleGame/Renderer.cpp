@@ -19,7 +19,6 @@ Renderer::Renderer(int windowSizeX, int windowSizeY)
 	Initialize(windowSizeX, windowSizeY);
 }
 
-
 Renderer::~Renderer()
 {
 	//delete all resources here
@@ -593,10 +592,10 @@ void Renderer::DrawSolidRect(Vector pos, float size, Color col, bool bShadow)
 	GLuint uColor = glGetUniformLocation(shader, "u_Color");
 	GLuint uDepth = glGetUniformLocation(shader, "u_Depth");
 
-	glUniform3f(uTrans, pos.x, pos.y + pos.z + size / 2.f, 0.f);
+	glUniform3f(uTrans, pos.x, pos.y, 0.f);
 	glUniform3f(uScale, size, size, size);
 	glUniform4f(uColor, col.r, col.g, col.b, col.a);
-	glUniform1f(uDepth, (pos.y + m_WindowSizeY / 2.f) / m_WindowSizeY);
+	glUniform1f(uDepth, 0.0f);
 	glUniformMatrix4fv(uProjView, 1, GL_FALSE, &m_m4ProjView[0][0]);
 	glUniformMatrix4fv(uRotToCam, 1, GL_FALSE, &m_m4Model[0][0]);
 
@@ -614,7 +613,7 @@ void Renderer::DrawSolidRect(Vector pos, float size, Color col, bool bShadow)
 	glDisable(GL_BLEND);
 }
 
-void Renderer::DrawSolidRect(Vector pos, Vector vol, Color col, bool bShadow)
+void Renderer::DrawSolidRect(Vector pos, Vector vol, Color col, bool bShadow, float depth)
 {
 	if (bShadow)
 	{
@@ -639,10 +638,10 @@ void Renderer::DrawSolidRect(Vector pos, Vector vol, Color col, bool bShadow)
 	GLuint uColor = glGetUniformLocation(shader, "u_Color");
 	GLuint uDepth = glGetUniformLocation(shader, "u_Depth");
 
-	glUniform3f(uTrans, pos.x, pos.y + pos.z + vol.y / 2.f, 0.f);
+	glUniform3f(uTrans, pos.x, pos.y, 0.f);
 	glUniform3f(uScale, vol.x, vol.y, vol.z);
 	glUniform4f(uColor, col.r, col.g, col.b, col.a);
-	glUniform1f(uDepth, (pos.y + m_WindowSizeY / 2.f) / m_WindowSizeY);
+	glUniform1f(uDepth, depth);
 	glUniformMatrix4fv(uProjView, 1, GL_FALSE, &m_m4ProjView[0][0]);
 	glUniformMatrix4fv(uRotToCam, 1, GL_FALSE, &m_m4Model[0][0]);
 
@@ -680,10 +679,10 @@ void Renderer::DrawSolidRectBorder(Vector pos, Vector vol, Color col)
 	GLuint uColor = glGetUniformLocation(shader, "u_Color");
 	GLuint uDepth = glGetUniformLocation(shader, "u_Depth");
 
-	glUniform3f(uTrans, pos.x, pos.y + pos.z, 0.f);
+	glUniform3f(uTrans, pos.x, pos.y, 0.f);
 	glUniform3f(uScale, vol.x, vol.y, vol.z);
 	glUniform4f(uColor, col.r, col.g, col.b, col.a);
-	glUniform1f(uDepth, (pos.y + m_WindowSizeY / 2.f) / m_WindowSizeY);
+	glUniform1f(uDepth, 0.0f);
 	glUniformMatrix4fv(uProjView, 1, GL_FALSE, &m_m4ProjView[0][0]);
 	glUniformMatrix4fv(uRotToCam, 1, GL_FALSE, &m_m4Model[0][0]);
 
@@ -701,7 +700,8 @@ void Renderer::DrawSolidRectBorder(Vector pos, Vector vol, Color col)
 	glDisable(GL_BLEND);
 }
 
-void Renderer::DrawSolidRectGauge(Vector pos, Vector rpos, Vector vol, Color col, float percent, bool bShadow)
+void Renderer::DrawSolidRectGauge(Vector pos, Vector rpos, Vector vol, Color col, 
+	float percent, bool bShadow, float depth)
 {
 	//Program select
 	GLuint shader = m_SOlidRectGaugeShader;
@@ -722,11 +722,11 @@ void Renderer::DrawSolidRectGauge(Vector pos, Vector rpos, Vector vol, Color col
 	GLuint uDepth = glGetUniformLocation(shader, "u_Depth");
 	GLuint uGauge = glGetUniformLocation(shader, "u_Gauge");
 
-	glUniform3f(uTrans, pos.x + rpos.x, pos.y + rpos.y + pos.z + rpos.y, 0.f);
+	glUniform3f(uTrans, pos.x + rpos.x, pos.y + rpos.y, 0.f);
 	glUniform3f(uScale, vol.x, vol.y, vol.z);
 	glUniform4f(uColor, col.r, col.g, col.b, col.a);
-	glUniform1f(uGauge, percent/100.f);
-	glUniform1f(uDepth, (pos.y + m_WindowSizeY / 2.f) / m_WindowSizeY);
+	glUniform1f(uGauge, percent / 100.f);
+	glUniform1f(uDepth, depth);
 	glUniformMatrix4fv(uProjView, 1, GL_FALSE, &m_m4ProjView[0][0]);
 	glUniformMatrix4fv(uRotToCam, 1, GL_FALSE, &m_m4Model[0][0]);
 
@@ -743,10 +743,11 @@ void Renderer::DrawSolidRectGauge(Vector pos, Vector rpos, Vector vol, Color col
 
 	glDisable(GL_BLEND);
 	
-	DrawSolidRectBorder({ pos.x + rpos.x, pos.y + rpos.y + pos.z + rpos.y, 0.f }, vol, col);
+	//DrawSolidRectBorder({ pos.x + rpos.x, pos.y + rpos.y + pos.z + rpos.y, 0.f }, vol, col);
 }
 
-void Renderer::DrawTextureRect(Vector pos, Vector vol, Color col, int textureID, bool bShadow)
+void Renderer::DrawTextureRect(Vector pos, Vector vol, Color col, 
+	int textureID, bool bShadow, float depth)
 {
 	if(textureID < 0)
 	{
@@ -784,11 +785,11 @@ void Renderer::DrawTextureRect(Vector pos, Vector vol, Color col, int textureID,
 
 	glUniformMatrix4fv(uProjView, 1, GL_FALSE, &m_m4ProjView[0][0]);
 	glUniformMatrix4fv(uRotToCam, 1, GL_FALSE, &m_m4Model[0][0]);
-	glUniform3f(uTrans, pos.x, pos.y + pos.z + vol.y / 2.f, 0.f);
+	glUniform3f(uTrans, pos.x, pos.y, 0.f);
 	glUniform3f(uScale, vol.x, vol.y, vol.z);
 	glUniform4f(uColor, col.r, col.g, col.b, col.a);
 	glUniform1i(uTexture, 0);
-	glUniform1f(uDepth, (pos.y + m_WindowSizeY/2.f)/ m_WindowSizeY);
+	glUniform1f(uDepth, depth);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureID);
@@ -809,7 +810,7 @@ void Renderer::DrawTextureRect(Vector pos, Vector vol, Color col, int textureID,
 }
 
 void Renderer::DrawTextureRectAnim(Vector pos, Vector vol, Color col,
-	int textureID, int totalX, int totalY, int currX, int currY, bool bShadow)
+	int textureID, int totalX, int totalY, int currX, int currY, bool bShadow, float depth)
 {
 	if (textureID < 0)
 	{
@@ -853,11 +854,11 @@ void Renderer::DrawTextureRectAnim(Vector pos, Vector vol, Color col,
 
 	glUniformMatrix4fv(uProjView, 1, GL_FALSE, &m_m4ProjView[0][0]);
 	glUniformMatrix4fv(uRotToCam, 1, GL_FALSE, &m_m4Model[0][0]);
-	glUniform3f(uTrans, pos.x, pos.y + pos.z + vol.y / 2.f, 0.f);
+	glUniform3f(uTrans, pos.x, pos.y, 0.f);
 	glUniform3f(uScale, vol.x, vol.y, vol.z);
 	glUniform4f(uColor, col.r, col.g, col.b, col.a);
 	glUniform1i(uTexture, 0);
-	glUniform1f(uDepth, (pos.y + m_WindowSizeY / 2.f) / m_WindowSizeY);
+	glUniform1f(uDepth, depth);
 	glUniform1f(uTotalSeqX, (float)totalX);
 	glUniform1f(uTotalSeqY, (float)totalY);
 	glUniform1f(uCurrSeqX, (float)currX);

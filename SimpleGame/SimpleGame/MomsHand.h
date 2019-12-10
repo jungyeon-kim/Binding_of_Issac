@@ -7,8 +7,6 @@ class MomsHand : public GameActor
 private:
 	float dirX{}, dirY{};
 
-	std::random_device seed{};
-	std::default_random_engine dre{ seed() };
 	std::uniform_int_distribution<> uidX{ -1, 1 };
 	std::uniform_int_distribution<> uidY{ -1, 1 };
 public:

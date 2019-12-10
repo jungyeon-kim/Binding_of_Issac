@@ -14,6 +14,7 @@ protected:
 	std::array<int, MAX_ANIM_NUM> animCycle{};
 	std::array<int, MAX_ANIM_NUM> nextAnimX{}, nextAnimY{};
 	std::array<int, MAX_ANIM_NUM> finalAnimX{}, finalAnimY{};
+	std::uniform_int_distribution<> randNextAnimXY{ 0, 100 };
 public:
 	GameActor();
 	virtual ~GameActor();

@@ -30,28 +30,24 @@ void ScnMgr::init()
 	texID.emplace_back(texMgr->getTexture(Tex::FRONT_FRAME));
 
 	setLevel("Levels/STAGE" + to_string(levelNameIdx) + ".txt");
-	objMgr->addObject<Player>(Obj::PLAYER, { 0.0f, 0.0f, 0.0f });
 }
 
 void ScnMgr::update(float eTime)
 {
-	if (readyToGoNextLevel)
+	if (canChangeLevel)
 	{
 		const auto& player{ objMgr->tryGetObj<Player>(Obj::PLAYER) };
 
 		if (player) player->setPos({ 0.0f, meter(-3.0f), 0.0f });
 		setLevel("Levels/STAGE" + to_string(++levelNameIdx) + ".txt");
-		readyToGoNextLevel = false;
+		canChangeLevel = false;
 	}
 }
 
 void ScnMgr::render()
 {
-	// background test
-	renderer->DrawGround({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[1], 0.0f);
+	renderer->DrawGround({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[1], 0.9f);
 	renderer->DrawGround({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[0]);
-	//renderer->DrawTextureRect({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[0]);
-	//renderer->DrawTextureRect({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[1]);
 }
 
 bool ScnMgr::readTileData(string fileName)
@@ -75,6 +71,11 @@ bool ScnMgr::readTileData(string fileName)
 	}
 }
 
+void ScnMgr::tryChangeLevel()
+{
+	if (!objMgr->getNumOfEnemy()) canChangeLevel = true;
+}
+
 void ScnMgr::setLevel(string fileName)
 {
 	if (readTileData(fileName))
@@ -84,9 +85,11 @@ void ScnMgr::setLevel(string fileName)
 		for (int i = 0; i < column; ++i)
 			for (int j = 0; j < row; ++j)
 			{
+				if (levelTile[i][j] > 3) objMgr->setNumOfEnemy(objMgr->getNumOfEnemy() + 1);
+
 				const Vector& tilePos{ 
 					meter(static_cast<float>(j - row / 2)), 
-					meter(static_cast<float>(i - (column / 2 + 0.5f))), 
+					meter(static_cast<float>(i - (column / 2))), 
 					0.0f };
 
 				switch (levelTile[i][j])
@@ -112,14 +115,4 @@ void ScnMgr::setLevel(string fileName)
 				}
 			}
 	}
-}
-
-bool ScnMgr::getReadyToGoNextLevel() const
-{
-	return readyToGoNextLevel;
-}
-
-void ScnMgr::setReadyToGoNextLevel(bool boolean)
-{
-	readyToGoNextLevel = boolean;
 }

@@ -1,6 +1,5 @@
 #pragma once
 
-// Singleton
 class GameMgr final
 {
 private:

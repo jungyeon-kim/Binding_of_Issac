@@ -17,6 +17,8 @@ void Tentacle::init(const Vector & pos)
 {
 	texID.emplace_back(texMgr->getTexture(Tex::ENEMY_TENTACLE));
 	texID.emplace_back(texMgr->getTexture(Tex::P_BLOOD2));
+	nextAnimX[0] = randNextAnimXY(dre);
+	nextAnimY[0] = randNextAnimXY(dre);
 
 	maxHP = 20.0f;
 	currHP = maxHP;
@@ -68,7 +70,7 @@ void Tentacle::render()
 	}
 	else
 	{
-		const Vector& texPos{ objPos.x - meter(0.5f), objPos.y + meter(0.25f), objPos.z };
+		const Vector& texPos{ objPos.x - meter(0.5f), objPos.y + meter(0.1f), objPos.z };
 		static const Vector& texVol{ objVol.x * 3.0f, objVol.y * 3.0f, objVol.z };
 		renderer->DrawTextureRectAnim(texPos, texVol, objCol, texID[1], 4, 4, nextAnimX[1], nextAnimY[1]);
 	}

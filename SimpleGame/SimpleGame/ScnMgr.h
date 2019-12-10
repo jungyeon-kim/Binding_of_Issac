@@ -1,6 +1,5 @@
 #pragma once
 
-// Singleton
 class ScnMgr final
 {
 private:
@@ -8,7 +7,7 @@ private:
 
 	int levelTile[column][row]{};
 	int levelNameIdx{};
-	bool readyToGoNextLevel{};
+	bool canChangeLevel{};
 
 	std::ifstream tileData{};
 	std::vector<int> texID{};
@@ -25,9 +24,7 @@ public:
 	void render();
 
 	bool readTileData(std::string fileName);
+	void tryChangeLevel();
 	void setLevel(std::string fileName);
-
-	bool getReadyToGoNextLevel() const;
-	void setReadyToGoNextLevel(bool boolean);
 };
 

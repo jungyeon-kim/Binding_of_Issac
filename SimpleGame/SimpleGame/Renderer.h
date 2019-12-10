@@ -29,14 +29,16 @@ public:
 	bool IsInitialized();
 
 	void DrawSolidRect(Vector pos, float size, Color col, bool bShadow = false);
-	void DrawSolidRect(Vector pos, Vector vol, Color col, bool bShadow = false);
+	void DrawSolidRect(Vector pos, Vector vol, Color col, bool bShadow = false, float depth = 0.0f);
 	void DrawSolidRectBorder(Vector pos, Vector vol, Color col);
-	void DrawSolidRectGauge(Vector pos, Vector rpos, Vector vol, Color col, float percent, bool bShadow = false);
-	void DrawTextureRect(Vector pos, Vector vol, Color col, int textureID, bool bShadow = false);
+	void DrawSolidRectGauge(Vector pos, Vector rpos, Vector vol, Color col, 
+		float percent, bool bShadow = false, float depth = 0.0f);
+	void DrawTextureRect(Vector pos, Vector vol, Color col, 
+		int textureID, bool bShadow = false, float depth = 0.5f);
 	void DrawTextureRectAnim(Vector pos, Vector vol, Color col,
-		int textureID, int totalX, int totalY, int currX, int currY, bool bShadow = false);
+		int textureID, int totalX, int totalY, int currX, int currY, bool bShadow = false, float depth = 0.5f);
 
-	void DrawGround(Vector pos, Vector vol, Color col, int textureID, float depth = 1.f); 
+	void DrawGround(Vector pos, Vector vol, Color col, int textureID, float depth = 1.0f); 
 	void Renderer::DrawParticle(int particleObjectID, Vector pos, float size, Color col,
 		float gDirX, float gDirY, GLuint texID, float ratio, float timeInSeconds);
 	void Renderer::DrawParticle(int particleObjectID, Vector pos, float size, Color col,

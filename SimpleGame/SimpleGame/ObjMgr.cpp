@@ -55,7 +55,7 @@ void ObjMgr::update(float eTime)
 
 				if (portal && player)
 				{
-					portal->setIsOpend(true);
+					portal->tryOpenDoor();
 				}
 			}
 
@@ -107,7 +107,11 @@ void ObjMgr::garbageCollect()
 			++i;
 			break;
 		case Obj::ENEMY:
-			if (actor->isReadyToDestroy()) i = obj->erase(i);
+			if (actor->isReadyToDestroy())
+			{
+				i = obj->erase(i);
+				--numOfEnemy;
+			}
 			else ++i;
 			break;
 		case Obj::PLAYER_BULLET: case Obj::ENEMY_BULLET:
@@ -119,4 +123,14 @@ void ObjMgr::garbageCollect()
 			break;
 		}
 	}
+}
+
+int ObjMgr::getNumOfEnemy() const
+{
+	return  numOfEnemy;
+}
+
+void ObjMgr::setNumOfEnemy(int num)
+{
+	numOfEnemy = num;
 }
