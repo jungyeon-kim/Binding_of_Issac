@@ -123,9 +123,6 @@
     <ClInclude Include="BlockBox.h">
       <Filter>소스 파일\GameObj\StaticObj</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerBullet.h">
-      <Filter>소스 파일\GameObj\Bullet</Filter>
-    </ClInclude>
     <ClInclude Include="MomsHand.h">
       <Filter>소스 파일\GameObj\Enemy</Filter>
     </ClInclude>
@@ -143,6 +140,12 @@
     </ClInclude>
     <ClInclude Include="Sound.h">
       <Filter>소스 파일\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Polyc.h">
+      <Filter>소스 파일\GameObj\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>소스 파일\GameObj\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -188,9 +191,6 @@
     <ClCompile Include="ScnMgr.cpp">
       <Filter>소스 파일\GameMgr\ScnMgr</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerBullet.cpp">
-      <Filter>소스 파일\GameObj\Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="MomsHand.cpp">
       <Filter>소스 파일\GameObj\Enemy</Filter>
     </ClCompile>
@@ -202,6 +202,12 @@
     </ClCompile>
     <ClCompile Include="Sound.cpp">
       <Filter>소스 파일\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Polyc.cpp">
+      <Filter>소스 파일\GameObj\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>소스 파일\GameObj\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

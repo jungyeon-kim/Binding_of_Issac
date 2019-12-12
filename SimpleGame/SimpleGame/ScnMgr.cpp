@@ -95,13 +95,13 @@ void ScnMgr::setLevel(string fileName)
 				switch (levelTile[i][j])
 				{
 				case -1:
-					objMgr->addObject<BlockBox>(Obj::BLOCK_BOX, tilePos, Tex::BLOCKBOX_ROCK);
+					objMgr->addObject<BlockBox>(Obj::BLOCK_BOX, Tex::BLOCKBOX_ROCK, tilePos);
 					break;
 				case 1:
 					objMgr->addObject<BlockBox>(Obj::BLOCK_BOX, tilePos);
 					break;
 				case 2:
-					objMgr->addObject<PortalBox>(Obj::PORTAL_BOX, tilePos, Tex::PORTALBOX_DOOR);
+					objMgr->addObject<PortalBox>(Obj::PORTAL_BOX, Tex::PORTALBOX_DOOR, tilePos);
 					break;
 				case 3:
 					objMgr->addObject<Player>(Obj::PLAYER, tilePos);
@@ -111,6 +111,9 @@ void ScnMgr::setLevel(string fileName)
 					break;
 				case 5:
 					objMgr->addObject<Tentacle>(Obj::ENEMY, tilePos);
+					break;
+				case 6:
+					objMgr->addObject<Polyc>(Obj::ENEMY, tilePos);
 					break;
 				}
 			}

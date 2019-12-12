@@ -42,6 +42,7 @@ void TexMgr::init()
 
 	texture->emplace(Tex::ENEMY_MOMS_HAND, renderer->GenPngTexture("./Textures/ENEMY_MOMS_HAND.png"));
 	texture->emplace(Tex::ENEMY_TENTACLE, renderer->GenPngTexture("./Textures/ENEMY_TENTACLE.png"));
+	texture->emplace(Tex::ENEMY_POLYC, renderer->GenPngTexture("./Textures/ENEMY_POLYC.png"));
 }
 
 int TexMgr::getTexture(Tex name) const

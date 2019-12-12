@@ -155,7 +155,7 @@
     <ClInclude Include="BlockBox.h" />
     <ClInclude Include="Enum.h" />
     <ClInclude Include="MomsHand.h" />
-    <ClInclude Include="PlayerBullet.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="GameActor.h" />
     <ClInclude Include="GameController.h" />
@@ -167,6 +167,7 @@
     <ClInclude Include="ObjMgr.hpp" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Polyc.h" />
     <ClInclude Include="PortalBox.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ScnMgr.h" />
@@ -181,7 +182,7 @@
   <ItemGroup>
     <ClCompile Include="BlockBox.cpp" />
     <ClCompile Include="MomsHand.cpp" />
-    <ClCompile Include="PlayerBullet.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="GameActor.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="GameMgr.cpp" />
@@ -190,6 +191,7 @@
     <ClCompile Include="ObjMgr.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Polyc.cpp" />
     <ClCompile Include="PortalBox.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ScnMgr.cpp" />

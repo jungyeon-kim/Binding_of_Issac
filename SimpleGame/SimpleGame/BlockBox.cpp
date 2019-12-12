@@ -10,9 +10,9 @@ BlockBox::BlockBox(const Vector& pos)
 	init(pos);
 }
 
-BlockBox::BlockBox(const Vector & pos, Tex texID)
+BlockBox::BlockBox(Tex texID, const Vector& pos)
 {
-	init(pos, texID);
+	init(texID, pos);
 }
 
 BlockBox::~BlockBox()
@@ -34,7 +34,7 @@ void BlockBox::init(const Vector& pos)
 	debugCol = { 1.0f, 0.0f, 0.0f, 0.3f };
 }
 
-void BlockBox::init(const Vector& pos, Tex texID)
+void BlockBox::init(Tex texID, const Vector& pos)
 {
 	init(pos);
 
@@ -53,14 +53,7 @@ void BlockBox::update(float eTime)
 {
 	GameObj::update(eTime);
 
-	objForce = { 0.0f, 0.0f, 0.0f };
-	addForce();
-
-	// Update Physics
-	objAcc = physics->getAcc(objAcc, objForce, objMass);
-	objVel = physics->getVel(objVel, objAcc, eTime);
-	objVel = physics->getVelByFric(objVel, objMass, fricCoef, eTime);
-	objPos = physics->getPos(objPos, objVel, objAcc, eTime);
+	physics->update(*this, eTime);
 }
 
 void BlockBox::render()

@@ -8,7 +8,7 @@ private:
 	enum class Skill { SHOOT };
 	using CoolTimeContainer = std::unique_ptr<std::map<Skill, float>>;
 private:
-	static constexpr float MAX_VEL{ 5 };
+	static constexpr float MAX_VEL{ 5.0f };
 
 	int alphaCnt{};
 	int canDamagedCycle{};

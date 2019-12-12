@@ -41,15 +41,7 @@ void MomsHand::update(float eTime)
 
 	if (currHP > 0.0f)
 	{
-		objForce = { 0.0f, 0.0f, 0.0f };
-		addForce();
-
-		// Update Physics
-		objAcc = physics->getAcc(objAcc, objForce, objMass);
-		objVel = physics->getVel(objVel, objAcc, eTime);
-		objVel = physics->getVelByFric(objVel, objMass, fricCoef, eTime);
-		objPos = physics->getPos(objPos, objVel, objAcc, eTime);
-
+		physics->update(*this, eTime);
 		doAnimCycle(10, 5, 2, 0);
 	}
 	else

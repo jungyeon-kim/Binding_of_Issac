@@ -10,6 +10,18 @@ Physics::~Physics()
 {
 }
 
+void Physics::update(GameObj& obj, float eTime, float maxVel)
+{
+	obj.setForce({ 0.0f, 0.0f, 0.0f });
+	obj.addForce();
+
+	// Update Physics
+	obj.setAcc(calcAcc(obj.getAcc(), obj.getForce(), obj.getMass()));
+	obj.setVel(calcVel(obj.getVel(), obj.getAcc(), eTime, maxVel));
+	obj.setVel(calcVelByFric(obj.getVel(), obj.getMass(), obj.getFricCoef(), eTime));
+	obj.setPos(calcPos(obj.getPos(), obj.getVel(), obj.getAcc(), eTime));
+}
+
 float Physics::getScalar(const Vector& vec)
 {
 	return sqrtf(pow(vec.x, 2) + pow(vec.y, 2) + pow(vec.z, 2));
@@ -24,7 +36,7 @@ Vector Physics::getUnit(const Vector& vec)
 }
 
 // acc = force / mass
-const Vector& Physics::getAcc(Vector acc, Vector force, float mass)
+const Vector& Physics::calcAcc(Vector acc, Vector force, float mass)
 {
 	acc = force / mass;
 
@@ -32,7 +44,7 @@ const Vector& Physics::getAcc(Vector acc, Vector force, float mass)
 }
 
 // vel = vel + acc * eTime
-const Vector& Physics::getVel(Vector vel, Vector acc, float eTime, float maxVel)
+const Vector& Physics::calcVel(Vector vel, Vector acc, float eTime, float maxVel)
 {
 	if (getScalar(vel) < maxVel) vel = vel + acc * eTime;
 
@@ -40,7 +52,7 @@ const Vector& Physics::getVel(Vector vel, Vector acc, float eTime, float maxVel)
 }
 
 // pos = pos + vel * eTime + 1 / 2 * acc * eTime ^ 2
-const Vector& Physics::getPos(Vector pos, Vector vel, Vector acc, float eTime)
+const Vector& Physics::calcPos(Vector pos, Vector vel, Vector acc, float eTime)
 {
 	pos = pos + (vel * eTime + acc * pow(eTime, 2) * 1 / 2) * meter();
 
@@ -48,7 +60,7 @@ const Vector& Physics::getPos(Vector pos, Vector vel, Vector acc, float eTime)
 }
 
 // calculate friction force & apply to velocity
-const Vector& Physics::getVelByFric(Vector vel, float mass, float fricCoef, float eTime)
+const Vector& Physics::calcVelByFric(Vector vel, float mass, float fricCoef, float eTime)
 {
 	float scalarVec{ getScalar(vel) };
 

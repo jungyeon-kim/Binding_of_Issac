@@ -3,7 +3,7 @@
 #include "GameController.h"
 #include "ObjMgr.h"
 #include "TexMgr.h"
-#include "PlayerBullet.h"
+#include "Bullet.h"
 #include "Physics.h"
 #include "Renderer.h"
 
@@ -47,33 +47,33 @@ void Player::update(float eTime)
 {
 	GameActor::update(eTime);
 
-	objForce = { 0.0f, 0.0f, 0.0f };
-	addForce();
-	      
-	// Update Physics
-	objAcc = physics->getAcc(objAcc, objForce, objMass);
-	objVel = physics->getVel(objVel, objAcc, eTime, MAX_VEL);
-	objVel = physics->getVelByFric(objVel, objMass, fricCoef, eTime);
-	objPos = physics->getPos(objPos, objVel, objAcc, eTime);
+	physics->update(*this, eTime, MAX_VEL);
 
 	// Decide whether to spawn a Bullet from Player
 	if (gameCon->isShoot() && isEndCoolTime(Skill::SHOOT))
 	{
-		objMgr->addObject<PlayerBullet>(Obj::PLAYER_BULLET, objPos, objVel);
+		const auto& obj{ objMgr->addObject<Bullet>(Obj::PLAYER_BULLET, Tex::PLAYER_BULLET, objPos) };
+		const auto& bullet{ dynamic_cast<Bullet*>(obj->second.get()) };
+
+		if (gameCon->getShoot().up) bullet->setForce({ 0.0f, bullet->getForceAmount(), 0.0f });
+		else if (gameCon->getShoot().down) bullet->setForce({ 0.0f, -bullet->getForceAmount(), 0.0f });
+		else if (gameCon->getShoot().left) bullet->setForce({ -bullet->getForceAmount(), 0.0f, 0.0f });
+		else if (gameCon->getShoot().right) bullet->setForce({ bullet->getForceAmount(), 0.0f, 0.0f });
+		bullet->setVel(bullet->getForce() + objVel);
+
 		resetCoolTime(Skill::SHOOT);
 	}
 
-	// Update CoolTime
+	// Update Cycle
+	doAnimCycle(10, 10, 1, 0);
+	doAnimCycle(10, 2, 1, 1);
+
 	for (auto& cool : *currCoolTime)
 		if (cool.second)
 		{
 			cool.second -= eTime;
 			if (cool.second < 0) cool.second = 0;
 		}
-
-	// Update Rendering Cycle
-	doAnimCycle(10, 10, 0, 0);
-	doAnimCycle(10, 2, 0, 1);
 
 	if (objCol.a != 1.0f)
 		if (!(++alphaCnt % 20))
@@ -82,7 +82,6 @@ void Player::update(float eTime)
 			alphaCnt = 0;
 		}
 
-	// Update CanDamaged Cycle
 	if (!canDamaged)
 		if (!(++canDamagedCycle % 60))
 		{
@@ -101,15 +100,15 @@ void Player::render()
 	static const Vector& headTexVol{ objVol.x * 1.1f, objVol.y, objVol.z };
 
 	if (!gameCon->isMove()) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, 0, 1, true, 0.5f);
-	else if (gameCon->getDir().up) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, nextAnimX[0], 0, true);
-	else if (gameCon->getDir().down) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, nextAnimX[0], 1, true);
 	else if (gameCon->getDir().left) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, nextAnimX[0], 2, true);
 	else if (gameCon->getDir().right) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, nextAnimX[0], 3, true);
+	else if (gameCon->getDir().up) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, nextAnimX[0], 0, true);
+	else if (gameCon->getDir().down) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, nextAnimX[0], 1, true);
 	if (!gameCon->isShoot()) renderer->DrawTextureRectAnim(headTexPos, headTexVol, objCol, texID[1], 2, 4, 0, 1);
-	else if (gameCon->getShoot().up) renderer->DrawTextureRectAnim(headTexPos, headTexVol, objCol, texID[1], 2, 4, nextAnimX[1], 0);
-	else if (gameCon->getShoot().down) renderer->DrawTextureRectAnim(headTexPos, headTexVol, objCol, texID[1], 2, 4, nextAnimX[1], 1);
 	else if (gameCon->getShoot().left) renderer->DrawTextureRectAnim(headTexPos, headTexVol, objCol, texID[1], 2, 4, nextAnimX[1], 2);
 	else if (gameCon->getShoot().right) renderer->DrawTextureRectAnim(headTexPos, headTexVol, objCol, texID[1], 2, 4, nextAnimX[1], 3);
+	else if (gameCon->getShoot().up) renderer->DrawTextureRectAnim(headTexPos, headTexVol, objCol, texID[1], 2, 4, nextAnimX[1], 0);
+	else if (gameCon->getShoot().down) renderer->DrawTextureRectAnim(headTexPos, headTexVol, objCol, texID[1], 2, 4, nextAnimX[1], 1);
 }
 
 void Player::addForce()

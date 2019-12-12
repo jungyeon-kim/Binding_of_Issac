@@ -7,7 +7,7 @@ Renderer* Renderer::instance{};
 Renderer* Renderer::getInstance()
 {
 	if (!instance) instance = new Renderer{ wndSizeX, wndSizeY };
-	else return instance;
+	return instance;
 }
 /////////////////////////////////////////////////////////////////
 

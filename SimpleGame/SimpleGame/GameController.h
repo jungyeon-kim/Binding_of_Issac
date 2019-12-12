@@ -1,6 +1,5 @@
 #pragma once
 
-// Singleton
 class GameController final
 {
 private:

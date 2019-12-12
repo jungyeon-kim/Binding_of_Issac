@@ -5,11 +5,10 @@
 #include "Dependencies\freeglut.h"
 
 #include <tchar.h>
-#include <math.h>
-#include <assert.h>
-
 #include <iostream>
 #include <cstdlib>
+#include <cassert>
+#include <cmath>
 #include <random>
 #include <chrono>
 #include <fstream>
@@ -35,7 +34,6 @@
 #define objMgr ObjMgr::getInstance()
 #define scnMgr ScnMgr::getInstance()
 #define texMgr TexMgr::getInstance()
-/////////////////////////////////////////////
 #define renderer Renderer::getInstance()
 
 constexpr float meter(float centiMeter = 1.0f)

@@ -58,7 +58,7 @@ void GameActor::doAnimCycle(int cyclePeriod, int nextXPeriod, int nextYPeriod, i
 		if (!(++animCycle[idx] % cyclePeriod))
 		{
 			++nextAnimX[idx] %= nextXPeriod;
-			if (!nextAnimX[idx] && nextYPeriod) ++nextAnimY[idx] %= nextYPeriod;
+			if (!nextAnimX[idx] && nextYPeriod > 1) ++nextAnimY[idx] %= nextYPeriod;
 			animCycle[idx] = 0;
 		}
 	}

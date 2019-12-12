@@ -24,11 +24,9 @@ public:
 	void render();
 
 	template <typename T>
-	void addObject(Obj name, const Vector& pos);
+	auto addObject(Obj name, const Vector& pos);
 	template <typename T>
-	void addObject(Obj name, const Vector& pos, const Vector& vel);
-	template <typename T>
-	void addObject(Obj name, const Vector& pos, Tex texID);
+	auto addObject(Obj name, Tex texID, const Vector& pos);
 	void deleteObject(Obj name);
 	void deleteAllObject();
 	void deleteAllObjectByException(Obj exceptedName);

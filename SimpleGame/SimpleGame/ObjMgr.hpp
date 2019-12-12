@@ -3,26 +3,20 @@
 
 // Do not use this on constructor of ObjMgr class.
 template<typename T>
-void ObjMgr::addObject(Obj name, const Vector& pos)
+auto ObjMgr::addObject(Obj name, const Vector& pos)
 {
-	if (obj->size() < MAX_OBJECT) obj->emplace(name, make_unique<T>(pos));
-	else cout << "addObject:: Object is full. \n";
+	if (obj->size() < MAX_OBJECT) return obj->emplace(name, make_unique<T>(pos));
+	cout << "addObject:: Object is full. \n";
+	return obj->end();
 }
 
 // Do not use this on constructor of ObjMgr class.
 template<typename T>
-void ObjMgr::addObject(Obj name, const Vector& pos, const Vector& vel)
+auto ObjMgr::addObject(Obj name, Tex texID, const Vector& pos)
 {
-	if (obj->size() < MAX_OBJECT) obj->emplace(name, make_unique<T>(pos, vel));
-	else cout << "addObject:: Object is full. \n";
-}
-
-// Do not use this on constructor of ObjMgr class.
-template<typename T>
-void ObjMgr::addObject(Obj name, const Vector & pos, Tex texID)
-{
-	if (obj->size() < MAX_OBJECT) obj->emplace(name, make_unique<T>(pos, texID));
-	else cout << "addObject:: Object is full. \n";
+	if (obj->size() < MAX_OBJECT) return obj->emplace(name, make_unique<T>(texID, pos));
+	cout << "addObject:: Object is full. \n";
+	return obj->end();
 }
 
 // This function must use with null check

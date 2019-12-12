@@ -12,9 +12,9 @@ PortalBox::PortalBox(const Vector& pos)
 	init(pos);
 }
 
-PortalBox::PortalBox(const Vector& pos, Tex texID)
+PortalBox::PortalBox(Tex texID, const Vector& pos)
 {
-	init(pos, texID);
+	init(texID, pos);
 }
 
 PortalBox::~PortalBox()
@@ -36,7 +36,7 @@ void PortalBox::init(const Vector& pos)
 	debugCol = { 0.0f, 0.0f, 1.0f, 0.3f };
 }
 
-void PortalBox::init(const Vector& pos, Tex texID)
+void PortalBox::init(Tex texID, const Vector& pos)
 {
 	init(pos);
 
@@ -47,14 +47,7 @@ void PortalBox::update(float eTime)
 {
 	GameObj::update(eTime);
 
-	objForce = { 0.0f, 0.0f, 0.0f };
-	addForce();
-
-	// Update Physics
-	objAcc = physics->getAcc(objAcc, objForce, objMass);
-	objVel = physics->getVel(objVel, objAcc, eTime);
-	objVel = physics->getVelByFric(objVel, objMass, fricCoef, eTime);
-	objPos = physics->getPos(objPos, objVel, objAcc, eTime);
+	physics->update(*this, eTime);
 }
 
 void PortalBox::render()

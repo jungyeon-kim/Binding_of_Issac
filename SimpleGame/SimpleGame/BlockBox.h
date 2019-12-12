@@ -8,11 +8,11 @@ private:
 	std::uniform_int_distribution<> uid{ 0, 100 };
 public:
 	BlockBox(const Vector& pos);
-	BlockBox(const Vector& pos, Tex texID);
+	BlockBox(Tex texID, const Vector& pos);
 	virtual ~BlockBox();
 
 	virtual void init(const Vector & pos) override;
-	void init(const Vector& pos, Tex texID);
+	void init(Tex texID, const Vector& pos);
 	virtual void update(float eTime) override;
 	virtual void render() override;
 	virtual void addForce() override;

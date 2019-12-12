@@ -2,15 +2,15 @@
 
 #include "GameActor.h"
 
-class PlayerBullet : public GameActor
+class Bullet : public GameActor
 {
 public:
-	PlayerBullet(const Vector& pos);
-	PlayerBullet(const Vector& pos, const Vector& vel);
-	virtual ~PlayerBullet() override;
+	Bullet(const Vector& pos);
+	Bullet(Tex texID, const Vector& pos);
+	virtual ~Bullet() override;
 
 	virtual void init(const Vector& pos) override;
-	void init(const Vector& pos, const Vector& vel);
+	void init(Tex texID, const Vector& pos);
 	virtual void update(float eTime) override;
 	virtual void render() override;
 	virtual void addForce() override;
