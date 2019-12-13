@@ -25,7 +25,7 @@ void Bullet::init(const Vector& pos)
 {
 	maxHP = 1.0f;
 	currHP = maxHP;
-	damage = 10.0f;
+	damage = 100.0f;
 
 	forceAmount = 8.0f;
 	fricCoef = 1.0f;
@@ -73,7 +73,7 @@ void Bullet::render()
 	{
 		static const Vector& texVol{ objVol.x * 3.0f, objVol.y * 3.0f, objVol.z };
 		static const Color& texCol{ 0.0f, 0.0f, 0.0f, 1.0f };
-		renderer->DrawTextureRectAnim(objPos, texVol, texCol, texID[1], 4, 4, nextAnimX[0], nextAnimY[0]);
+		renderer->DrawTextureRectAnim(objPos, texVol, texCol, texID[1], 4, 4, currAnimX[0], currAnimY[0]);
 	}
 }
 

@@ -16,8 +16,8 @@ Fly::~Fly()
 void Fly::init(const Vector& pos)
 {
 	texID.emplace_back(texMgr->getTexture(Tex::ENEMY_FLY));
-	texID.emplace_back(texMgr->getTexture(Tex::P_BLOOD3));
-	nextAnimX[0] = randNextAnimXY(dre);
+	texID.emplace_back(texMgr->getTexture(Tex::P_BLOOD4));
+	currAnimX[0] = uidAnimX(dre);
 
 	maxHP = 30.0f;
 	currHP = maxHP;
@@ -46,7 +46,7 @@ void Fly::update(float eTime)
 	else
 	{
 		if (getEnableCollision()) setEnableCollision(false);
-		doAnimCycle(5, 4, 4, 1);
+		doAnimCycle(5, 6, 1, 1);
 	}
 }
 
@@ -57,12 +57,12 @@ void Fly::render()
 	if (currHP > 0.0f)
 	{
 		static const Vector& texVol{ objVol.x * 1.5f, objVol.y * 1.5f, objVol.z };
-		renderer->DrawTextureRectAnim(objPos, texVol, objCol, texID[0], 4, 1, nextAnimX[0], nextAnimY[0]);
+		renderer->DrawTextureRectAnim(objPos, texVol, objCol, texID[0], 4, 1, currAnimX[0], currAnimY[0]);
 	}
 	else
 	{
-		static const Vector& texVol{ objVol.x * 4.0f, objVol.y * 4.0f, objVol.z };
-		renderer->DrawTextureRectAnim(objPos, texVol, objCol, texID[1], 4, 4, nextAnimX[1], nextAnimY[1]);
+		static const Vector& texVol{ objVol.x * 3.0f, objVol.y * 3.0f, objVol.z };
+		renderer->DrawTextureRectAnim(objPos, texVol, objCol, texID[1], 6, 1, currAnimX[1], currAnimY[1]);
 	}
 }
 

@@ -6,8 +6,11 @@ class MomsHand : public GameActor
 {
 private:
 	float dirX{}, dirY{};
+	int attackCycle{};
+	bool canAttack{};
 
 	std::uniform_int_distribution<> uidDir{ -1, 1 };
+	std::uniform_int_distribution<> uidAttackCycle{ 50, 120 };
 public:
 	MomsHand(const Vector& pos);
 	~MomsHand();

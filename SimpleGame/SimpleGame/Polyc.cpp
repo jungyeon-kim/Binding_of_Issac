@@ -20,8 +20,8 @@ Polyc::~Polyc()
 void Polyc::init(const Vector& pos)
 {
 	texID.emplace_back(texMgr->getTexture(Tex::ENEMY_POLYC));
-	texID.emplace_back(texMgr->getTexture(Tex::P_BLOOD2));
-	nextAnimX[0] = 3;
+	texID.emplace_back(texMgr->getTexture(Tex::P_BLOOD5));
+	currAnimX[0] = 3;
 
 	maxHP = 200.0f;
 	currHP = maxHP;
@@ -46,14 +46,14 @@ void Polyc::update(float eTime)
 	{
 		physics->update(*this, eTime);
 
-		// Decide whether to spawn a Bullet from Polyc
+		// Decide whether to attack
 		if (!(++attackCycle % uidAttackCycle(dre)))
 		{
 			canAttack = true;
 			doOnceFlag = true;
 		}
 		if (canAttack) doAnimCycle(10, 4, 1, 0);
-		if (nextAnimX[0] == 2 && canAttack)
+		if (currAnimX[0] == 2 && canAttack)
 		{
 			createBullet(0.0f, 360.0f, 30.0f, 0.15f, 5.0f, 15.0f);
 			attackCycle = 0;
@@ -61,15 +61,15 @@ void Polyc::update(float eTime)
 		}
 		else if (doOnceFlag)
 		{	// Can't get sprite and use it temporarily
-			if (attackCycle == 30) nextAnimX[0] = 1;
-			else if (attackCycle == 40) nextAnimX[0] = 0;
-			else if (attackCycle == 50) nextAnimX[0] = 3;
+			if (attackCycle == 30) currAnimX[0] = 1;
+			else if (attackCycle == 40) currAnimX[0] = 0;
+			else if (attackCycle == 50) currAnimX[0] = 3;
 		}
 	}
 	else
 	{
 		if (getEnableCollision()) setEnableCollision(false);
-		doAnimCycle(5, 4, 4, 1);
+		doAnimCycle(8, 4, 2, 1);
 	}
 }
 
@@ -80,13 +80,13 @@ void Polyc::render()
 	if (currHP > 0)
 	{
 		static const Vector& texVol{ objVol.x * 1.8f, objVol.y * 1.8f, objVol.z };
-		renderer->DrawTextureRectAnim(objPos, texVol, objCol, texID[0], 4, 1, nextAnimX[0], 0);
+		renderer->DrawTextureRectAnim(objPos, texVol, objCol, texID[0], 4, 1, currAnimX[0], 0);
 	}
 	else
 	{
-		const Vector& texPos{ objPos.x - meter(1.2f), objPos.y + meter(0.4f), objPos.z };
+		const Vector& texPos{ objPos.x, objPos.y + meter(0.7f), objPos.z };
 		static const Vector& texVol{ objVol.x * 3.0f, objVol.y * 3.0f, objVol.z };
-		renderer->DrawTextureRectAnim(texPos, texVol, objCol, texID[1], 4, 4, nextAnimX[1], nextAnimY[1]);
+		renderer->DrawTextureRectAnim(texPos, texVol, objCol, texID[1], 4, 2, currAnimX[1], currAnimY[1]);
 	}
 }
 

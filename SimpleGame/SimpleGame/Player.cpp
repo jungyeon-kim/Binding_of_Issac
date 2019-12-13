@@ -92,15 +92,15 @@ void Player::render()
 	static const Vector& headTexVol{ objVol.x * 1.1f, objVol.y, objVol.z };
 
 	if (!gameCon->isMove()) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, 0, 1, true, 1.0f);
-	else if (gameCon->getDir().left) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, nextAnimX[0], 2, true, 1.0f);
-	else if (gameCon->getDir().right) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, nextAnimX[0], 3, true, 1.0f);
-	else if (gameCon->getDir().up) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, nextAnimX[0], 0, true, 1.0f);
-	else if (gameCon->getDir().down) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, nextAnimX[0], 1, true, 1.0f);
+	else if (gameCon->getDir().left) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, currAnimX[0], 2, true, 1.0f);
+	else if (gameCon->getDir().right) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, currAnimX[0], 3, true, 1.0f);
+	else if (gameCon->getDir().up) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, currAnimX[0], 0, true, 1.0f);
+	else if (gameCon->getDir().down) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, currAnimX[0], 1, true, 1.0f);
 	if (!gameCon->isShoot()) renderer->DrawTextureRectAnim(headTexPos, headTexVol, objCol, texID[1], 2, 4, 0, 1);
-	else if (gameCon->getShoot().left) renderer->DrawTextureRectAnim(headTexPos, headTexVol, objCol, texID[1], 2, 4, nextAnimX[1], 2);
-	else if (gameCon->getShoot().right) renderer->DrawTextureRectAnim(headTexPos, headTexVol, objCol, texID[1], 2, 4, nextAnimX[1], 3);
-	else if (gameCon->getShoot().up) renderer->DrawTextureRectAnim(headTexPos, headTexVol, objCol, texID[1], 2, 4, nextAnimX[1], 0);
-	else if (gameCon->getShoot().down) renderer->DrawTextureRectAnim(headTexPos, headTexVol, objCol, texID[1], 2, 4, nextAnimX[1], 1);
+	else if (gameCon->getShoot().left) renderer->DrawTextureRectAnim(headTexPos, headTexVol, objCol, texID[1], 2, 4, currAnimX[1], 2);
+	else if (gameCon->getShoot().right) renderer->DrawTextureRectAnim(headTexPos, headTexVol, objCol, texID[1], 2, 4, currAnimX[1], 3);
+	else if (gameCon->getShoot().up) renderer->DrawTextureRectAnim(headTexPos, headTexVol, objCol, texID[1], 2, 4, currAnimX[1], 0);
+	else if (gameCon->getShoot().down) renderer->DrawTextureRectAnim(headTexPos, headTexVol, objCol, texID[1], 2, 4, currAnimX[1], 1);
 }
 
 void Player::addForce()

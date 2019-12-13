@@ -17,20 +17,20 @@ void MomsHand::init(const Vector& pos)
 {
 	texID.emplace_back(texMgr->getTexture(Tex::ENEMY_MOMS_HAND));
 	texID.emplace_back(texMgr->getTexture(Tex::P_BLOOD1));
-	nextAnimX[0] = randNextAnimXY(dre);
-	nextAnimY[0] = randNextAnimXY(dre);
+	currAnimX[0] = 0;
+	currAnimY[0] = 1;
 
 	maxHP = 120.0f;
 	currHP = maxHP;
 	damage = 10.0f;
 
-	forceAmount = 30.0f;
+	forceAmount = 40.0f;
 	fricCoef = 1.0f;
 	objForce;
 	objPos = pos;
 	objVel;
 	objAcc;
-	objVol = { meter(), meter(), 0.0f };
+	objVol = { meter(0.8f), meter(0.9f), 0.0f };
 	objCol = { 1.0f, 1.0f, 1.0f, 1.0f };
 	objMass = 2.0f;
 }
@@ -42,7 +42,20 @@ void MomsHand::update(float eTime)
 	if (currHP > 0.0f)
 	{
 		physics->update(*this, eTime);
-		doAnimCycle(10, 5, 2, 0);
+
+		// Decide whether to attack
+		if (!(++attackCycle % uidAttackCycle(dre)))
+		{
+			currAnimX[0] = 0;
+			currAnimY[0] = 1;
+			canAttack = true;
+		}
+		if (canAttack)
+		{
+			doAnimCycle(10, 5, 2, 0);
+			attackCycle = 0;
+		}
+		if (currAnimX[0] == 4 && currAnimY[0] == 0 && canAttack) canAttack = false;
 	}
 	else
 	{
@@ -59,18 +72,18 @@ void MomsHand::render()
 	{
 		const Vector& texPos{ objPos.x, objPos.y + meter(0.2f), objPos.z };
 		static const Vector& texVol{ objVol.x * 2.0f, objVol.y * 2.0f, objVol.z };
-		renderer->DrawTextureRectAnim(texPos, texVol, objCol, texID[0], 5, 2, nextAnimX[0], nextAnimY[0]);
+		renderer->DrawTextureRectAnim(texPos, texVol, objCol, texID[0], 5, 2, currAnimX[0], currAnimY[0]);
 	}
 	else
 	{
 		static const Vector& texVol{ objVol.x * 4.0f, objVol.y * 4.0f, objVol.z };
-		renderer->DrawTextureRectAnim(objPos, texVol, objCol, texID[1], 4, 4, nextAnimX[1], nextAnimY[1]);
+		renderer->DrawTextureRectAnim(objPos, texVol, objCol, texID[1], 4, 4, currAnimX[1], currAnimY[1]);
 	}
 }
 
 void MomsHand::addForce()
 {
-	if (nextAnimY[0] == 0)
+	if (currAnimY[0] == 0 && canAttack)
 	{
 		objForce.x += dirX * forceAmount;
 		objForce.y += dirY * forceAmount;
@@ -78,7 +91,8 @@ void MomsHand::addForce()
 	else
 	{
 		dirX = static_cast<float>(uidDir(dre));
-		dirY = static_cast<float>(uidDir(dre));
+		if (!dirX) dirY = static_cast<float>(uidDir(dre));
+		else dirY = 0.0f;
 	}
 }
 

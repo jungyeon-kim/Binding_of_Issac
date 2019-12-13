@@ -48,17 +48,17 @@ void GameActor::takeDamage(float damage, const GameActor& attacker)
 	if (attacker.getEnableCollision()) currHP -= damage;
 }
 
-void GameActor::doAnimCycle(int cyclePeriod, int nextXPeriod, int nextYPeriod, int idx)
+void GameActor::doAnimCycle(int cyclePeriod, int animXPeriod, int animYPeriod, int idx)
 {
 	if (idx < 10)
 	{
-		finalAnimX[idx] = nextXPeriod - 1;
-		finalAnimY[idx] = nextYPeriod - 1;
+		finalAnimX[idx] = animXPeriod - 1;
+		finalAnimY[idx] = animYPeriod - 1;
 
 		if (!(++animCycle[idx] % cyclePeriod))
 		{
-			++nextAnimX[idx] %= nextXPeriod;
-			if (!nextAnimX[idx] && nextYPeriod > 1) ++nextAnimY[idx] %= nextYPeriod;
+			++currAnimX[idx] %= animXPeriod;
+			if (!currAnimX[idx] && animYPeriod > 1) ++currAnimY[idx] %= animYPeriod;
 			animCycle[idx] = 0;
 		}
 	}
@@ -68,7 +68,7 @@ void GameActor::doAnimCycle(int cyclePeriod, int nextXPeriod, int nextYPeriod, i
 
 bool GameActor::onAnimEnded(int idx)
 {
-	return nextAnimX[idx] == finalAnimX[idx] && nextAnimY[idx] == finalAnimY[idx];
+	return currAnimX[idx] == finalAnimX[idx] && currAnimY[idx] == finalAnimY[idx];
 }
 
 float GameActor::getMaxHP() const

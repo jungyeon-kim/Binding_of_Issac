@@ -4,6 +4,8 @@
 
 class Tentacle : public GameActor
 {
+private:
+	std::uniform_int_distribution<> uidAnimX{};
 public:
 	Tentacle(const Vector& pos);
 	~Tentacle();

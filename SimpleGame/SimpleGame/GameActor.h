@@ -12,9 +12,8 @@ protected:
 	float damage{};
 
 	std::array<int, MAX_ANIM_NUM> animCycle{};
-	std::array<int, MAX_ANIM_NUM> nextAnimX{}, nextAnimY{};
+	std::array<int, MAX_ANIM_NUM> currAnimX{}, currAnimY{};
 	std::array<int, MAX_ANIM_NUM> finalAnimX{}, finalAnimY{};
-	std::uniform_int_distribution<> randNextAnimXY{ 0, 100 };
 public:
 	GameActor();
 	virtual ~GameActor();
@@ -27,7 +26,7 @@ public:
 	virtual bool isReadyToDestroy() override = 0;
 	virtual void takeDamage(float damage, const GameActor& attacker);
 	// Maximum animation index is 9.
-	virtual void doAnimCycle(int cyclePeriod, int nextXPeriod, int nextYPeriod, int idx);
+	virtual void doAnimCycle(int cyclePeriod, int animXPeriod, int animYPeriod, int idx);
 	virtual bool onAnimEnded(int idx);
 
 	float getMaxHP() const;
