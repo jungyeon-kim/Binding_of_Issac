@@ -24,7 +24,7 @@ void MomsHand::init(const Vector& pos)
 	currHP = maxHP;
 	damage = 10.0f;
 
-	forceAmount = 40.0f;
+	forceAmount = 30.0f;
 	fricCoef = 1.0f;
 	objForce;
 	objPos = pos;
@@ -87,12 +87,14 @@ void MomsHand::addForce()
 	{
 		objForce.x += dirX * forceAmount;
 		objForce.y += dirY * forceAmount;
+
+		if (!dirY) objForce.x *= 1.5f;
+		else if (!dirX) objForce.y *= 1.5f;
 	}
 	else
 	{
 		dirX = static_cast<float>(uidDir(dre));
-		if (!dirX) dirY = static_cast<float>(uidDir(dre));
-		else dirY = 0.0f;
+		dirY = static_cast<float>(uidDir(dre));
 	}
 }
 

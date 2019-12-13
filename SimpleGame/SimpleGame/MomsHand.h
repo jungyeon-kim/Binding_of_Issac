@@ -10,7 +10,7 @@ private:
 	bool canAttack{};
 
 	std::uniform_int_distribution<> uidDir{ -1, 1 };
-	std::uniform_int_distribution<> uidAttackCycle{ 50, 120 };
+	std::uniform_int_distribution<> uidAttackCycle{ 30, 100 };
 public:
 	MomsHand(const Vector& pos);
 	~MomsHand();
