@@ -5,7 +5,7 @@
 class BlockBox : public GameObj
 {
 private:
-	std::uniform_int_distribution<> uid{ 0, 100 };
+	std::uniform_real_distribution<float> urdCol{ 0.0f, 1.0f };
 public:
 	BlockBox(const Vector& pos);
 	BlockBox(Tex texID, const Vector& pos);

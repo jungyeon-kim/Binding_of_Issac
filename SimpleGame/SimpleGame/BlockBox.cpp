@@ -41,12 +41,11 @@ void BlockBox::init(Tex texID, const Vector& pos)
 	this->texID.emplace_back(texMgr->getTexture(texID));
 
 	if (texID == Tex::BLOCKBOX_ROCK)
-		objCol = { 
-		static_cast<float>(uid(dre) / 100.0f), 
-		static_cast<float>(uid(dre) / 100.0f),
-		static_cast<float>(uid(dre) / 100.0f),
-		1.0f 
-	};
+	{
+		fricCoef = 1.0f;
+		objCol = { urdCol(dre), urdCol(dre), urdCol(dre), 1.0f };
+		objMass = 2.0f;
+	}
 }
 
 void BlockBox::update(float eTime)

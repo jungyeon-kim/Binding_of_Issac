@@ -7,8 +7,7 @@ class MomsHand : public GameActor
 private:
 	float dirX{}, dirY{};
 
-	std::uniform_int_distribution<> uidX{ -1, 1 };
-	std::uniform_int_distribution<> uidY{ -1, 1 };
+	std::uniform_int_distribution<> uidDir{ -1, 1 };
 public:
 	MomsHand(const Vector& pos);
 	~MomsHand();

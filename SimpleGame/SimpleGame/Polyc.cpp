@@ -1,8 +1,10 @@
 #include "stdafx.h"
 #include "Polyc.h"
+#include "objMgr.h"
 #include "Physics.h"
 #include "Renderer.h"
 #include "TexMgr.h"
+#include "Bullet.h"
 
 using namespace std;
 
@@ -19,10 +21,9 @@ void Polyc::init(const Vector& pos)
 {
 	texID.emplace_back(texMgr->getTexture(Tex::ENEMY_POLYC));
 	texID.emplace_back(texMgr->getTexture(Tex::P_BLOOD2));
-	nextAnimX[0] = randNextAnimXY(dre);
-	nextAnimY[0] = randNextAnimXY(dre);
+	nextAnimX[0] = 3;
 
-	maxHP = 80.0f;
+	maxHP = 200.0f;
 	currHP = maxHP;
 	damage = 20.0f;
 
@@ -45,13 +46,25 @@ void Polyc::update(float eTime)
 	{
 		physics->update(*this, eTime);
 
-		// Decide whether to spawn a Bullet from Player
-		if (!(++bulletCoolTime % 200))//nextAnimX[0] == 3)
+		// Decide whether to spawn a Bullet from Polyc
+		if (!(++attackCycle % uidAttackCycle(dre)))
 		{
-			createBullet(0.0f, 360.0f, 10.0f, 0.1f, 5.0f, 15.0f);
+			canAttack = true;
+			doOnceFlag = true;
 		}
-
-		doAnimCycle(15, 4, 1, 0);
+		if (canAttack) doAnimCycle(10, 4, 1, 0);
+		if (nextAnimX[0] == 2 && canAttack)
+		{
+			createBullet(0.0f, 360.0f, 30.0f, 0.15f, 5.0f, 15.0f);
+			attackCycle = 0;
+			canAttack = false;
+		}
+		else if (doOnceFlag)
+		{	// Can't get sprite and use it temporarily
+			if (attackCycle == 30) nextAnimX[0] = 1;
+			else if (attackCycle == 40) nextAnimX[0] = 0;
+			else if (attackCycle == 50) nextAnimX[0] = 3;
+		}
 	}
 	else
 	{
@@ -71,7 +84,7 @@ void Polyc::render()
 	}
 	else
 	{
-		const Vector& texPos{ objPos.x - meter(1.2f), objPos.y + meter(0.5f), objPos.z };
+		const Vector& texPos{ objPos.x - meter(1.2f), objPos.y + meter(0.4f), objPos.z };
 		static const Vector& texVol{ objVol.x * 3.0f, objVol.y * 3.0f, objVol.z };
 		renderer->DrawTextureRectAnim(texPos, texVol, objCol, texID[1], 4, 4, nextAnimX[1], nextAnimY[1]);
 	}
@@ -84,4 +97,20 @@ void Polyc::addForce()
 bool Polyc::isReadyToDestroy()
 {
 	return currHP <= 0.0f && onAnimEnded(1);
+}
+
+void Polyc::createBullet(float first, float last, float plus, float fricCoef, float forceAmount, float damage)
+{
+	for (float i = first; i < last; i += plus)
+	{
+		const auto& obj{ objMgr->addObject<Bullet>(Obj::ENEMY_BULLET, Tex::ENEMY_BULLET, objPos) };
+		const auto& bullet{ dynamic_cast<Bullet*>(obj->second.get()) };
+
+		bullet->setFricCoef(fricCoef);
+		bullet->setForceAmount(forceAmount);
+		bullet->setDamage(damage);
+		bullet->setForce({ bullet->getForceAmount() * cos(angle(i)),
+			bullet->getForceAmount() * sin(angle(i)), 0.0f });
+		bullet->setVel(bullet->getForce());
+	}
 }

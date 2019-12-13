@@ -60,7 +60,10 @@ void ObjMgr::update(float eTime)
 
 				// About Bullet
 				if (i->first == Obj::ENEMY_BULLET || i->first == Obj::PLAYER_BULLET)
-					i->second->isReadyToDestroy();
+				{
+					const auto& bullet{ dynamic_cast<Bullet*>(i->second.get()) };
+					bullet->setCurrHP(0.0f);
+				}
 			}
 
 	garbageCollect();
@@ -104,7 +107,7 @@ void ObjMgr::garbageCollect()
 
 		switch (i->first)
 		{
-		case Obj::BLOCK_BOX: case Obj::PORTAL_BOX:
+		case Obj::STATIC_BOX: case Obj::MOVABLE_BOX: case Obj::PORTAL_BOX:
 			++i;
 			break;
 		case Obj::PLAYER:

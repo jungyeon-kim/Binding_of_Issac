@@ -18,11 +18,10 @@ void Tentacle::init(const Vector & pos)
 	texID.emplace_back(texMgr->getTexture(Tex::ENEMY_TENTACLE));
 	texID.emplace_back(texMgr->getTexture(Tex::P_BLOOD2));
 	nextAnimX[0] = randNextAnimXY(dre);
-	nextAnimY[0] = randNextAnimXY(dre);
 
 	maxHP = 20.0f;
 	currHP = maxHP;
-	damage = 20.0f;
+	damage = 5.0f;
 
 	forceAmount;
 	fricCoef = numeric_limits<float>::max();

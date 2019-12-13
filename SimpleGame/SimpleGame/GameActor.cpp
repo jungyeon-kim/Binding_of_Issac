@@ -1,10 +1,8 @@
 #include "stdafx.h"
 #include "GameActor.h"
 #include "GameController.h"
-#include "objMgr.h"
 #include "Renderer.h"
 #include "Physics.h"
-#include "Bullet.h"
 
 using namespace std;
 
@@ -48,22 +46,6 @@ void GameActor::render()
 void GameActor::takeDamage(float damage, const GameActor& attacker)
 {
 	if (attacker.getEnableCollision()) currHP -= damage;
-}
-
-void GameActor::createBullet(float first, float last, float plus, float fricCoef, float forceAmount, float damage)
-{
-	for (float i = first; i < last; i += plus)
-	{
-		const auto& obj{ objMgr->addObject<Bullet>(Obj::ENEMY_BULLET, Tex::ENEMY_BULLET, objPos) };
-		const auto& bullet{ dynamic_cast<Bullet*>(obj->second.get()) };
-
-		bullet->setFricCoef(fricCoef);
-		bullet->setForceAmount(forceAmount);
-		bullet->setDamage(damage);
-		bullet->setForce({ bullet->getForceAmount() * cos(angle(i)),
-			bullet->getForceAmount() * sin(angle(i)), 0.0f });
-		bullet->setVel(bullet->getForce());
-	}
 }
 
 void GameActor::doAnimCycle(int cyclePeriod, int nextXPeriod, int nextYPeriod, int idx)

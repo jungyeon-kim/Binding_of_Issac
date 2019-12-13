@@ -77,8 +77,8 @@ void MomsHand::addForce()
 	}
 	else
 	{
-		dirX = static_cast<float>(uidX(dre));
-		dirY = static_cast<float>(uidY(dre));
+		dirX = static_cast<float>(uidDir(dre));
+		dirY = static_cast<float>(uidDir(dre));
 	}
 }
 

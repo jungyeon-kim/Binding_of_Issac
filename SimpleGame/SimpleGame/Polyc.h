@@ -5,7 +5,11 @@
 class Polyc : public GameActor
 {
 private:
-	int bulletCoolTime{};
+	int attackCycle{};
+	bool canAttack{};
+	bool doOnceFlag{};
+
+	std::uniform_int_distribution<> uidAttackCycle{ 80, 300 };
 public:
 	Polyc(const Vector& pos);
 	~Polyc();
@@ -15,5 +19,8 @@ public:
 	virtual void render() override;
 	virtual void addForce() override;
 	virtual bool isReadyToDestroy() override;
+
+	void createBullet(float first, float last, float plus,
+		float fricCoef, float forceAmount, float damage);
 };
 

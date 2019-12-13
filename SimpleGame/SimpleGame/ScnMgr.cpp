@@ -46,7 +46,7 @@ void ScnMgr::update(float eTime)
 
 void ScnMgr::render()
 {
-	renderer->DrawGround({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[1], 0.9f);
+	renderer->DrawGround({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[1], 0.0f);
 	renderer->DrawGround({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[0]);
 }
 
@@ -95,10 +95,10 @@ void ScnMgr::setLevel(string fileName)
 				switch (levelTile[i][j])
 				{
 				case -1:
-					objMgr->addObject<BlockBox>(Obj::BLOCK_BOX, Tex::BLOCKBOX_ROCK, tilePos);
+					objMgr->addObject<BlockBox>(Obj::MOVABLE_BOX, Tex::BLOCKBOX_ROCK, tilePos);
 					break;
 				case 1:
-					objMgr->addObject<BlockBox>(Obj::BLOCK_BOX, tilePos);
+					objMgr->addObject<BlockBox>(Obj::STATIC_BOX, tilePos);
 					break;
 				case 2:
 					objMgr->addObject<PortalBox>(Obj::PORTAL_BOX, Tex::PORTALBOX_DOOR, tilePos);
