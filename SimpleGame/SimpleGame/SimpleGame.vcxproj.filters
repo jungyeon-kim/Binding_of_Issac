@@ -147,6 +147,9 @@
     <ClInclude Include="Bullet.h">
       <Filter>소스 파일\GameObj\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="Fly.h">
+      <Filter>소스 파일\GameObj\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -208,6 +211,9 @@
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>소스 파일\GameObj\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Fly.cpp">
+      <Filter>소스 파일\GameObj\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

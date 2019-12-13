@@ -20,7 +20,7 @@ void MomsHand::init(const Vector& pos)
 	nextAnimX[0] = randNextAnimXY(dre);
 	nextAnimY[0] = randNextAnimXY(dre);
 
-	maxHP = 100.0f;
+	maxHP = 120.0f;
 	currHP = maxHP;
 	damage = 10.0f;
 

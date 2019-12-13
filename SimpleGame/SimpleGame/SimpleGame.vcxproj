@@ -154,6 +154,7 @@
   <ItemGroup>
     <ClInclude Include="BlockBox.h" />
     <ClInclude Include="Enum.h" />
+    <ClInclude Include="Fly.h" />
     <ClInclude Include="MomsHand.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Color.h" />
@@ -181,6 +182,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BlockBox.cpp" />
+    <ClCompile Include="Fly.cpp" />
     <ClCompile Include="MomsHand.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="GameActor.cpp" />

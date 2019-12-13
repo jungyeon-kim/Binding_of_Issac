@@ -13,7 +13,7 @@ Tentacle::~Tentacle()
 {
 }
 
-void Tentacle::init(const Vector & pos)
+void Tentacle::init(const Vector& pos)
 {
 	texID.emplace_back(texMgr->getTexture(Tex::ENEMY_TENTACLE));
 	texID.emplace_back(texMgr->getTexture(Tex::P_BLOOD2));

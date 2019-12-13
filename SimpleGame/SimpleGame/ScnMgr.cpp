@@ -115,6 +115,9 @@ void ScnMgr::setLevel(string fileName)
 				case 6:
 					objMgr->addObject<Polyc>(Obj::ENEMY, tilePos);
 					break;
+				case 7:
+					objMgr->addObject<Fly>(Obj::ENEMY, tilePos);
+					break;
 				}
 			}
 	}
