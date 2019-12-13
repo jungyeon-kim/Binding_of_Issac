@@ -57,6 +57,10 @@ void ObjMgr::update(float eTime)
 				{
 					portal->tryOpenDoor();
 				}
+
+				// About Bullet
+				if (i->first == Obj::ENEMY_BULLET || i->first == Obj::PLAYER_BULLET)
+					i->second->isReadyToDestroy();
 			}
 
 	garbageCollect();

@@ -4,6 +4,8 @@
 
 class Polyc : public GameActor
 {
+private:
+	int bulletCoolTime{};
 public:
 	Polyc(const Vector& pos);
 	~Polyc();

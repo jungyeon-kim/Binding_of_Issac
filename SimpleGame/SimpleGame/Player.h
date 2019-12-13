@@ -27,6 +27,8 @@ public:
 	virtual void takeDamage(float damage, const GameActor& attacker) override;
 	virtual bool isReadyToDestroy() override;
 
+	void createBullet();
+
 	bool isEndCoolTime(Skill name) const;
 	void resetCoolTime(Skill name);
 	void setCoolTime();

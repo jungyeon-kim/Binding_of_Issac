@@ -26,6 +26,8 @@ public:
 	virtual void addForce() override = 0;
 	virtual bool isReadyToDestroy() override = 0;
 	virtual void takeDamage(float damage, const GameActor& attacker);
+	virtual void createBullet(float first, float last, float plus,
+		float fricCoef, float forceAmount, float damage);
 	// Maximum animation index is 9.
 	virtual void doAnimCycle(int cyclePeriod, int nextXPeriod, int nextYPeriod, int idx);
 	virtual bool onAnimEnded(int idx);

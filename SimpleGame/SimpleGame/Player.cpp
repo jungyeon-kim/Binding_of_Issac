@@ -52,15 +52,7 @@ void Player::update(float eTime)
 	// Decide whether to spawn a Bullet from Player
 	if (gameCon->isShoot() && isEndCoolTime(Skill::SHOOT))
 	{
-		const auto& obj{ objMgr->addObject<Bullet>(Obj::PLAYER_BULLET, Tex::PLAYER_BULLET, objPos) };
-		const auto& bullet{ dynamic_cast<Bullet*>(obj->second.get()) };
-
-		if (gameCon->getShoot().up) bullet->setForce({ 0.0f, bullet->getForceAmount(), 0.0f });
-		else if (gameCon->getShoot().down) bullet->setForce({ 0.0f, -bullet->getForceAmount(), 0.0f });
-		else if (gameCon->getShoot().left) bullet->setForce({ -bullet->getForceAmount(), 0.0f, 0.0f });
-		else if (gameCon->getShoot().right) bullet->setForce({ bullet->getForceAmount(), 0.0f, 0.0f });
-		bullet->setVel(bullet->getForce() + objVel);
-
+		createBullet();
 		resetCoolTime(Skill::SHOOT);
 	}
 
@@ -99,11 +91,11 @@ void Player::render()
 	static const Vector& bodyTexVol{ objVol.x / 1.5f, objVol.y / 1.5f, objVol.z };
 	static const Vector& headTexVol{ objVol.x * 1.1f, objVol.y, objVol.z };
 
-	if (!gameCon->isMove()) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, 0, 1, true, 0.5f);
-	else if (gameCon->getDir().left) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, nextAnimX[0], 2, true);
-	else if (gameCon->getDir().right) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, nextAnimX[0], 3, true);
-	else if (gameCon->getDir().up) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, nextAnimX[0], 0, true);
-	else if (gameCon->getDir().down) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, nextAnimX[0], 1, true);
+	if (!gameCon->isMove()) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, 0, 1, true, 1.0f);
+	else if (gameCon->getDir().left) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, nextAnimX[0], 2, true, 1.0f);
+	else if (gameCon->getDir().right) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, nextAnimX[0], 3, true, 1.0f);
+	else if (gameCon->getDir().up) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, nextAnimX[0], 0, true, 1.0f);
+	else if (gameCon->getDir().down) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, nextAnimX[0], 1, true, 1.0f);
 	if (!gameCon->isShoot()) renderer->DrawTextureRectAnim(headTexPos, headTexVol, objCol, texID[1], 2, 4, 0, 1);
 	else if (gameCon->getShoot().left) renderer->DrawTextureRectAnim(headTexPos, headTexVol, objCol, texID[1], 2, 4, nextAnimX[1], 2);
 	else if (gameCon->getShoot().right) renderer->DrawTextureRectAnim(headTexPos, headTexVol, objCol, texID[1], 2, 4, nextAnimX[1], 3);
@@ -132,6 +124,19 @@ void Player::takeDamage(float damage, const GameActor& attacker)
 bool Player::isReadyToDestroy()
 {
 	return false;
+}
+
+void Player::createBullet()
+{
+	const Vector& bulletPos{ objPos.x, objPos.y + meter(0.125f), objPos.z };
+	const auto& obj{ objMgr->addObject<Bullet>(Obj::PLAYER_BULLET, Tex::PLAYER_BULLET, bulletPos) };
+	const auto& bullet{ dynamic_cast<Bullet*>(obj->second.get()) };
+
+	if (gameCon->getShoot().up) bullet->setForce({ 0.0f, bullet->getForceAmount(), 0.0f });
+	else if (gameCon->getShoot().down) bullet->setForce({ 0.0f, -bullet->getForceAmount(), 0.0f });
+	else if (gameCon->getShoot().left) bullet->setForce({ -bullet->getForceAmount(), 0.0f, 0.0f });
+	else if (gameCon->getShoot().right) bullet->setForce({ bullet->getForceAmount(), 0.0f, 0.0f });
+	bullet->setVel(bullet->getForce() + objVel);
 }
 
 bool Player::isEndCoolTime(Skill name) const

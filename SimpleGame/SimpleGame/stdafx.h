@@ -1,5 +1,7 @@
 #pragma once
 
+#define _USE_MATH_DEFINES
+
 #include "targetver.h"
 #include "Dependencies\glew.h"
 #include "Dependencies\freeglut.h"
@@ -41,9 +43,13 @@ constexpr float meter(float centiMeter = 1.0f)
 	return centiMeter * 100.0f;
 }
 
-constexpr int frame{ 8 };
+constexpr float angle(float val)
+{
+	return val * static_cast<float>(M_PI) / 180.0f;
+}
 
 constexpr int wndSizeX{ static_cast<int>(meter(19.0f)) };
 constexpr int wndSizeY{ static_cast<int>(meter(9.0f)) };
 
 constexpr float gravity{ static_cast<float>(9.8f) };
+constexpr int frame{ 8 };

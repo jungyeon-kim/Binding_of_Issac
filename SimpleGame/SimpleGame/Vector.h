@@ -87,6 +87,10 @@ struct Vector
 	}
 	bool operator==(const Vector& rhs)
 	{
-		return this->x == rhs.x || this->y == rhs.y || this->z == rhs.z;
+		return this->x == rhs.x && this->y == rhs.y && this->z == rhs.z;
+	}
+	bool operator!=(const Vector& rhs)
+	{
+		return this->x != rhs.x || this->y != rhs.y || this->z != rhs.z;
 	}
 };

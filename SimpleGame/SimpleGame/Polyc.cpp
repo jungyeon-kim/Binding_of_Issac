@@ -3,7 +3,6 @@
 #include "Physics.h"
 #include "Renderer.h"
 #include "TexMgr.h"
-#include "ObjMgr.h"
 
 using namespace std;
 
@@ -23,7 +22,7 @@ void Polyc::init(const Vector& pos)
 	nextAnimX[0] = randNextAnimXY(dre);
 	nextAnimY[0] = randNextAnimXY(dre);
 
-	maxHP = 50.0f;
+	maxHP = 80.0f;
 	currHP = maxHP;
 	damage = 20.0f;
 
@@ -45,6 +44,13 @@ void Polyc::update(float eTime)
 	if (currHP > 0.0f)
 	{
 		physics->update(*this, eTime);
+
+		// Decide whether to spawn a Bullet from Player
+		if (!(++bulletCoolTime % 200))//nextAnimX[0] == 3)
+		{
+			createBullet(0.0f, 360.0f, 10.0f, 0.1f, 5.0f, 15.0f);
+		}
+
 		doAnimCycle(15, 4, 1, 0);
 	}
 	else

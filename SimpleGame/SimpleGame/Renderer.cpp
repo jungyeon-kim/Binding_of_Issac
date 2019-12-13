@@ -789,7 +789,7 @@ void Renderer::DrawTextureRect(Vector pos, Vector vol, Color col,
 	glUniform3f(uScale, vol.x, vol.y, vol.z);
 	glUniform4f(uColor, col.r, col.g, col.b, col.a);
 	glUniform1i(uTexture, 0);
-	glUniform1f(uDepth, depth);
+	glUniform1f(uDepth, (pos.y + depth * 100.0f + m_WindowSizeY / 2.f) / m_WindowSizeY);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureID);
@@ -854,11 +854,11 @@ void Renderer::DrawTextureRectAnim(Vector pos, Vector vol, Color col,
 
 	glUniformMatrix4fv(uProjView, 1, GL_FALSE, &m_m4ProjView[0][0]);
 	glUniformMatrix4fv(uRotToCam, 1, GL_FALSE, &m_m4Model[0][0]);
-	glUniform3f(uTrans, pos.x, pos.y, 0.f);
+	glUniform3f(uTrans, pos.x, pos.y, 0.f); 
 	glUniform3f(uScale, vol.x, vol.y, vol.z);
 	glUniform4f(uColor, col.r, col.g, col.b, col.a);
 	glUniform1i(uTexture, 0);
-	glUniform1f(uDepth, depth);
+	glUniform1f(uDepth, (pos.y + depth * 100.0f + m_WindowSizeY / 2.f) / m_WindowSizeY);
 	glUniform1f(uTotalSeqX, (float)totalX);
 	glUniform1f(uTotalSeqY, (float)totalY);
 	glUniform1f(uCurrSeqX, (float)currX);
@@ -915,7 +915,7 @@ void Renderer::DrawShadow(Vector pos, Vector vol, Color col, int textureID)
 
 	glUniformMatrix4fv(uProjView, 1, GL_FALSE, &m_m4ProjView[0][0]);
 	glUniformMatrix4fv(uRotToCam, 1, GL_FALSE, &m_m4Model[0][0]);
-	glUniform3f(uTrans, pos.x, pos.y, 0.0f);
+	glUniform3f(uTrans, pos.x, pos.y - vol.y / 2.0f, 0.0f);
 	glUniform3f(uScale, vol.x, 7.f, 1.f);
 	glUniform4f(uColor, col.r, col.g, col.b, col.a);
 	glUniform1i(uTexture, 0);
