@@ -150,6 +150,9 @@
     <ClInclude Include="Fly.h">
       <Filter>소스 파일\GameObj\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="ObjBox.h">
+      <Filter>소스 파일\GameObj\StaticObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -214,6 +217,9 @@
     </ClCompile>
     <ClCompile Include="Fly.cpp">
       <Filter>소스 파일\GameObj\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjBox.cpp">
+      <Filter>소스 파일\GameObj\StaticObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

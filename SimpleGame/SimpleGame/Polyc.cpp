@@ -77,7 +77,7 @@ void Polyc::render()
 {
 	GameActor::render();
 
-	if (currHP > 0)
+	if (currHP > 0.0f)
 	{
 		static const Vector& texVol{ objVol.x * 1.8f, objVol.y * 1.8f, objVol.z };
 		renderer->DrawTextureRectAnim(objPos, texVol, objCol, texID[0], 4, 1, currAnimX[0], 0);

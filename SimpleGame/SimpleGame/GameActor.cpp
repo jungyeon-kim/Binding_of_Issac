@@ -43,7 +43,7 @@ void GameActor::render()
 	}
 }
 
-void GameActor::takeDamage(float damage, const GameActor& attacker)
+void GameActor::takeDamage(float damage, Obj attackerType, const GameActor& attacker)
 {
 	if (attacker.getEnableCollision()) currHP -= damage;
 }

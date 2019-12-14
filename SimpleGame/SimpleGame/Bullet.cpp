@@ -35,7 +35,7 @@ void Bullet::init(const Vector& pos)
 	objAcc;
 	objVol = { meter(0.25f), meter(0.25f), 0.0f };
 	objCol = { 1.0f, 1.0f, 1.0f, 1.0f };
-	objMass = 0.2f;
+	objMass = 0.1f;
 }
 
 void Bullet::init(Tex texID, const Vector& pos)

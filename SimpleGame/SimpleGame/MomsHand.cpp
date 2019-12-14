@@ -76,7 +76,7 @@ void MomsHand::render()
 	}
 	else
 	{
-		static const Vector& texVol{ objVol.x * 4.0f, objVol.y * 4.0f, objVol.z };
+		static const Vector& texVol{ objVol.x * 5.0f, objVol.y * 4.0f, objVol.z };
 		renderer->DrawTextureRectAnim(objPos, texVol, objCol, texID[1], 4, 4, currAnimX[1], currAnimY[1]);
 	}
 }

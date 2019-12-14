@@ -27,7 +27,7 @@ void TexMgr::init()
 	texture->emplace(Tex::BACK_GROUND, renderer->GenPngTexture("./Textures/BACK_GROUND.png"));
 	texture->emplace(Tex::FRONT_FRAME, renderer->GenPngTexture("./Textures/FRONT_FRAME.png"));
 
-	texture->emplace(Tex::BLOCKBOX_ROCK, renderer->GenPngTexture("./Textures/BLOCKBOX_ROCK.png"));
+	texture->emplace(Tex::OBJBOX_ROCK, renderer->GenPngTexture("./Textures/OBJBOX_ROCK.png"));
 	texture->emplace(Tex::PORTALBOX_DOOR, renderer->GenPngTexture("./Textures/PORTALBOX_DOOR.png"));
 
 	texture->emplace(Tex::P_BLOOD1, renderer->GenPngTexture("./Textures/P_BLOOD1.png"));
@@ -35,6 +35,8 @@ void TexMgr::init()
 	texture->emplace(Tex::P_BLOOD3, renderer->GenPngTexture("./Textures/P_BLOOD3.png"));
 	texture->emplace(Tex::P_BLOOD4, renderer->GenPngTexture("./Textures/P_BLOOD4.png"));
 	texture->emplace(Tex::P_BLOOD5, renderer->GenPngTexture("./Textures/P_BLOOD5.png"));
+	texture->emplace(Tex::P_EXPLOSION1, renderer->GenPngTexture("./Textures/P_EXPLOSION1.png"));
+	texture->emplace(Tex::P_EXPLOSION2, renderer->GenPngTexture("./Textures/P_EXPLOSION2.png"));
 
 	texture->emplace(Tex::PLAYER_HEAD, renderer->GenPngTexture("./Textures/PLAYER_HEAD.png"));
 	texture->emplace(Tex::PLAYER_BODY, renderer->GenPngTexture("./Textures/PLAYER_BODY.png"));

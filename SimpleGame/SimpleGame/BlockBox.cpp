@@ -1,18 +1,12 @@
 #include "stdafx.h"
 #include "BlockBox.h"
-#include "TexMgr.h"
-#include "Renderer.h"
 #include "Physics.h"
 
+using namespace std;
 
 BlockBox::BlockBox(const Vector& pos)
 {
 	init(pos);
-}
-
-BlockBox::BlockBox(Tex texID, const Vector& pos)
-{
-	init(texID, pos);
 }
 
 BlockBox::~BlockBox()
@@ -34,20 +28,6 @@ void BlockBox::init(const Vector& pos)
 	debugCol = { 1.0f, 0.0f, 0.0f, 0.3f };
 }
 
-void BlockBox::init(Tex texID, const Vector& pos)
-{
-	init(pos);
-
-	this->texID.emplace_back(texMgr->getTexture(texID));
-
-	if (texID == Tex::BLOCKBOX_ROCK)
-	{
-		fricCoef = 1.0f;
-		objCol = { urdCol(dre), urdCol(dre), urdCol(dre), 1.0f };
-		objMass = 2.0f;
-	}
-}
-
 void BlockBox::update(float eTime)
 {
 	GameObj::update(eTime);
@@ -58,12 +38,6 @@ void BlockBox::update(float eTime)
 void BlockBox::render()
 {
 	GameObj::render();
-
-	if (!texID.empty())
-	{
-		static const Vector& texVol{ objVol * 1.1f };
-		renderer->DrawTextureRect(objPos, texVol, objCol, texID[0]);
-	}
 }
 
 void BlockBox::addForce()

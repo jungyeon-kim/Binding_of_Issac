@@ -101,9 +101,7 @@ bool Physics::bbOverlapTest(const GameObj& A, const GameObj& B)
 
 bool Physics::isCollidable(Obj lName, Obj rName)
 {
-	if (lName == Obj::MOVABLE_BOX && rName == Obj::MOVABLE_BOX) return true;
-
-	else if (lName == rName) return false;
+	if (lName == rName) return false;
 	else if (lName == Obj::PLAYER_BULLET && rName == Obj::PLAYER) return false;
 	else if (lName == Obj::ENEMY_BULLET && rName == Obj::ENEMY) return false;
 	else if (lName == Obj::ENEMY_BULLET && rName == Obj::PLAYER_BULLET) return false;

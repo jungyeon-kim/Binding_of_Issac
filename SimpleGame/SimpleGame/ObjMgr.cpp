@@ -45,8 +45,8 @@ void ObjMgr::update(float eTime)
 
 				if (actorI && actorJ)
 				{
-					actorI->takeDamage(actorJ->getDamage(), *actorJ);
-					actorJ->takeDamage(actorI->getDamage(), *actorI);
+					actorI->takeDamage(actorJ->getDamage(), j->first, *actorJ);
+					actorJ->takeDamage(actorI->getDamage(), i->first, *actorI);
 				}
 
 				// About PortalBox & Player
@@ -62,7 +62,7 @@ void ObjMgr::update(float eTime)
 				if (i->first == Obj::ENEMY_BULLET || i->first == Obj::PLAYER_BULLET)
 				{
 					const auto& bullet{ dynamic_cast<Bullet*>(i->second.get()) };
-					bullet->setCurrHP(0.0f);
+					if (bullet && j->second->getEnableCollision()) bullet->setCurrHP(0.0f);
 				}
 			}
 
@@ -103,18 +103,17 @@ void ObjMgr::garbageCollect()
 {
 	for (auto& i = obj->cbegin(); i != obj->cend();)
 	{
-		const auto& actor{ dynamic_cast<GameActor*>(i->second.get()) };
-
 		switch (i->first)
 		{
-		case Obj::STATIC_BOX: case Obj::MOVABLE_BOX: case Obj::PORTAL_BOX:
-			++i;
+		case Obj::BLOCK_BOX: case Obj::PORTAL_BOX: case Obj::OBJ_BOX:
+			if (i->second->isReadyToDestroy()) i = obj->erase(i);
+			else ++i;
 			break;
 		case Obj::PLAYER:
 			++i;
 			break;
 		case Obj::ENEMY:
-			if (actor->isReadyToDestroy())
+			if (i->second->isReadyToDestroy())
 			{
 				i = obj->erase(i);
 				--numOfEnemy;
@@ -122,7 +121,7 @@ void ObjMgr::garbageCollect()
 			else ++i;
 			break;
 		case Obj::PLAYER_BULLET: case Obj::ENEMY_BULLET:
-			if (actor->isReadyToDestroy()) i = obj->erase(i);
+			if (i->second->isReadyToDestroy()) i = obj->erase(i);
 			else ++i;
 			break;
 		default:

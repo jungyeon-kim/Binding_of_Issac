@@ -95,10 +95,10 @@ void ScnMgr::setLevel(string fileName)
 				switch (levelTile[i][j])
 				{
 				case -1:
-					objMgr->addObject<BlockBox>(Obj::MOVABLE_BOX, Tex::BLOCKBOX_ROCK, tilePos);
+					objMgr->addObject<ObjBox>(Obj::OBJ_BOX, Tex::OBJBOX_ROCK, tilePos);
 					break;
 				case 1:
-					objMgr->addObject<BlockBox>(Obj::STATIC_BOX, tilePos);
+					objMgr->addObject<BlockBox>(Obj::BLOCK_BOX, tilePos);
 					break;
 				case 2:
 					objMgr->addObject<PortalBox>(Obj::PORTAL_BOX, Tex::PORTALBOX_DOOR, tilePos);

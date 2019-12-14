@@ -163,6 +163,7 @@
     <ClInclude Include="GameMgr.h" />
     <ClInclude Include="GameObj.h" />
     <ClInclude Include="LoadPng.h" />
+    <ClInclude Include="ObjBox.h" />
     <ClInclude Include="ObjectSet.h" />
     <ClInclude Include="ObjMgr.h" />
     <ClInclude Include="ObjMgr.hpp" />
@@ -190,6 +191,7 @@
     <ClCompile Include="GameMgr.cpp" />
     <ClCompile Include="GameObj.cpp" />
     <ClCompile Include="LoadPng.cpp" />
+    <ClCompile Include="ObjBox.cpp" />
     <ClCompile Include="ObjMgr.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Player.cpp" />

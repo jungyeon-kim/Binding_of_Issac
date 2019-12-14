@@ -111,9 +111,9 @@ void Player::addForce()
 	if (gameCon->getDir().right) objForce.x += forceAmount;
 }
 
-void Player::takeDamage(float damage, const GameActor& attacker)
+void Player::takeDamage(float damage, Obj attackerType, const GameActor& attacker)
 {
-	if (attacker.getEnableCollision() && canDamaged)
+	if (attacker.getEnableCollision() && attackerType != Obj::OBJ_BOX && canDamaged)
 	{
 		currHP -= damage;
 		objCol.a = 0.2f;

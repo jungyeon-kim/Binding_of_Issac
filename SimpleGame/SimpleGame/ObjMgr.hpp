@@ -1,5 +1,6 @@
-#include "ObjMgr.h"
 #pragma once
+
+#include "ObjMgr.h"
 
 // Do not use this on constructor of ObjMgr class.
 template<typename T>
