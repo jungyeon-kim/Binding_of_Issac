@@ -26,6 +26,7 @@ void TexMgr::init()
 	texture->emplace(Tex::TEST, renderer->GenPngTexture("./Textures/TestImg.png"));
 	texture->emplace(Tex::BACK_GROUND, renderer->GenPngTexture("./Textures/BACK_GROUND.png"));
 	texture->emplace(Tex::FRONT_FRAME, renderer->GenPngTexture("./Textures/FRONT_FRAME.png"));
+	texture->emplace(Tex::FRONT_HPBAR_FRAME, renderer->GenPngTexture("./Textures/FRONT_HPBAR_FRAME.png"));
 
 	texture->emplace(Tex::OBJBOX_ROCK, renderer->GenPngTexture("./Textures/OBJBOX_ROCK.png"));
 	texture->emplace(Tex::PORTALBOX_DOOR, renderer->GenPngTexture("./Textures/PORTALBOX_DOOR.png"));

@@ -25,6 +25,7 @@ void Player::init(const Vector& pos)
 
 	texID.emplace_back(texMgr->getTexture(Tex::PLAYER_BODY));
 	texID.emplace_back(texMgr->getTexture(Tex::PLAYER_HEAD));
+	texID.emplace_back(texMgr->getTexture(Tex::FRONT_HPBAR_FRAME));
 
 	maxHP = 100.0f;
 	currHP = maxHP;
@@ -101,6 +102,16 @@ void Player::render()
 	else if (gameCon->getShoot().right) renderer->DrawTextureRectAnim(headTexPos, headTexVol, objCol, texID[1], 2, 4, currAnimX[1], 3);
 	else if (gameCon->getShoot().up) renderer->DrawTextureRectAnim(headTexPos, headTexVol, objCol, texID[1], 2, 4, currAnimX[1], 0);
 	else if (gameCon->getShoot().down) renderer->DrawTextureRectAnim(headTexPos, headTexVol, objCol, texID[1], 2, 4, currAnimX[1], 1);
+
+	static const Vector& hpBarPos{ 0.0f, meter(-4.275f), 0.0f };
+	static const Vector& hpBarVol{ meter(3.5f), meter(0.2f), 0.0f };
+
+	renderer->DrawSolidRectGauge(hpBarPos, { 0.0f, 0.0f, 0.0f }, hpBarVol, 
+		{ 0.8f, 0.8f, 0.8f, 0.5f }, 100.0f, false, 1.0f);
+	renderer->DrawSolidRectGauge(hpBarPos, { 0.0f, 0.0f, 0.0f }, hpBarVol, 
+		{ 1.0f, 0.0f, 0.0f, 0.6f }, (currHP / maxHP) * 100.0f, false, 1.0f);
+	renderer->DrawTextureRect({ 0.0f, meter(-4.275f), 0.0f }, hpBarVol,
+		{ 1.0f, 1.0f, 1.0f, 1.0f }, texID[2], false, 0.0f);
 }
 
 void Player::addForce()
