@@ -106,12 +106,9 @@ void Player::render()
 	static const Vector& hpBarPos{ 0.0f, meter(-4.275f), 0.0f };
 	static const Vector& hpBarVol{ meter(3.5f), meter(0.2f), 0.0f };
 
-	renderer->DrawSolidRectGauge(hpBarPos, { 0.0f, 0.0f, 0.0f }, hpBarVol, 
-		{ 0.8f, 0.8f, 0.8f, 0.5f }, 100.0f, false, 1.0f);
-	renderer->DrawSolidRectGauge(hpBarPos, { 0.0f, 0.0f, 0.0f }, hpBarVol, 
-		{ 1.0f, 0.0f, 0.0f, 0.6f }, (currHP / maxHP) * 100.0f, false, 1.0f);
-	renderer->DrawTextureRect({ 0.0f, meter(-4.275f), 0.0f }, hpBarVol,
-		{ 1.0f, 1.0f, 1.0f, 1.0f }, texID[2], false, 0.0f);
+	renderer->DrawSolidRectGauge(hpBarPos, { 0.0f, 0.0f, 0.0f }, hpBarVol, { 0.8f, 0.8f, 0.8f, 0.5f }, 100.0f, false, 1.0f);
+	renderer->DrawSolidRectGauge(hpBarPos, { 0.0f, 0.0f, 0.0f }, hpBarVol, { 1.0f, 0.0f, 0.0f, 0.6f }, (currHP / maxHP) * 100.0f, false, 1.0f);
+	renderer->DrawTextureRect(hpBarPos, hpBarVol, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[2], false, 0.0f);
 }
 
 void Player::addForce()

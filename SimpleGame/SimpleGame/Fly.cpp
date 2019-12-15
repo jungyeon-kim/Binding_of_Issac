@@ -68,6 +68,8 @@ void Fly::render()
 
 void Fly::addForce()
 {
+	objForce.x += forceAmount;
+	objForce.y += forceAmount;
 }
 
 bool Fly::isReadyToDestroy()

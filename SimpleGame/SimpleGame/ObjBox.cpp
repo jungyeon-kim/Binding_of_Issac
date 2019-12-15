@@ -47,7 +47,7 @@ void ObjBox::init(Tex texID, const Vector& pos)
 	switch (texID)
 	{
 	case Tex::OBJBOX_ROCK:
-		this->texID.emplace_back(texMgr->getTexture(Tex::P_EXPLOSION2));
+		this->texID.emplace_back(texMgr->getTexture(Tex::P_EXPLOSION1));
 		objCol = { urdCol(dre), urdCol(dre), urdCol(dre), 1.0f };
 		break;
 	}

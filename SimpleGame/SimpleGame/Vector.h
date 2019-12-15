@@ -4,6 +4,23 @@ struct Vector
 {
 	float x{}, y{}, z{};
 
+	bool operator<(const Vector& rhs)
+	{
+		return this->x < rhs.x || this->y < rhs.y || this->z < rhs.z;
+	}
+	bool operator>(const Vector& rhs)
+	{
+		return this->x > rhs.x || this->y > rhs.y || this->z > rhs.z;
+	}
+	bool operator==(const Vector& rhs)
+	{
+		return this->x == rhs.x && this->y == rhs.y && this->z == rhs.z;
+	}
+	bool operator!=(const Vector& rhs)
+	{
+		return this->x != rhs.x || this->y != rhs.y || this->z != rhs.z;
+	}
+
 	friend Vector operator-(Vector rhs)
 	{
 		rhs.x *= -1;
@@ -75,22 +92,5 @@ struct Vector
 		lhs.z /= rhs;
 
 		return lhs;
-	}
-
-	bool operator<(const Vector& rhs)
-	{
-		return this->x < rhs.x || this->y < rhs.y || this->z < rhs.z;
-	}
-	bool operator>(const Vector& rhs)
-	{
-		return this->x > rhs.x || this->y > rhs.y || this->z > rhs.z;
-	}
-	bool operator==(const Vector& rhs)
-	{
-		return this->x == rhs.x && this->y == rhs.y && this->z == rhs.z;
-	}
-	bool operator!=(const Vector& rhs)
-	{
-		return this->x != rhs.x || this->y != rhs.y || this->z != rhs.z;
 	}
 };
