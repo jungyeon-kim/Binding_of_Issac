@@ -112,7 +112,7 @@ void ObjMgr::garbageCollect()
 		case Obj::PLAYER:
 			++i;
 			break;
-		case Obj::ENEMY:
+		case Obj::GROUND_ENEMY: case Obj::SKY_ENEMY:
 			if (i->second->isReadyToDestroy())
 			{
 				i = obj->erase(i);

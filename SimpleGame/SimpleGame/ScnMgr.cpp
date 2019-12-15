@@ -107,16 +107,16 @@ void ScnMgr::setLevel(string fileName)
 					objMgr->addObject<Player>(Obj::PLAYER, tilePos);
 					break;
 				case 4:
-					objMgr->addObject<MomsHand>(Obj::ENEMY, tilePos);
+					objMgr->addObject<MomsHand>(Obj::GROUND_ENEMY, tilePos);
 					break;
 				case 5:
-					objMgr->addObject<Tentacle>(Obj::ENEMY, tilePos);
+					objMgr->addObject<Tentacle>(Obj::GROUND_ENEMY, tilePos);
 					break;
 				case 6:
-					objMgr->addObject<Polyc>(Obj::ENEMY, tilePos);
+					objMgr->addObject<Polyc>(Obj::GROUND_ENEMY, tilePos);
 					break;
 				case 7:
-					objMgr->addObject<Fly>(Obj::ENEMY, tilePos);
+					objMgr->addObject<Fly>(Obj::SKY_ENEMY, tilePos);
 					break;
 				}
 			}
