@@ -5,6 +5,7 @@
 class Fly : public GameActor
 {
 private:
+	Vector moveDir{};
 	std::uniform_int_distribution<> uidAnimX{};
 public:
 	Fly(const Vector& pos);

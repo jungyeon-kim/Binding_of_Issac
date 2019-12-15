@@ -85,16 +85,16 @@ void MomsHand::addForce()
 {
 	if (currAnimY[0] == 0 && canAttack)
 	{
-		objForce.x += dirX * forceAmount;
-		objForce.y += dirY * forceAmount;
+		objForce.x += moveDir.x * forceAmount;
+		objForce.y += moveDir.y * forceAmount;
 
-		if (!dirY) objForce.x *= 1.5f;
-		else if (!dirX) objForce.y *= 1.5f;
+		if (!moveDir.y) objForce.x *= 1.5f;
+		else if (!moveDir.x) objForce.y *= 1.5f;
 	}
 	else
 	{
-		dirX = static_cast<float>(uidDir(dre));
-		dirY = static_cast<float>(uidDir(dre));
+		moveDir.x = static_cast<float>(uidDir(dre));
+		moveDir.y = static_cast<float>(uidDir(dre));
 	}
 }
 

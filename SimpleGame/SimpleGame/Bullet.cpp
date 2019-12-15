@@ -25,7 +25,7 @@ void Bullet::init(const Vector& pos)
 {
 	maxHP = 1.0f;
 	currHP = maxHP;
-	damage = 1000.0f;
+	damage = 10.0f;
 
 	forceAmount = 8.0f;
 	fricCoef = 1.0f;
@@ -35,7 +35,7 @@ void Bullet::init(const Vector& pos)
 	objAcc;
 	objVol = { meter(0.25f), meter(0.25f), 0.0f };
 	objCol = { 1.0f, 1.0f, 1.0f, 1.0f };
-	objMass = 0.1f;
+	objMass = 0.2f;
 }
 
 void Bullet::init(Tex texID, const Vector& pos)

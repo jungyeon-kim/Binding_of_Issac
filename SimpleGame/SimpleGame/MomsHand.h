@@ -5,10 +5,10 @@
 class MomsHand : public GameActor
 {
 private:
-	float dirX{}, dirY{};
 	int attackCycle{};
 	bool canAttack{};
 
+	Vector moveDir{};
 	std::uniform_int_distribution<> uidDir{ -1, 1 };
 	std::uniform_int_distribution<> uidAttackCycle{ 30, 100 };
 public:

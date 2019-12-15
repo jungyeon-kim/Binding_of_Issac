@@ -1,8 +1,10 @@
 #include "stdafx.h"
 #include "Fly.h"
 #include "TexMgr.h"
+#include "ObjMgr.h"
 #include "Physics.h"
 #include "Renderer.h"
+#include "Player.h"
 
 Fly::Fly(const Vector& pos)
 {
@@ -23,7 +25,7 @@ void Fly::init(const Vector& pos)
 	currHP = maxHP;
 	damage = 5.0f;
 
-	forceAmount = 8.0f;
+	forceAmount = 7.5f;
 	fricCoef = 1.0f;
 	objForce;
 	objPos = pos;
@@ -31,7 +33,7 @@ void Fly::init(const Vector& pos)
 	objAcc;
 	objVol = { meter(0.3f), meter(0.3f), 0.0f };
 	objCol = { 1.0f, 1.0f, 1.0f, 1.0f };
-	objMass = 1.0f;
+	objMass = 0.7f;
 }
 
 void Fly::update(float eTime)
@@ -68,8 +70,15 @@ void Fly::render()
 
 void Fly::addForce()
 {
-	objForce.x += forceAmount;
-	objForce.y += forceAmount;
+	const auto& player{ objMgr->tryGetObj<Player>(Obj::PLAYER) };
+
+	if (player)
+	{
+		moveDir = physics->getUnit(player->getPos() - objPos);
+
+		objForce.x = moveDir.x * forceAmount;
+		objForce.y = moveDir.y * forceAmount;
+	}
 }
 
 bool Fly::isReadyToDestroy()

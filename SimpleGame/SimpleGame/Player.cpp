@@ -3,9 +3,9 @@
 #include "GameController.h"
 #include "ObjMgr.h"
 #include "TexMgr.h"
-#include "Bullet.h"
 #include "Physics.h"
 #include "Renderer.h"
+#include "Bullet.h"
 
 using namespace std;
 
@@ -37,7 +37,7 @@ void Player::init(const Vector& pos)
 	objPos = pos;
 	objVel;
 	objAcc;
-	objVol = { meter(0.7f), meter(0.7f), 0.0f };
+	objVol = { meter(0.6f), meter(0.6f), 0.0f };
 	objCol = { 1.0f, 1.0f, 1.0f, 1.0f };
 	objMass = 1.0f;
 
@@ -87,10 +87,10 @@ void Player::render()
 {
 	GameActor::render();
 
-	const Vector& bodyTexPos{ objPos.x, objPos.y - meter(0.3f), objPos.z };
+	const Vector& bodyTexPos{ objPos.x, objPos.y - meter(0.275f), objPos.z };
 	const Vector& headTexPos{ objPos.x, objPos.y + meter(0.125f), objPos.z };
-	static const Vector& bodyTexVol{ objVol.x / 1.5f, objVol.y / 1.5f, objVol.z };
-	static const Vector& headTexVol{ objVol.x * 1.1f, objVol.y, objVol.z };
+	static const Vector& bodyTexVol{ objVol.x / 1.4f, objVol.y / 1.4f, objVol.z };
+	static const Vector& headTexVol{ objVol.x * 1.2f, objVol.y * 1.1f, objVol.z };
 
 	if (!gameCon->isMove()) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, 0, 1, true, 1.0f);
 	else if (gameCon->getDir().left) renderer->DrawTextureRectAnim(bodyTexPos, bodyTexVol, objCol, texID[0], 10, 4, currAnimX[0], 2, true, 1.0f);
