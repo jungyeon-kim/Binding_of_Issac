@@ -23,6 +23,6 @@ public:
 	Vector getUnit(const Vector& vec);
 
 	bool isCollidable(Obj lName, Obj rName);
-	bool isOverlap(Obj lName, Obj rName, const GameObj& A, const GameObj& B, int collisionType = 0);
+	bool isOverlap(Obj lName, Obj rName, const GameObj& A, const GameObj& B);
 	void processCollision(GameObj& A, GameObj& B);
 };

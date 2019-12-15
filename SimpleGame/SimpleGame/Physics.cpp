@@ -109,19 +109,9 @@ bool Physics::isCollidable(Obj lName, Obj rName)
 	return true;
 }
 
-bool Physics::isOverlap(Obj lName, Obj rName, const GameObj& A, const GameObj& B, int collisionType)
+bool Physics::isOverlap(Obj lName, Obj rName, const GameObj& A, const GameObj& B)
 {
-	switch (collisionType)
-	{
-	case 0:
-		if (isCollidable(lName, rName)) return bbOverlapTest(A, B);
-		return false;
-		break;
-	default:
-		return false;
-		break;
-	}
-
+	if (isCollidable(lName, rName)) return bbOverlapTest(A, B);
 	return false;
 }
 

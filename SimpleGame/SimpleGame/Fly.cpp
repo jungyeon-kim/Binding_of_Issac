@@ -81,6 +81,12 @@ void Fly::addForce()
 	}
 }
 
+void Fly::takeDamage(float damage, Obj attackerType, const GameActor& attacker)
+{
+	if (attackerType == Obj::PLAYER) currHP = 0.0f;
+	else if (attacker.getEnableCollision()) currHP -= damage;
+}
+
 bool Fly::isReadyToDestroy()
 {
 	return currHP <= 0.0f && onAnimEnded(1);
