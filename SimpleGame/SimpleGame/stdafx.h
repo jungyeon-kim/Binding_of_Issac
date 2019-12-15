@@ -48,6 +48,17 @@ constexpr float angle(float val)
 	return val * static_cast<float>(M_PI) / 180.0f;
 }
 
+constexpr unsigned int hashCode(const char *str)
+{
+	unsigned int hash{};
+	while (*str)
+	{
+		hash = 65599 * hash + str[0];
+		++str;
+	}
+	return hash ^ (hash >> 16);
+}
+
 constexpr int wndSizeX{ static_cast<int>(meter(19.0f)) };
 constexpr int wndSizeY{ static_cast<int>(meter(9.0f)) };
 

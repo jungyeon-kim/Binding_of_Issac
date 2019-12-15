@@ -21,11 +21,11 @@ void Fly::init(const Vector& pos)
 	texID.emplace_back(texMgr->getTexture(Tex::P_BLOOD4));
 	currAnimX[0] = uidAnimX(dre);
 
-	maxHP = 30.0f;
+	maxHP = 10.0f;
 	currHP = maxHP;
 	damage = 5.0f;
 
-	forceAmount = 7.5f;
+	forceAmount = 7.25f;
 	fricCoef = 1.0f;
 	objForce;
 	objPos = pos;

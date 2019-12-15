@@ -3,6 +3,8 @@
 #include "Physics.h"
 #include "Renderer.h"
 #include "TexMgr.h"
+#include "ObjMgr.h"
+#include "Fly.h"
 
 Tentacle::Tentacle(const Vector& pos)
 {
@@ -41,7 +43,13 @@ void Tentacle::update(float eTime)
 	if (currHP > 0.0f)
 	{
 		physics->update(*this, eTime);
+
 		doAnimCycle(10, 6, 1, 0);
+		if (!(++spawnFlyCycle % uidSpawnFlyCycle(dre)))
+		{
+			createFly();
+			spawnFlyCycle = 0;
+		}
 	}
 	else
 	{
@@ -74,5 +82,10 @@ void Tentacle::addForce()
 bool Tentacle::isReadyToDestroy()
 {
 	return currHP <= 0.0f && onAnimEnded(1);
+}
+
+void Tentacle::createFly()
+{
+	objMgr->addObject<Fly>(Obj::SKY_ENEMY, objPos);
 }
 

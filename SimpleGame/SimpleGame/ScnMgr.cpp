@@ -85,37 +85,35 @@ void ScnMgr::setLevel(string fileName)
 		for (int i = 0; i < column; ++i)
 			for (int j = 0; j < row; ++j)
 			{
-				if (levelTile[i][j] > 3) objMgr->setNumOfEnemy(objMgr->getNumOfEnemy() + 1);
-
 				const Vector& tilePos{ 
 					meter(static_cast<float>(j - row / 2)), 
 					meter(static_cast<float>(i - (column / 2))), 
 					0.0f };
 
-				switch (levelTile[i][j])
+				switch (hashCode(levelTile[i][j].c_str()))
 				{
-				case -1:
-					objMgr->addObject<ObjBox>(Obj::OBJ_BOX, Tex::OBJBOX_ROCK, tilePos);
-					break;
-				case 1:
+				case hashCode("B1"):
 					objMgr->addObject<BlockBox>(Obj::BLOCK_BOX, tilePos);
 					break;
-				case 2:
+				case hashCode("B2"):
+					objMgr->addObject<ObjBox>(Obj::OBJ_BOX, Tex::OBJBOX_ROCK, tilePos);
+					break;
+				case hashCode("B3"):
 					objMgr->addObject<PortalBox>(Obj::PORTAL_BOX, Tex::PORTALBOX_DOOR, tilePos);
 					break;
-				case 3:
+				case hashCode("P1"):
 					objMgr->addObject<Player>(Obj::PLAYER, tilePos);
 					break;
-				case 4:
-					objMgr->addObject<MomsHand>(Obj::GROUND_ENEMY, tilePos);
-					break;
-				case 5:
+				case hashCode("GE1"):
 					objMgr->addObject<Tentacle>(Obj::GROUND_ENEMY, tilePos);
 					break;
-				case 6:
+				case hashCode("GE2"):
+					objMgr->addObject<MomsHand>(Obj::GROUND_ENEMY, tilePos);
+					break;
+				case hashCode("GE3"):
 					objMgr->addObject<Polyc>(Obj::GROUND_ENEMY, tilePos);
 					break;
-				case 7:
+				case hashCode("SE1"):
 					objMgr->addObject<Fly>(Obj::SKY_ENEMY, tilePos);
 					break;
 				}

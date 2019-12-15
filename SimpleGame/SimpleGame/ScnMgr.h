@@ -5,10 +5,10 @@ class ScnMgr final
 private:
 	static constexpr int column{ wndSizeY / 100 }, row{ wndSizeX / 100 };
 
-	int levelTile[column][row]{};
 	int levelNameIdx{};
 	bool canChangeLevel{};
 
+	std::string levelTile[column][row]{};
 	std::ifstream tileData{};
 	std::vector<int> texID{};
 

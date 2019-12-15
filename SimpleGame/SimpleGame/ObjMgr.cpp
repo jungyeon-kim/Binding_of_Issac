@@ -135,8 +135,3 @@ int ObjMgr::getNumOfEnemy() const
 {
 	return  numOfEnemy;
 }
-
-void ObjMgr::setNumOfEnemy(int num)
-{
-	numOfEnemy = num;
-}

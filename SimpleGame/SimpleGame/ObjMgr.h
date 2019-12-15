@@ -34,9 +34,7 @@ public:
 
 	template <typename T>
 	T* tryGetObj(Obj name) const;
-
 	int getNumOfEnemy() const;
-	void setNumOfEnemy(int num);
 };
 
 #include "ObjMgr.hpp"

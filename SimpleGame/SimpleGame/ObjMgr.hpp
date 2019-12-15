@@ -6,7 +6,11 @@
 template<typename T>
 auto ObjMgr::addObject(Obj name, const Vector& pos)
 {
-	if (obj->size() < MAX_OBJECT) return obj->emplace(name, make_unique<T>(pos));
+	if (obj->size() < MAX_OBJECT)
+	{
+		if (name == Obj::GROUND_ENEMY || name == Obj::SKY_ENEMY) ++numOfEnemy;
+		return obj->emplace(name, make_unique<T>(pos));
+	}
 	cout << "addObject:: Object is full. \n";
 	return obj->end();
 }
@@ -15,7 +19,11 @@ auto ObjMgr::addObject(Obj name, const Vector& pos)
 template<typename T>
 auto ObjMgr::addObject(Obj name, Tex texID, const Vector& pos)
 {
-	if (obj->size() < MAX_OBJECT) return obj->emplace(name, make_unique<T>(texID, pos));
+	if (obj->size() < MAX_OBJECT)
+	{
+		if (name == Obj::GROUND_ENEMY || name == Obj::SKY_ENEMY) ++numOfEnemy;
+		return obj->emplace(name, make_unique<T>(texID, pos));
+	}
 	cout << "addObject:: Object is full. \n";
 	return obj->end();
 }

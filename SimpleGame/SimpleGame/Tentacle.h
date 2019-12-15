@@ -5,7 +5,10 @@
 class Tentacle : public GameActor
 {
 private:
+	int spawnFlyCycle{};
+
 	std::uniform_int_distribution<> uidAnimX{};
+	std::uniform_int_distribution<> uidSpawnFlyCycle{ 250, 500 };
 public:
 	Tentacle(const Vector& pos);
 	~Tentacle();
@@ -15,5 +18,7 @@ public:
 	virtual void render() override;
 	virtual void addForce() override;
 	virtual bool isReadyToDestroy() override;
+
+	void createFly();
 };
 
