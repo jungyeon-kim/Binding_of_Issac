@@ -45,6 +45,7 @@ void Tentacle::update(float eTime)
 		physics->update(*this, eTime);
 
 		doAnimCycle(10, 6, 1, 0);
+		// Decide whether to spawn Fly
 		if (!(++spawnFlyCycle % uidSpawnFlyCycle(dre)))
 		{
 			createFly();

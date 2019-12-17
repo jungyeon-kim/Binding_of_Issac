@@ -29,6 +29,7 @@ void ObjMgr::init()
 	obj = make_unique<multimap<Obj, unique_ptr<GameObj>, greater<>>>();
 }
 
+
 void ObjMgr::update(float eTime)
 {
 	// Check & Process to collision

@@ -50,7 +50,7 @@ void ScnMgr::render()
 	renderer->DrawGround({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[0]);
 }
 
-bool ScnMgr::readTileData(string fileName)
+bool ScnMgr::readTileData(const string& fileName)
 {
 	tileData.open(fileName);
 
@@ -76,7 +76,7 @@ void ScnMgr::tryChangeLevel()
 	if (!objMgr->getNumOfEnemy()) canChangeLevel = true;
 }
 
-void ScnMgr::setLevel(string fileName)
+void ScnMgr::setLevel(const string& fileName)
 {
 	if (readTileData(fileName))
 	{
@@ -112,6 +112,9 @@ void ScnMgr::setLevel(string fileName)
 					break;
 				case hashCode("GE3"):
 					objMgr->addObject<Polyc>(Obj::GROUND_ENEMY, tilePos);
+					break;
+				case hashCode("GE4"):
+					objMgr->addObject<Judas>(Obj::GROUND_ENEMY, tilePos);
 					break;
 				case hashCode("SE1"):
 					objMgr->addObject<Fly>(Obj::SKY_ENEMY, tilePos);

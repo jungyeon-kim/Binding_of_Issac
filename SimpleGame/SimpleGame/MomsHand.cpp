@@ -20,7 +20,7 @@ void MomsHand::init(const Vector& pos)
 	currAnimX[0] = 0;
 	currAnimY[0] = 1;
 
-	maxHP = 120.0f;
+	maxHP = 50.0f;
 	currHP = maxHP;
 	damage = 10.0f;
 

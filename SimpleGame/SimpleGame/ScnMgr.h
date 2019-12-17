@@ -23,8 +23,8 @@ public:
 	void update(float eTime);
 	void render();
 
-	bool readTileData(std::string fileName);
+	bool readTileData(const std::string& fileName);
 	void tryChangeLevel();
-	void setLevel(std::string fileName);
+	void setLevel(const std::string& fileName);
 };
 

@@ -25,9 +25,9 @@ void Bullet::init(const Vector& pos)
 {
 	maxHP = 1.0f;
 	currHP = maxHP;
-	damage = 1000.0f;
+	damage = 10.0f;
 
-	forceAmount = 8.0f;
+	forceAmount = 9.0f;
 	fricCoef = 1.0f;
 	objForce;
 	objPos = pos;

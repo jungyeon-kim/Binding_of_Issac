@@ -23,7 +23,7 @@ void Polyc::init(const Vector& pos)
 	texID.emplace_back(texMgr->getTexture(Tex::P_BLOOD5));
 	currAnimX[0] = 3;
 
-	maxHP = 300.0f;
+	maxHP = 120.0f;
 	currHP = maxHP;
 	damage = 20.0f;
 

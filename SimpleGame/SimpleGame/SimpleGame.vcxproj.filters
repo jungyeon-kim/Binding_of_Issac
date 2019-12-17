@@ -153,6 +153,9 @@
     <ClInclude Include="ObjBox.h">
       <Filter>소스 파일\GameObj\StaticObj</Filter>
     </ClInclude>
+    <ClInclude Include="Judas.h">
+      <Filter>소스 파일\GameObj\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -220,6 +223,9 @@
     </ClCompile>
     <ClCompile Include="ObjBox.cpp">
       <Filter>소스 파일\GameObj\StaticObj</Filter>
+    </ClCompile>
+    <ClCompile Include="Judas.cpp">
+      <Filter>소스 파일\GameObj\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

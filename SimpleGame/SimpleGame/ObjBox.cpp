@@ -23,7 +23,7 @@ ObjBox::~ObjBox()
 
 void ObjBox::init(const Vector& pos)
 {
-	maxHP = 50.0f;
+	maxHP = 30.0f;
 	currHP = maxHP;
 	damage = 0.0f;
 

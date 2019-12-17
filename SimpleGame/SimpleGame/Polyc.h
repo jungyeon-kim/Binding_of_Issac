@@ -9,7 +9,7 @@ private:
 	bool canAttack{};
 	bool doOnceFlag{};
 
-	std::uniform_int_distribution<> uidAttackCycle{ 80, 300 };
+	std::uniform_int_distribution<> uidAttackCycle{ 80, 250 };
 public:
 	Polyc(const Vector& pos);
 	~Polyc();
