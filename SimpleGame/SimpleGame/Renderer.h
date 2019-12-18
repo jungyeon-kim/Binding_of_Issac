@@ -27,9 +27,9 @@ public:
 	void DrawSolidRectGauge(Vector pos, Vector rpos, Vector vol, Color col, 
 		float percent, bool bShadow = false, float depth = 0.0f);
 	void DrawTextureRect(Vector pos, Vector vol, Color col, 
-		int textureID, bool bShadow = false, float depth = 0.5f);
+		int textureID, bool bShadow = false, float depth = 0.0f);
 	void DrawTextureRectAnim(Vector pos, Vector vol, Color col,
-		int textureID, int totalX, int totalY, int currX, int currY, bool bShadow = false, float depth = 0.5f);
+		int textureID, int totalX, int totalY, int currX, int currY, bool bShadow = false, float depth = 0.0f);
 
 	void DrawGround(Vector pos, Vector vol, Color col, int textureID, float depth = 1.0f); 
 	void Renderer::DrawParticle(int particleObjectID, Vector pos, float size, Color col,

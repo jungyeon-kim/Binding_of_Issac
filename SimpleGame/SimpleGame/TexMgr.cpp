@@ -41,6 +41,7 @@ void TexMgr::init()
 	texture->emplace(TEX::P_BLOOD3, renderer->GenPngTexture("./Textures/P_BLOOD3.png"));
 	texture->emplace(TEX::P_BLOOD4, renderer->GenPngTexture("./Textures/P_BLOOD4.png"));
 	texture->emplace(TEX::P_BLOOD5, renderer->GenPngTexture("./Textures/P_BLOOD5.png"));
+	texture->emplace(TEX::P_BLOOD6, renderer->GenPngTexture("./Textures/P_BLOOD6.png"));
 	texture->emplace(TEX::P_EXPLOSION1, renderer->GenPngTexture("./Textures/P_EXPLOSION1.png"));
 
 	texture->emplace(TEX::PLAYER_HEAD, renderer->GenPngTexture("./Textures/PLAYER_HEAD.png"));

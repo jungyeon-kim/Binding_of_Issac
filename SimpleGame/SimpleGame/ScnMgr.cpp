@@ -59,7 +59,9 @@ void ScnMgr::update(float eTime)
 		}
 		else
 		{
-			setLevel("Levels/STAGE1.txt");
+			levelNameIdx = 0;
+			objMgr->resetNumOfEnemy();
+			setLevel("Levels/STAGE0.txt");
 		}
 		objMgr->update(eTime);
 		break;

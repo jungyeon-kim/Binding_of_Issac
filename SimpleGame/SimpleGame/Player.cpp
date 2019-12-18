@@ -26,6 +26,7 @@ void Player::init(const Vector& pos)
 	texID.emplace_back(texMgr->getTexture(TEX::PLAYER_BODY));
 	texID.emplace_back(texMgr->getTexture(TEX::PLAYER_HEAD));
 	texID.emplace_back(texMgr->getTexture(TEX::FRONT_HPBAR_FRAME));
+	texID.emplace_back(texMgr->getTexture(TEX::P_BLOOD6));
 
 	maxHP = 100.0f;
 	currHP = maxHP;
@@ -79,7 +80,8 @@ void Player::update(float eTime)
 	}
 	else
 	{
-
+		if (getEnableCollision()) setEnableCollision(false);
+		++destroyCnt;
 	}
 }
 
@@ -114,7 +116,8 @@ void Player::render()
 	}
 	else
 	{
-
+		//renderer->DrawGround({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[3], 0.0f);
+		renderer->DrawTextureRect({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[3], false, -10.0f);
 	}
 }
 
@@ -141,7 +144,7 @@ void Player::takeDamage(float damage, OBJ attackerType, const GameActor& attacke
 
 bool Player::isReadyToDestroy()
 {
-	return currHP <= 0.0f;
+	return currHP <= 0.0f && destroyCnt == 300;
 }
 
 void Player::createBullet()

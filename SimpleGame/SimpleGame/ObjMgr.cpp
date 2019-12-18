@@ -141,6 +141,11 @@ int ObjMgr::getNumOfEnemy() const
 	return  numOfEnemy;
 }
 
+void ObjMgr::resetNumOfEnemy()
+{
+	numOfEnemy = 0;
+}
+
 shared_ptr<Physics> ObjMgr::getPhysics() const
 {
 	return physics;

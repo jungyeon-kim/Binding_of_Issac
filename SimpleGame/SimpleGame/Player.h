@@ -10,6 +10,7 @@ private:
 private:
 	static constexpr float MAX_VEL{ 5.0f };
 
+	int destroyCnt{};
 	int canDamagedCycle{};
 	bool canDamaged{};
 

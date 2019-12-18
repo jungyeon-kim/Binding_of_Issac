@@ -37,6 +37,7 @@ public:
 	template <typename T>
 	T* tryGetObj(OBJ name) const;
 	int getNumOfEnemy() const;
+	void resetNumOfEnemy();
 
 	std::shared_ptr<class Physics> getPhysics() const;
 	std::shared_ptr<class Renderer> getRenderer() const;
