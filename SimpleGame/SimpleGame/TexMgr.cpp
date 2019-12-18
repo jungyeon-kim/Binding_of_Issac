@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "TexMgr.h"
+#include "ObjMgr.h"
 #include "Renderer.h"
+
+using namespace std;
 
 TexMgr* TexMgr::instance{};
 
@@ -21,6 +24,7 @@ TexMgr* TexMgr::getInstance()
 
 void TexMgr::init()
 {
+	renderer = objMgr->getRenderer();
 	texture = make_unique<map<Tex, int>>();
 
 	texture->emplace(Tex::TEST, renderer->GenPngTexture("./Textures/TestImg.png"));

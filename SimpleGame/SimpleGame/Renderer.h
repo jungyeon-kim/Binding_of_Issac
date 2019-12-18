@@ -8,8 +8,6 @@
 #define MAX_TEXTURES 1000
 #define MAX_PARTICLES 1000
 
-using namespace std;
-
 typedef struct S_PARTICLE{
 	GLuint VBO;
 	GLuint VertexCount;
@@ -17,15 +15,10 @@ typedef struct S_PARTICLE{
 
 class Renderer
 {
-	///////////////////////////////////////////
-private:
-	static Renderer* instance;
-private:
+public:
 	Renderer(int windowSizeX, int windowSizeY);
 	~Renderer();
-public:
-	static Renderer* getInstance();
-	///////////////////////////////////////////
+
 	bool IsInitialized();
 
 	void DrawSolidRect(Vector pos, float size, Color col, bool bShadow = false);

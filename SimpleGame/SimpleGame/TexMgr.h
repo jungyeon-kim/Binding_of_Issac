@@ -6,6 +6,7 @@ private:
 	using TextureContainer = std::unique_ptr<std::map<Tex, int>>;
 private:
 	static TexMgr* instance;
+	std::shared_ptr<class Renderer> renderer{};
 	TextureContainer texture{};
 private:
 	TexMgr();

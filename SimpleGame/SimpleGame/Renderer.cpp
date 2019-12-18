@@ -1,21 +1,12 @@
 #include "stdafx.h"
 #include "Renderer.h"
 
-/////////////////////////////////////////////////////////////////
-Renderer* Renderer::instance{};
-
-Renderer* Renderer::getInstance()
-{
-	if (!instance) instance = new Renderer{ wndSizeX, wndSizeY };
-	return instance;
-}
-/////////////////////////////////////////////////////////////////
+using namespace std;
 
 Renderer::Renderer(int windowSizeX, int windowSizeY)
 {
 	//default settings
 	glClearDepth(1.f);
-
 	Initialize(windowSizeX, windowSizeY);
 }
 

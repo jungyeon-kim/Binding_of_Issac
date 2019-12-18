@@ -6,6 +6,8 @@
 #include "ObjMgr.h"
 #include "Fly.h"
 
+using namespace std;
+
 Tentacle::Tentacle(const Vector& pos)
 {
 	init(pos);

@@ -18,7 +18,8 @@ protected:
 	std::random_device seed{};
 	std::default_random_engine dre{ seed() };
 
-	std::unique_ptr<class Physics> physics{};
+	std::shared_ptr<class Physics> physics{};
+	std::shared_ptr<class Renderer> renderer{};
 public:
 	GameObj();
 	virtual ~GameObj();

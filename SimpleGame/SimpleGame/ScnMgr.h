@@ -13,6 +13,7 @@ private:
 	std::vector<int> texID{};
 
 	static ScnMgr* instance;
+	std::shared_ptr<class Renderer> renderer{};
 private:
 	ScnMgr();
 	~ScnMgr();

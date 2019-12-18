@@ -26,6 +26,8 @@ ScnMgr* ScnMgr::getInstance()
 
 void ScnMgr::init()
 {
+	renderer = objMgr->getRenderer();
+
 	texID.emplace_back(texMgr->getTexture(Tex::BACK_GROUND));
 	texID.emplace_back(texMgr->getTexture(Tex::FRONT_FRAME));
 

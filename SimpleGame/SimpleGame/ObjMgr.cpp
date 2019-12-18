@@ -1,7 +1,8 @@
 #include "stdafx.h"		
 #include "ObjMgr.h"
 #include "Physics.h"
-#include "GameActor.h"
+#include "Renderer.h"
+#include "Sound.h"
 #include "ObjectSet.h"
 
 using namespace std;
@@ -25,7 +26,9 @@ ObjMgr* ObjMgr::getInstance()
 
 void ObjMgr::init()
 {
-	physics = make_unique<Physics>();
+	physics = make_shared<Physics>();
+	renderer = make_shared<Renderer>(wndSizeX, wndSizeY);
+	sound = make_shared<Sound>();
 	obj = make_unique<multimap<Obj, unique_ptr<GameObj>, greater<>>>();
 }
 
@@ -135,4 +138,19 @@ void ObjMgr::garbageCollect()
 int ObjMgr::getNumOfEnemy() const
 {
 	return  numOfEnemy;
+}
+
+shared_ptr<Physics> ObjMgr::getPhysics() const
+{
+	return physics;
+}
+
+shared_ptr<Renderer> ObjMgr::getRenderer() const
+{
+	return renderer;
+}
+
+shared_ptr<Sound> ObjMgr::getSound() const
+{
+	return sound;
 }

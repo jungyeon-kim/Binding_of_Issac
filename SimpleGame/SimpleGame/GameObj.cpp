@@ -3,7 +3,7 @@
 #include "TexMgr.h"
 #include "GameController.h"
 #include "Renderer.h"
-#include "Physics.h"
+#include "ObjMgr.h"
 
 using namespace std;
 
@@ -18,7 +18,8 @@ GameObj::~GameObj()
 
 void GameObj::init()
 {
-	physics = make_unique<Physics>();
+	physics = objMgr->getPhysics();
+	renderer = objMgr->getRenderer();
 
 	debugCol = { 0.0f, 0.0f, 0.0f, 0.3f };
 	enableCollsion = true;
