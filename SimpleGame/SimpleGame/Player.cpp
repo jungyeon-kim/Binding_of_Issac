@@ -68,13 +68,6 @@ void Player::update(float eTime)
 			if (cool.second < 0) cool.second = 0;
 		}
 
-	if (objCol.a != 1.0f)
-		if (!(++alphaCnt % 20))
-		{
-			objCol.a = 1.0f;
-			alphaCnt = 0;
-		}
-
 	if (!canDamaged)
 		if (!(++canDamagedCycle % 60))
 		{
@@ -121,11 +114,14 @@ void Player::addForce()
 
 void Player::takeDamage(float damage, Obj attackerType, const GameActor& attacker)
 {
-	if (attacker.getEnableCollision() && attackerType != Obj::OBJ_BOX && canDamaged)
+	if (attacker.getEnableCollision() && damage > 0.0f)
 	{
-		currHP -= damage;
-		objCol.a = 0.2f;
-		canDamaged = false;
+		if (canDamaged)
+		{
+			currHP -= damage;
+			objCol.a = 0.3f;
+			canDamaged = false;
+		}
 	}
 }
 

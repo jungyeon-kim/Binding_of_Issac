@@ -84,7 +84,7 @@ void Judas::update(float eTime)
 			{
 				value = fmod(value += 20.0f, 360.0f);
 				for (float i = 0; i != 360.0f; i += 60.0f)
-					createBullet(value + i, 0.005f, 5.0f, 1.0f, { 0.0f, 0.0f, 0.0f, 0.3f });
+					createBullet(value + i, 0.005f, 5.0f, 2.5f, { 0.0f, 0.0f, 0.0f, 0.3f });
 				attackCycle[0] = 0;
 			}
 			break;

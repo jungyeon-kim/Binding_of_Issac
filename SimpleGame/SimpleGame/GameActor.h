@@ -7,6 +7,7 @@ class GameActor abstract : public GameObj
 protected:
 	static constexpr int MAX_ANIM_NUM{ 10 };
 
+	int colorCnt{};
 	float maxHP{};
 	float currHP{};
 	float damage{};

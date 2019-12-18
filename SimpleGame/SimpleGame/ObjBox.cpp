@@ -91,8 +91,10 @@ void ObjBox::addForce()
 
 void ObjBox::takeDamage(float damage, Obj attackerType, const GameActor& attacker)
 {
-	if (attacker.getEnableCollision() && attackerType == Obj::PLAYER_BULLET) 
-		currHP -= damage;
+	if (attacker.getEnableCollision() && damage > 0.0f)
+	{
+		if(attackerType == Obj::PLAYER_BULLET) currHP -= damage;
+	}
 }
 
 bool ObjBox::isReadyToDestroy()

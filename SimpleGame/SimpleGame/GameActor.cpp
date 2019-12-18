@@ -28,6 +28,13 @@ void GameActor::init()
 void GameActor::update(float eTime)
 {
 	GameObj::update(eTime);
+
+	if (objCol.a != 1.0f)
+		if (!(++colorCnt % 10))
+		{
+			objCol.a = 1.0f;
+			colorCnt = 0;
+		}
 }
 
 void GameActor::render()
@@ -45,7 +52,11 @@ void GameActor::render()
 
 void GameActor::takeDamage(float damage, Obj attackerType, const GameActor& attacker)
 {
-	if (attacker.getEnableCollision()) currHP -= damage;
+	if (attacker.getEnableCollision() && damage > 0.0f)
+	{
+		currHP -= damage;
+		objCol.a = 0.3f;
+	}
 }
 
 void GameActor::doAnimCycle(int cyclePeriod, int animXPeriod, int animYPeriod, int idx)
