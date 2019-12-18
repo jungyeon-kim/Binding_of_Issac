@@ -2,6 +2,7 @@
 #include "ScnMgr.h"
 #include "ObjMgr.h"
 #include "TexMgr.h"
+#include "GameController.h"
 #include "Renderer.h"
 #include "ObjectSet.h"
 
@@ -27,7 +28,9 @@ ScnMgr* ScnMgr::getInstance()
 void ScnMgr::init()
 {
 	renderer = objMgr->getRenderer();
+	scene = SCENE::TITLE;
 
+	texID.emplace_back(texMgr->getTexture(TEX::SCENE_TITLE));
 	texID.emplace_back(texMgr->getTexture(TEX::BACK_GROUND));
 	texID.emplace_back(texMgr->getTexture(TEX::FRONT_FRAME));
 
@@ -36,20 +39,51 @@ void ScnMgr::init()
 
 void ScnMgr::update(float eTime)
 {
-	if (canChangeLevel)
+	switch (scene)
+	{
+	case SCENE::TITLE:
+		if (gameCon->isInputSpaceBar()) scene = SCENE::IN_GAME;
+		break;
+	case SCENE::IN_GAME:
 	{
 		const auto& player{ objMgr->tryGetObj<Player>(OBJ::PLAYER) };
 
-		if (player) player->setPos({ 0.0f, meter(-3.0f), 0.0f });
-		setLevel("Levels/STAGE" + to_string(++levelNameIdx) + ".txt");
-		canChangeLevel = false;
+		if (player)
+		{
+			if (onChangeLevel)
+			{
+				player->setPos({ 0.0f, meter(-3.0f), 0.0f });
+				setLevel("Levels/STAGE" + to_string(++levelNameIdx) + ".txt");
+				onChangeLevel = false;
+			}
+		}
+		else
+		{
+			setLevel("Levels/STAGE1.txt");
+		}
+		objMgr->update(eTime);
+		break;
+	}
+	case SCENE::ENDING:
+		break;
 	}
 }
 
 void ScnMgr::render()
 {
-	renderer->DrawGround({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[1], 0.0f);
-	renderer->DrawGround({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[0]);
+	switch (scene)
+	{
+	case SCENE::TITLE:
+		renderer->DrawGround({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[0], 0.0f);
+		break;
+	case SCENE::IN_GAME:
+		renderer->DrawGround({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[2], 0.0f);
+		renderer->DrawGround({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, texID[1]);
+		objMgr->render();
+		break;
+	case SCENE::ENDING:
+		break;
+	}
 }
 
 bool ScnMgr::readTileData(const string& fileName)
@@ -75,7 +109,7 @@ bool ScnMgr::readTileData(const string& fileName)
 
 void ScnMgr::tryChangeLevel()
 {
-	if (!objMgr->getNumOfEnemy()) canChangeLevel = true;
+	if (!objMgr->getNumOfEnemy()) onChangeLevel = true;
 }
 
 void ScnMgr::setLevel(const string& fileName)
@@ -124,4 +158,39 @@ void ScnMgr::setLevel(const string& fileName)
 				}
 			}
 	}
+}
+
+void ScnMgr::keyDownInput(unsigned char key, int x, int y) const
+{
+	gameCon->keyDownInput(key, x, y);
+}
+
+void ScnMgr::keyUpInput(unsigned char key, int x, int y) const
+{
+	gameCon->keyUpInput(key, x, y);
+}
+
+void ScnMgr::specialKeyDownInput(int key, int x, int y) const
+{
+	gameCon->specialKeyDownInput(key, x, y);
+}
+
+void ScnMgr::specialKeyUpInput(int key, int x, int y) const
+{
+	gameCon->specialKeyUpInput(key, x, y);
+}
+
+int ScnMgr::getElapsedTime()
+{
+	currTime = glutGet(GLUT_ELAPSED_TIME);
+	elapsedTime = currTime - prevTime;
+	prevTime = currTime;
+	//cout << "elapsed time (ms): " << elapsedTime << endl;
+
+	return elapsedTime;
+}
+
+ScnMgr::SCENE ScnMgr::getSceneState() const
+{
+	return scene;
 }

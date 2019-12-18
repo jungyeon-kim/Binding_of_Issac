@@ -9,8 +9,10 @@ private:
 private:
 	static constexpr int column{ wndSizeY / 100 }, row{ wndSizeX / 100 };
 
+	int currTime{}, prevTime{}, elapsedTime{};
 	int levelNameIdx{};
-	bool canChangeLevel{};
+	bool onChangeLevel{};
+	SCENE scene{};
 
 	std::string levelTile[column][row]{};
 	std::ifstream tileData{};
@@ -31,5 +33,12 @@ public:
 	bool readTileData(const std::string& fileName);
 	void tryChangeLevel();
 	void setLevel(const std::string& fileName);
-};
 
+	void keyDownInput(unsigned char key, int x, int y) const;
+	void keyUpInput(unsigned char key, int x, int y) const;
+	void specialKeyDownInput(int key, int x, int y) const;
+	void specialKeyUpInput(int key, int x, int y) const;
+
+	int getElapsedTime();
+	SCENE getSceneState() const;
+};

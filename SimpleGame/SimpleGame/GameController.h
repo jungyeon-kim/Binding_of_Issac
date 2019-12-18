@@ -3,6 +3,7 @@
 class GameController final
 {
 private:
+	bool inputSpaceBar{};
 	bool onDebugMode{};
 	Direction objShoot{};
 	Direction objDir{};
@@ -21,6 +22,7 @@ public:
 	void specialKeyDownInput(int key, int x, int y);
 	void specialKeyUpInput(int key, int x, int y);
 
+	bool isInputSpaceBar() const;
 	bool isMove() const;
 	bool isShoot() const;
 	bool isRunDebugMode() const;

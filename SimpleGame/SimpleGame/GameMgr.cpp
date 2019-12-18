@@ -1,6 +1,5 @@
 #include "stdafx.h"		
 #include "GameMgr.h"
-#include "ObjMgr.h"
 #include "ScnMgr.h"
 #include "GameController.h"
 
@@ -30,13 +29,11 @@ void GameMgr::init()
 void GameMgr::update(float eTime)
 {
 	scnMgr->update(eTime);
-	objMgr->update(eTime);
 }
 
 void GameMgr::render()
 {
 	scnMgr->render();
-	objMgr->render();
 }
 
 void GameMgr::keyDownInput(unsigned char key, int x, int y) const

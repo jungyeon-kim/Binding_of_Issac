@@ -161,7 +161,6 @@
     <ClInclude Include="Color.h" />
     <ClInclude Include="GameActor.h" />
     <ClInclude Include="GameController.h" />
-    <ClInclude Include="GameMgr.h" />
     <ClInclude Include="GameObj.h" />
     <ClInclude Include="LoadPng.h" />
     <ClInclude Include="ObjBox.h" />
@@ -190,7 +189,6 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="GameActor.cpp" />
     <ClCompile Include="GameController.cpp" />
-    <ClCompile Include="GameMgr.cpp" />
     <ClCompile Include="GameObj.cpp" />
     <ClCompile Include="LoadPng.cpp" />
     <ClCompile Include="ObjBox.cpp" />

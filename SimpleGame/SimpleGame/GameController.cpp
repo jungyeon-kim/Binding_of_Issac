@@ -28,6 +28,9 @@ void GameController::keyDownInput(unsigned char key, int x, int y)
 {
 	switch (key | 32)
 	{
+	case 32:
+		inputSpaceBar = true;
+		break;
 	case 'w':
 		objDir.up = true;
 		break;
@@ -47,6 +50,9 @@ void GameController::keyUpInput(unsigned char key, int x, int y)
 {
 	switch (key | 32)
 	{
+	case 32:
+		inputSpaceBar = false;
+		break;
 	case 'w':
 		objDir.up = false;
 		break;
@@ -102,6 +108,11 @@ void GameController::specialKeyUpInput(int key, int x, int y)
 		objShoot.right = false;
 		break;
 	}
+}
+
+bool GameController::isInputSpaceBar() const
+{
+	return inputSpaceBar;
 }
 
 bool GameController::isMove() const

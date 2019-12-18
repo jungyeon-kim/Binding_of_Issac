@@ -31,7 +31,6 @@
 #include "Direction.h"
 #include "Enum.h"
 
-#define gameMgr GameMgr::getInstance()
 #define gameCon GameController::getInstance()
 #define objMgr ObjMgr::getInstance()
 #define scnMgr ScnMgr::getInstance()

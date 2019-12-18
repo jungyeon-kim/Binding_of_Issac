@@ -40,9 +40,6 @@
     <Filter Include="소스 파일\GameMgr\ObjMgr">
       <UniqueIdentifier>{29d8af69-d704-4505-931e-ddee0a23e7e5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\GameMgr\GameMgr">
-      <UniqueIdentifier>{172e5f06-ea29-4c33-be8e-e15c5c434cb0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\GameMgr\TexMgr">
       <UniqueIdentifier>{d7c01a28-d51f-41be-a6b7-d5af0d98ffac}</UniqueIdentifier>
     </Filter>
@@ -74,9 +71,6 @@
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="GameMgr.h">
-      <Filter>소스 파일\GameMgr\GameMgr</Filter>
     </ClInclude>
     <ClInclude Include="GameObj.h">
       <Filter>소스 파일\GameObj</Filter>
@@ -163,9 +157,6 @@
     </ClCompile>
     <ClCompile Include="SimpleGame.cpp">
       <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="GameMgr.cpp">
-      <Filter>소스 파일\GameMgr\GameMgr</Filter>
     </ClCompile>
     <ClCompile Include="GameObj.cpp">
       <Filter>소스 파일\GameObj</Filter>
