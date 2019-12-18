@@ -22,7 +22,7 @@ public:
 	float getScalar(const Vector& vec);
 	Vector getUnit(const Vector& vec);
 
-	bool isCollidable(Obj lName, Obj rName);
-	bool isOverlap(Obj lName, Obj rName, const GameObj& A, const GameObj& B);
+	bool isCollidable(OBJ lName, OBJ rName);
+	bool isOverlap(OBJ lName, OBJ rName, const GameObj& A, const GameObj& B);
 	void processCollision(GameObj& A, GameObj& B);
 };

@@ -28,8 +28,8 @@ void ScnMgr::init()
 {
 	renderer = objMgr->getRenderer();
 
-	texID.emplace_back(texMgr->getTexture(Tex::BACK_GROUND));
-	texID.emplace_back(texMgr->getTexture(Tex::FRONT_FRAME));
+	texID.emplace_back(texMgr->getTexture(TEX::BACK_GROUND));
+	texID.emplace_back(texMgr->getTexture(TEX::FRONT_FRAME));
 
 	setLevel("Levels/STAGE" + to_string(levelNameIdx) + ".txt");
 }
@@ -38,7 +38,7 @@ void ScnMgr::update(float eTime)
 {
 	if (canChangeLevel)
 	{
-		const auto& player{ objMgr->tryGetObj<Player>(Obj::PLAYER) };
+		const auto& player{ objMgr->tryGetObj<Player>(OBJ::PLAYER) };
 
 		if (player) player->setPos({ 0.0f, meter(-3.0f), 0.0f });
 		setLevel("Levels/STAGE" + to_string(++levelNameIdx) + ".txt");
@@ -82,7 +82,7 @@ void ScnMgr::setLevel(const string& fileName)
 {
 	if (readTileData(fileName))
 	{
-		objMgr->deleteAllObjectByException(Obj::PLAYER);
+		objMgr->deleteAllObjectByException(OBJ::PLAYER);
 
 		for (int i = 0; i < column; ++i)
 			for (int j = 0; j < row; ++j)
@@ -95,31 +95,31 @@ void ScnMgr::setLevel(const string& fileName)
 				switch (hashCode(levelTile[i][j].c_str()))
 				{
 				case hashCode("B1"):
-					objMgr->addObject<BlockBox>(Obj::BLOCK_BOX, tilePos);
+					objMgr->addObject<BlockBox>(OBJ::BLOCK_BOX, tilePos);
 					break;
 				case hashCode("B2"):
-					objMgr->addObject<ObjBox>(Obj::OBJ_BOX, Tex::OBJBOX_ROCK, tilePos);
+					objMgr->addObject<ObjBox>(OBJ::OBJ_BOX, TEX::OBJBOX_ROCK, tilePos);
 					break;
 				case hashCode("B3"):
-					objMgr->addObject<PortalBox>(Obj::PORTAL_BOX, Tex::PORTALBOX_DOOR, tilePos);
+					objMgr->addObject<PortalBox>(OBJ::PORTAL_BOX, TEX::PORTALBOX_DOOR, tilePos);
 					break;
 				case hashCode("P1"):
-					objMgr->addObject<Player>(Obj::PLAYER, tilePos);
+					objMgr->addObject<Player>(OBJ::PLAYER, tilePos);
 					break;
 				case hashCode("GE1"):
-					objMgr->addObject<Tentacle>(Obj::GROUND_ENEMY, tilePos);
+					objMgr->addObject<Tentacle>(OBJ::GROUND_ENEMY, tilePos);
 					break;
 				case hashCode("GE2"):
-					objMgr->addObject<MomsHand>(Obj::GROUND_ENEMY, tilePos);
+					objMgr->addObject<MomsHand>(OBJ::GROUND_ENEMY, tilePos);
 					break;
 				case hashCode("GE3"):
-					objMgr->addObject<Polyc>(Obj::GROUND_ENEMY, tilePos);
+					objMgr->addObject<Polyc>(OBJ::GROUND_ENEMY, tilePos);
 					break;
 				case hashCode("GE4"):
-					objMgr->addObject<Judas>(Obj::GROUND_ENEMY, tilePos);
+					objMgr->addObject<Judas>(OBJ::GROUND_ENEMY, tilePos);
 					break;
 				case hashCode("SE1"):
-					objMgr->addObject<Fly>(Obj::SKY_ENEMY, tilePos);
+					objMgr->addObject<Fly>(OBJ::SKY_ENEMY, tilePos);
 					break;
 				}
 			}

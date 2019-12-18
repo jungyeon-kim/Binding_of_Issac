@@ -29,7 +29,7 @@ void ObjMgr::init()
 	physics = make_shared<Physics>();
 	renderer = make_shared<Renderer>(wndSizeX, wndSizeY);
 	sound = make_shared<Sound>();
-	obj = make_unique<multimap<Obj, unique_ptr<GameObj>, greater<>>>();
+	obj = make_unique<multimap<OBJ, unique_ptr<GameObj>, greater<>>>();
 }
 
 
@@ -63,7 +63,7 @@ void ObjMgr::update(float eTime)
 				}
 
 				// About Bullet
-				if (i->first == Obj::ENEMY_BULLET || i->first == Obj::PLAYER_BULLET)
+				if (i->first == OBJ::ENEMY_BULLET || i->first == OBJ::PLAYER_BULLET)
 				{
 					const auto& bullet{ dynamic_cast<Bullet*>(i->second.get()) };
 					if (bullet && j->second->getEnableCollision()) bullet->setCurrHP(0.0f);
@@ -80,7 +80,7 @@ void ObjMgr::render()
 	for (const auto& obj : *obj) obj.second->render();
 }
 
-void ObjMgr::deleteObject(Obj name)
+void ObjMgr::deleteObject(OBJ name)
 {
 	const auto& target{ obj->find(name) };
 
@@ -94,7 +94,7 @@ void ObjMgr::deleteAllObject()
 		i = obj->erase(i);
 }
 
-void ObjMgr::deleteAllObjectByException(Obj exceptedName)
+void ObjMgr::deleteAllObjectByException(OBJ exceptedName)
 {
 	for (auto& i = obj->cbegin(); i != obj->cend();)
 	{
@@ -109,14 +109,14 @@ void ObjMgr::garbageCollect()
 	{
 		switch (i->first)
 		{
-		case Obj::BLOCK_BOX: case Obj::PORTAL_BOX: case Obj::OBJ_BOX:
+		case OBJ::BLOCK_BOX: case OBJ::PORTAL_BOX: case OBJ::OBJ_BOX:
 			if (i->second->isReadyToDestroy()) i = obj->erase(i);
 			else ++i;
 			break;
-		case Obj::PLAYER:
+		case OBJ::PLAYER:
 			++i;
 			break;
-		case Obj::GROUND_ENEMY: case Obj::SKY_ENEMY:
+		case OBJ::GROUND_ENEMY: case OBJ::SKY_ENEMY:
 			if (i->second->isReadyToDestroy())
 			{
 				i = obj->erase(i);
@@ -124,7 +124,7 @@ void ObjMgr::garbageCollect()
 			}
 			else ++i;
 			break;
-		case Obj::PLAYER_BULLET: case Obj::ENEMY_BULLET:
+		case OBJ::PLAYER_BULLET: case OBJ::ENEMY_BULLET:
 			if (i->second->isReadyToDestroy()) i = obj->erase(i);
 			else ++i;
 			break;

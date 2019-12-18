@@ -15,7 +15,7 @@ public:
 	virtual void update(float eTime) override;
 	virtual void render() override;
 	virtual void addForce() override;
-	virtual void takeDamage(float damage, Obj attackerType, const GameActor& attacker);
+	virtual void takeDamage(float damage, OBJ attackerType, const GameActor& attacker);
 	virtual bool isReadyToDestroy() override;
 };
 

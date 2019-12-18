@@ -12,7 +12,7 @@ PortalBox::PortalBox(const Vector& pos)
 	init(pos);
 }
 
-PortalBox::PortalBox(Tex texID, const Vector& pos)
+PortalBox::PortalBox(TEX texID, const Vector& pos)
 {
 	init(texID, pos);
 }
@@ -36,7 +36,7 @@ void PortalBox::init(const Vector& pos)
 	debugCol = { 0.0f, 0.0f, 1.0f, 0.3f };
 }
 
-void PortalBox::init(Tex texID, const Vector& pos)
+void PortalBox::init(TEX texID, const Vector& pos)
 {
 	init(pos);
 

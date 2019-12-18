@@ -17,8 +17,8 @@ Fly::~Fly()
 
 void Fly::init(const Vector& pos)
 {
-	texID.emplace_back(texMgr->getTexture(Tex::ENEMY_FLY));
-	texID.emplace_back(texMgr->getTexture(Tex::P_BLOOD4));
+	texID.emplace_back(texMgr->getTexture(TEX::ENEMY_FLY));
+	texID.emplace_back(texMgr->getTexture(TEX::P_BLOOD4));
 	currAnimX[0] = uidAnimX(dre);
 
 	maxHP = 10.0f;
@@ -70,7 +70,7 @@ void Fly::render()
 
 void Fly::addForce()
 {
-	const auto& player{ objMgr->tryGetObj<Player>(Obj::PLAYER) };
+	const auto& player{ objMgr->tryGetObj<Player>(OBJ::PLAYER) };
 
 	if (player)
 	{
@@ -81,9 +81,9 @@ void Fly::addForce()
 	}
 }
 
-void Fly::takeDamage(float damage, Obj attackerType, const GameActor& attacker)
+void Fly::takeDamage(float damage, OBJ attackerType, const GameActor& attacker)
 {
-	if (attackerType == Obj::PLAYER) currHP = 0.0f;
+	if (attackerType == OBJ::PLAYER) currHP = 0.0f;
 	else if (attacker.getEnableCollision()) currHP -= damage;
 }
 

@@ -4,7 +4,7 @@ class ObjMgr final
 {
 private:
 	template <typename T>
-	using ObjContainer = std::unique_ptr<std::multimap<Obj, T, std::greater<>>>;
+	using ObjContainer = std::unique_ptr<std::multimap<OBJ, T, std::greater<>>>;
 private:
 	static constexpr int MAX_OBJECT{ 5000 };
 
@@ -26,16 +26,16 @@ public:
 	void render();
 
 	template <typename T>
-	auto addObject(Obj name, const Vector& pos);
+	auto addObject(OBJ name, const Vector& pos);
 	template <typename T>
-	auto addObject(Obj name, Tex texID, const Vector& pos);
-	void deleteObject(Obj name);
+	auto addObject(OBJ name, TEX texID, const Vector& pos);
+	void deleteObject(OBJ name);
 	void deleteAllObject();
-	void deleteAllObjectByException(Obj exceptedName);
+	void deleteAllObjectByException(OBJ exceptedName);
 	void garbageCollect();
 
 	template <typename T>
-	T* tryGetObj(Obj name) const;
+	T* tryGetObj(OBJ name) const;
 	int getNumOfEnemy() const;
 
 	std::shared_ptr<class Physics> getPhysics() const;

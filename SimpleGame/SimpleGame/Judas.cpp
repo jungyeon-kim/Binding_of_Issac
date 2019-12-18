@@ -19,8 +19,8 @@ Judas::~Judas()
 
 void Judas::init(const Vector& pos)
 {
-	texID.emplace_back(texMgr->getTexture(Tex::ENEMY_JUDAS));
-	texID.emplace_back(texMgr->getTexture(Tex::P_BLOOD5));
+	texID.emplace_back(texMgr->getTexture(TEX::ENEMY_JUDAS));
+	texID.emplace_back(texMgr->getTexture(TEX::P_BLOOD5));
 
 	maxHP = 600.0f;
 	currHP = maxHP;
@@ -128,7 +128,7 @@ void Judas::createBullet(float first, float last, float plus,
 {
 	for (float i = first; i < last; i += plus)
 	{
-		const auto& obj{ objMgr->addObject<Bullet>(Obj::ENEMY_BULLET, Tex::ENEMY_BULLET, objPos) };
+		const auto& obj{ objMgr->addObject<Bullet>(OBJ::ENEMY_BULLET, TEX::ENEMY_BULLET, objPos) };
 		const auto& bullet{ dynamic_cast<Bullet*>(obj->second.get()) };
 
 		bullet->setFricCoef(fricCoef);
@@ -145,7 +145,7 @@ void Judas::createBullet(float first, float last, float plus,
 void Judas::createBullet(float value, float fricCoef, float forceAmount, float damage, 
 	const Color& col, const Vector& vol)
 {
-	const auto& obj{ objMgr->addObject<Bullet>(Obj::ENEMY_BULLET, Tex::ENEMY_BULLET, objPos) };
+	const auto& obj{ objMgr->addObject<Bullet>(OBJ::ENEMY_BULLET, TEX::ENEMY_BULLET, objPos) };
 	const auto& bullet{ dynamic_cast<Bullet*>(obj->second.get()) };
 
 	bullet->setFricCoef(fricCoef);

@@ -99,20 +99,20 @@ bool Physics::bbOverlapTest(const GameObj& A, const GameObj& B)
 	return true;
 }
 
-bool Physics::isCollidable(Obj lName, Obj rName)
+bool Physics::isCollidable(OBJ lName, OBJ rName)
 {
 	if (lName == rName) return false;
-	else if (lName == Obj::PLAYER_BULLET && rName == Obj::PLAYER) return false;
-	else if (lName == Obj::SKY_ENEMY && rName == Obj::GROUND_ENEMY) return false;
-	else if (lName == Obj::ENEMY_BULLET && rName == Obj::GROUND_ENEMY) return false;
-	else if (lName == Obj::ENEMY_BULLET && rName == Obj::SKY_ENEMY) return false;
-	else if (lName == Obj::SKY_ENEMY && rName == Obj::OBJ_BOX) return false;
-	else if (lName == Obj::ENEMY_BULLET && rName == Obj::PLAYER_BULLET) return false;
+	else if (lName == OBJ::PLAYER_BULLET && rName == OBJ::PLAYER) return false;
+	else if (lName == OBJ::SKY_ENEMY && rName == OBJ::GROUND_ENEMY) return false;
+	else if (lName == OBJ::ENEMY_BULLET && rName == OBJ::GROUND_ENEMY) return false;
+	else if (lName == OBJ::ENEMY_BULLET && rName == OBJ::SKY_ENEMY) return false;
+	else if (lName == OBJ::SKY_ENEMY && rName == OBJ::OBJ_BOX) return false;
+	else if (lName == OBJ::ENEMY_BULLET && rName == OBJ::PLAYER_BULLET) return false;
 	
 	return true;
 }
 
-bool Physics::isOverlap(Obj lName, Obj rName, const GameObj& A, const GameObj& B)
+bool Physics::isOverlap(OBJ lName, OBJ rName, const GameObj& A, const GameObj& B)
 {
 	if (isCollidable(lName, rName)) return bbOverlapTest(A, B);
 	return false;

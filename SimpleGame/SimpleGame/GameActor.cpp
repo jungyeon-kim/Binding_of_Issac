@@ -49,7 +49,7 @@ void GameActor::render()
 	}
 }
 
-void GameActor::takeDamage(float damage, Obj attackerType, const GameActor& attacker)
+void GameActor::takeDamage(float damage, OBJ attackerType, const GameActor& attacker)
 {
 	if (attacker.getEnableCollision() && damage > 0.0f)
 	{

@@ -12,7 +12,7 @@ Bullet::Bullet(const Vector& pos)
 	assert(0);
 }
 
-Bullet::Bullet(Tex texID, const Vector& pos)
+Bullet::Bullet(TEX texID, const Vector& pos)
 {
 	init(texID, pos);
 }
@@ -38,12 +38,12 @@ void Bullet::init(const Vector& pos)
 	objMass = 0.2f;
 }
 
-void Bullet::init(Tex texID, const Vector& pos)
+void Bullet::init(TEX texID, const Vector& pos)
 {
 	init(pos);
 
 	this->texID.emplace_back(texMgr->getTexture(texID));
-	this->texID.emplace_back(texMgr->getTexture(Tex::P_BLOOD3));
+	this->texID.emplace_back(texMgr->getTexture(TEX::P_BLOOD3));
 }
 
 void Bullet::update(float eTime)

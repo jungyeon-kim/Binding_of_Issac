@@ -3,6 +3,10 @@
 class ScnMgr final
 {
 private:
+	enum class SCENE {
+		TITLE, IN_GAME, ENDING
+	};
+private:
 	static constexpr int column{ wndSizeY / 100 }, row{ wndSizeX / 100 };
 
 	int levelNameIdx{};

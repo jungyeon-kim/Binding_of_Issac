@@ -19,8 +19,8 @@ Tentacle::~Tentacle()
 
 void Tentacle::init(const Vector& pos)
 {
-	texID.emplace_back(texMgr->getTexture(Tex::ENEMY_TENTACLE));
-	texID.emplace_back(texMgr->getTexture(Tex::P_BLOOD2));
+	texID.emplace_back(texMgr->getTexture(TEX::ENEMY_TENTACLE));
+	texID.emplace_back(texMgr->getTexture(TEX::P_BLOOD2));
 	currAnimX[0] = uidAnimX(dre);
 
 	maxHP = 20.0f;
@@ -89,6 +89,6 @@ bool Tentacle::isReadyToDestroy()
 
 void Tentacle::createFly()
 {
-	objMgr->addObject<Fly>(Obj::SKY_ENEMY, objPos);
+	objMgr->addObject<Fly>(OBJ::SKY_ENEMY, objPos);
 }
 

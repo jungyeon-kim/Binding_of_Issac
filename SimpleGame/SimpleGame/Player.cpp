@@ -23,9 +23,9 @@ void Player::init(const Vector& pos)
 	maxCoolTime = make_unique<map<Skill, float>>();
 	currCoolTime = make_unique<map<Skill, float>>();
 
-	texID.emplace_back(texMgr->getTexture(Tex::PLAYER_BODY));
-	texID.emplace_back(texMgr->getTexture(Tex::PLAYER_HEAD));
-	texID.emplace_back(texMgr->getTexture(Tex::FRONT_HPBAR_FRAME));
+	texID.emplace_back(texMgr->getTexture(TEX::PLAYER_BODY));
+	texID.emplace_back(texMgr->getTexture(TEX::PLAYER_HEAD));
+	texID.emplace_back(texMgr->getTexture(TEX::FRONT_HPBAR_FRAME));
 
 	maxHP = 100.0f;
 	currHP = maxHP;
@@ -112,7 +112,7 @@ void Player::addForce()
 	if (gameCon->getDir().right) objForce.x += forceAmount;
 }
 
-void Player::takeDamage(float damage, Obj attackerType, const GameActor& attacker)
+void Player::takeDamage(float damage, OBJ attackerType, const GameActor& attacker)
 {
 	if (attacker.getEnableCollision() && damage > 0.0f)
 	{
@@ -133,7 +133,7 @@ bool Player::isReadyToDestroy()
 void Player::createBullet()
 {
 	const Vector& bulletPos{ objPos.x, objPos.y + meter(0.125f), objPos.z };
-	const auto& obj{ objMgr->addObject<Bullet>(Obj::PLAYER_BULLET, Tex::PLAYER_BULLET, bulletPos) };
+	const auto& obj{ objMgr->addObject<Bullet>(OBJ::PLAYER_BULLET, TEX::PLAYER_BULLET, bulletPos) };
 	const auto& bullet{ dynamic_cast<Bullet*>(obj->second.get()) };
 
 	if (gameCon->getShoot().up) bullet->setForce({ 0.0f, bullet->getForceAmount(), 0.0f });

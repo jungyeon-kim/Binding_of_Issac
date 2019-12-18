@@ -12,7 +12,7 @@ ObjBox::ObjBox(const Vector& pos)
 	assert(0);
 }
 
-ObjBox::ObjBox(Tex texID, const Vector& pos)
+ObjBox::ObjBox(TEX texID, const Vector& pos)
 {
 	init(texID, pos);
 }
@@ -38,7 +38,7 @@ void ObjBox::init(const Vector& pos)
 	objMass = 1.0f;
 }
 
-void ObjBox::init(Tex texID, const Vector& pos)
+void ObjBox::init(TEX texID, const Vector& pos)
 {
 	init(pos);
 
@@ -46,8 +46,8 @@ void ObjBox::init(Tex texID, const Vector& pos)
 
 	switch (texID)
 	{
-	case Tex::OBJBOX_ROCK:
-		this->texID.emplace_back(texMgr->getTexture(Tex::P_EXPLOSION1));
+	case TEX::OBJBOX_ROCK:
+		this->texID.emplace_back(texMgr->getTexture(TEX::P_EXPLOSION1));
 		objCol = { urdCol(dre), urdCol(dre), urdCol(dre), 1.0f };
 		break;
 	}
@@ -89,11 +89,11 @@ void ObjBox::addForce()
 {
 }
 
-void ObjBox::takeDamage(float damage, Obj attackerType, const GameActor& attacker)
+void ObjBox::takeDamage(float damage, OBJ attackerType, const GameActor& attacker)
 {
 	if (attacker.getEnableCollision() && damage > 0.0f)
 	{
-		if(attackerType == Obj::PLAYER_BULLET) currHP -= damage;
+		if(attackerType == OBJ::PLAYER_BULLET) currHP -= damage;
 	}
 }
 

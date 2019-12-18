@@ -15,8 +15,8 @@ MomsHand::~MomsHand()
 
 void MomsHand::init(const Vector& pos)
 {
-	texID.emplace_back(texMgr->getTexture(Tex::ENEMY_MOMS_HAND));
-	texID.emplace_back(texMgr->getTexture(Tex::P_BLOOD1));
+	texID.emplace_back(texMgr->getTexture(TEX::ENEMY_MOMS_HAND));
+	texID.emplace_back(texMgr->getTexture(TEX::P_BLOOD1));
 	currAnimX[0] = 0;
 	currAnimY[0] = 1;
 

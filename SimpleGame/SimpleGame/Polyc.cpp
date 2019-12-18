@@ -19,8 +19,8 @@ Polyc::~Polyc()
 
 void Polyc::init(const Vector& pos)
 {
-	texID.emplace_back(texMgr->getTexture(Tex::ENEMY_POLYC));
-	texID.emplace_back(texMgr->getTexture(Tex::P_BLOOD5));
+	texID.emplace_back(texMgr->getTexture(TEX::ENEMY_POLYC));
+	texID.emplace_back(texMgr->getTexture(TEX::P_BLOOD5));
 	currAnimX[0] = 3;
 
 	maxHP = 120.0f;
@@ -103,7 +103,7 @@ void Polyc::createBullet(float first, float last, float plus, float fricCoef, fl
 {
 	for (float i = first; i < last; i += plus)
 	{
-		const auto& obj{ objMgr->addObject<Bullet>(Obj::ENEMY_BULLET, Tex::ENEMY_BULLET, objPos) };
+		const auto& obj{ objMgr->addObject<Bullet>(OBJ::ENEMY_BULLET, TEX::ENEMY_BULLET, objPos) };
 		const auto& bullet{ dynamic_cast<Bullet*>(obj->second.get()) };
 
 		bullet->setFricCoef(fricCoef);
