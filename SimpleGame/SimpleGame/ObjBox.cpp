@@ -33,7 +33,7 @@ void ObjBox::init(const Vector& pos)
 	objPos = pos;
 	objVel;
 	objAcc;
-	objVol = { meter(0.95), meter(0.95), 0.0f };
+	objVol = { meter(0.95f), meter(0.95f), 0.0f };
 	objCol = { 1.0f, 1.0f, 1.0f, 1.0f };
 	objMass = 1.0f;
 }

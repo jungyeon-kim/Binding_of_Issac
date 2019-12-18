@@ -22,7 +22,7 @@ void Judas::init(const Vector& pos)
 	texID.emplace_back(texMgr->getTexture(Tex::ENEMY_JUDAS));
 	texID.emplace_back(texMgr->getTexture(Tex::P_BLOOD5));
 
-	maxHP = 100.0f;
+	maxHP = 600.0f;
 	currHP = maxHP;
 	damage = 20.0f;
 
