@@ -29,6 +29,7 @@ void TexMgr::init()
 
 	texture->emplace(TEX::TEST, renderer->GenPngTexture("./Textures/TestImg.png"));
 	texture->emplace(TEX::SCENE_TITLE, renderer->GenPngTexture("./Textures/SCENE_TITLE.png"));
+	texture->emplace(TEX::SCENE_ENDING, renderer->GenPngTexture("./Textures/SCENE_ENDING.png"));
 	texture->emplace(TEX::BACK_GROUND, renderer->GenPngTexture("./Textures/BACK_GROUND.png"));
 	texture->emplace(TEX::FRONT_FRAME, renderer->GenPngTexture("./Textures/FRONT_FRAME.png"));
 	texture->emplace(TEX::FRONT_HPBAR_FRAME, renderer->GenPngTexture("./Textures/FRONT_HPBAR_FRAME.png"));

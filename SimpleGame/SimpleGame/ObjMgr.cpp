@@ -90,8 +90,7 @@ void ObjMgr::deleteObject(OBJ name)
 
 void ObjMgr::deleteAllObject()
 {
-	for (auto& i = obj->cbegin(); i != obj->cend();) 
-		i = obj->erase(i);
+	for (auto& i = obj->cbegin(); i != obj->cend();) i = obj->erase(i);
 }
 
 void ObjMgr::deleteAllObjectByException(OBJ exceptedName)

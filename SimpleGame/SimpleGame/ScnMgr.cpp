@@ -33,6 +33,7 @@ void ScnMgr::init()
 	texID.emplace_back(texMgr->getTexture(TEX::SCENE_TITLE));
 	texID.emplace_back(texMgr->getTexture(TEX::BACK_GROUND));
 	texID.emplace_back(texMgr->getTexture(TEX::FRONT_FRAME));
+	texID.emplace_back(texMgr->getTexture(TEX::SCENE_ENDING));
 
 	setLevel("Levels/STAGE" + to_string(levelNameIdx) + ".txt");
 }
@@ -67,6 +68,11 @@ void ScnMgr::update(float eTime)
 		break;
 	}
 	case SCENE::ENDING:
+		if (!(++sceneCnt % 800))
+		{
+			scene = SCENE::TITLE;
+			sceneCnt = 0;
+		}
 		break;
 	}
 }
@@ -84,6 +90,8 @@ void ScnMgr::render()
 		objMgr->render();
 		break;
 	case SCENE::ENDING:
+		//renderer->DrawGround({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, sceneCnt / 500.0f }, texID[3], 0.0f);
+		renderer->DrawTextureRect({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, sceneCnt / 500.0f }, texID[3], 0.0f);
 		break;
 	}
 }
@@ -104,7 +112,8 @@ bool ScnMgr::readTileData(const string& fileName)
 	}
 	else
 	{
-		cout << "readTileData:: File loading is failed. \n";
+		objMgr->deleteAllObject();
+		scene = SCENE::ENDING;
 		return false;
 	}
 }
@@ -190,9 +199,4 @@ int ScnMgr::getElapsedTime()
 	//cout << "elapsed time (ms): " << elapsedTime << endl;
 
 	return elapsedTime;
-}
-
-ScnMgr::SCENE ScnMgr::getSceneState() const
-{
-	return scene;
 }

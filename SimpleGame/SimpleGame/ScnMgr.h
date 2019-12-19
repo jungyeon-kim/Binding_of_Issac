@@ -12,6 +12,8 @@ private:
 	int currTime{}, prevTime{}, elapsedTime{};
 	int levelNameIdx{};
 	bool onChangeLevel{};
+
+	int sceneCnt{};
 	SCENE scene{};
 
 	std::string levelTile[column][row]{};
@@ -40,5 +42,4 @@ public:
 	void specialKeyUpInput(int key, int x, int y) const;
 
 	int getElapsedTime();
-	SCENE getSceneState() const;
 };

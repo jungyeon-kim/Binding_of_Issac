@@ -20,7 +20,7 @@ Judas::~Judas()
 void Judas::init(const Vector& pos)
 {
 	texID.emplace_back(texMgr->getTexture(TEX::ENEMY_JUDAS));
-	texID.emplace_back(texMgr->getTexture(TEX::P_BLOOD5));
+	texID.emplace_back(texMgr->getTexture(TEX::P_BLOOD1));
 
 	maxHP = 600.0f;
 	currHP = maxHP;
@@ -93,7 +93,7 @@ void Judas::update(float eTime)
 	else
 	{
 		if (getEnableCollision()) setEnableCollision(false);
-		doAnimCycle(8, 4, 2, 1);
+		doAnimCycle(5, 4, 4, 1);
 	}
 }
 
@@ -108,9 +108,9 @@ void Judas::render()
 	}
 	else
 	{
-		const Vector& texPos{ objPos.x, objPos.y + meter(0.7f), objPos.z };
-		static const Vector& texVol{ objVol.x * 3.0f, objVol.y * 3.0f, objVol.z };
-		renderer->DrawTextureRectAnim(texPos, texVol, objCol, texID[1], 4, 2, currAnimX[1], currAnimY[1]);
+		const Vector& texPos{ objPos.x, objPos.y - meter(0.5f), objPos.z };
+		static const Vector& texVol{ objVol.x * 15.0f, objVol.y * 15.0f, objVol.z };
+		renderer->DrawTextureRectAnim(texPos, texVol, objCol, texID[1], 4, 4, currAnimX[1], currAnimY[1]);
 	}
 }
 

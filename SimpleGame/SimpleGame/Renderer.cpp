@@ -780,7 +780,7 @@ void Renderer::DrawTextureRect(Vector pos, Vector vol, Color col,
 	glUniform3f(uScale, vol.x, vol.y, vol.z);
 	glUniform4f(uColor, col.r, col.g, col.b, col.a);
 	glUniform1i(uTexture, 0);
-	glUniform1f(uDepth, (pos.y + depth * 100.0f + m_WindowSizeY / 2.f) / m_WindowSizeY);
+	glUniform1f(uDepth, (pos.y + meter(depth) + m_WindowSizeY / 2.f) / m_WindowSizeY);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureID);
@@ -849,7 +849,7 @@ void Renderer::DrawTextureRectAnim(Vector pos, Vector vol, Color col,
 	glUniform3f(uScale, vol.x, vol.y, vol.z);
 	glUniform4f(uColor, col.r, col.g, col.b, col.a);
 	glUniform1i(uTexture, 0);
-	glUniform1f(uDepth, (pos.y + depth * 100.0f + m_WindowSizeY / 2.f) / m_WindowSizeY);
+	glUniform1f(uDepth, (pos.y + meter(depth) + m_WindowSizeY / 2.f) / m_WindowSizeY);
 	glUniform1f(uTotalSeqX, (float)totalX);
 	glUniform1f(uTotalSeqY, (float)totalY);
 	glUniform1f(uCurrSeqX, (float)currX);
