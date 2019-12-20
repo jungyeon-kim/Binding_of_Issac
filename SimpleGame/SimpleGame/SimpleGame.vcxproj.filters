@@ -61,8 +61,8 @@
     <Filter Include="헤더 파일\Struct">
       <UniqueIdentifier>{44489fc7-e2e8-4e31-b69c-d33c5d4f2449}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Sound">
-      <UniqueIdentifier>{698fb85a-c963-4587-af38-c37518c7c8cf}</UniqueIdentifier>
+    <Filter Include="소스 파일\GameMgr\SoundMgr">
+      <UniqueIdentifier>{649e3fdd-af65-48ac-bd59-2777dc9905e5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -132,9 +132,6 @@
     <ClInclude Include="PortalBox.h">
       <Filter>소스 파일\GameObj\StaticObj</Filter>
     </ClInclude>
-    <ClInclude Include="Sound.h">
-      <Filter>소스 파일\Sound</Filter>
-    </ClInclude>
     <ClInclude Include="Polyc.h">
       <Filter>소스 파일\GameObj\Enemy</Filter>
     </ClInclude>
@@ -149,6 +146,9 @@
     </ClInclude>
     <ClInclude Include="Judas.h">
       <Filter>소스 파일\GameObj\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundMgr.h">
+      <Filter>소스 파일\GameMgr\SoundMgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -200,9 +200,6 @@
     <ClCompile Include="PortalBox.cpp">
       <Filter>소스 파일\GameObj\StaticObj</Filter>
     </ClCompile>
-    <ClCompile Include="Sound.cpp">
-      <Filter>소스 파일\Sound</Filter>
-    </ClCompile>
     <ClCompile Include="Polyc.cpp">
       <Filter>소스 파일\GameObj\Enemy</Filter>
     </ClCompile>
@@ -217,6 +214,9 @@
     </ClCompile>
     <ClCompile Include="Judas.cpp">
       <Filter>소스 파일\GameObj\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundMgr.cpp">
+      <Filter>소스 파일\GameMgr\SoundMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

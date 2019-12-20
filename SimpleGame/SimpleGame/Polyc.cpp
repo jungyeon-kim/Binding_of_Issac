@@ -4,6 +4,7 @@
 #include "Physics.h"
 #include "Renderer.h"
 #include "TexMgr.h"
+#include "SoundMgr.h"
 #include "Bullet.h"
 
 using namespace std;
@@ -55,6 +56,7 @@ void Polyc::update(float eTime)
 		if (canAttack) doAnimCycle(10, 4, 1, 0);
 		if (currAnimX[0] == 2 && canAttack)
 		{
+			soundMgr->PlayShortSound(soundMgr->getSound(SOUND::YELL_ENEMY4), false, 0.6f);
 			createBullet(0.0f, 360.0f, 30.0f, 0.15f, 5.0f, 15.0f);
 			attackCycle = 0;
 			canAttack = false;
@@ -68,7 +70,11 @@ void Polyc::update(float eTime)
 	}
 	else
 	{
-		if (getEnableCollision()) setEnableCollision(false);
+		if (getEnableCollision())
+		{
+			soundMgr->PlayShortSound(soundMgr->getSound(SOUND::DESTROY_ENEMY3), false, 0.6f);
+			setEnableCollision(false);
+		}
 		doAnimCycle(8, 4, 2, 1);
 	}
 }

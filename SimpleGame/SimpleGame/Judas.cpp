@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Judas.h"
 #include "TexMgr.h"
+#include "SoundMgr.h"
 #include "ObjMgr.h"
 #include "Physics.h"
 #include "Renderer.h"
@@ -47,9 +48,21 @@ void Judas::update(float eTime)
 
 		// Decide phase state
 		currHPRatio = currHP / maxHP * 100.0f;
-		if (60.0f < currHPRatio && currHPRatio <= 95.0f) phase = 1;
-		else if (30.0f < currHPRatio && currHPRatio <= 60.0f) phase = 2;
-		else if (0.0f < currHPRatio && currHPRatio <= 30.0f) phase = 3;
+		if (60.0f < currHPRatio && currHPRatio <= 95.0f && phase != 1)
+		{
+			soundMgr->PlayShortSound(soundMgr->getSound(SOUND::YELL_ENEMY1), false, 0.6f);
+			phase = 1;
+		}
+		else if (30.0f < currHPRatio && currHPRatio <= 60.0f && phase != 2)
+		{
+			soundMgr->PlayShortSound(soundMgr->getSound(SOUND::YELL_ENEMY2), false, 0.6f);
+			phase = 2;
+		}
+		else if (0.0f < currHPRatio && currHPRatio <= 30.0f && phase != 3)
+		{
+			soundMgr->PlayShortSound(soundMgr->getSound(SOUND::YELL_ENEMY3), false, 0.6f);
+			phase = 3;
+		}
 		
 		// Decide whether to attack type
 		static float value;
@@ -92,7 +105,11 @@ void Judas::update(float eTime)
 	}
 	else
 	{
-		if (getEnableCollision()) setEnableCollision(false);
+		if (getEnableCollision())
+		{
+			soundMgr->PlayShortSound(soundMgr->getSound(SOUND::DESTROY_ENEMY5), false, 0.6f);
+			setEnableCollision(false);
+		}
 		doAnimCycle(5, 4, 4, 1);
 	}
 }

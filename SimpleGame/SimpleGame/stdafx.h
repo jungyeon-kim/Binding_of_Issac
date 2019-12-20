@@ -35,6 +35,7 @@
 #define objMgr ObjMgr::getInstance()
 #define scnMgr ScnMgr::getInstance()
 #define texMgr TexMgr::getInstance()
+#define soundMgr SoundMgr::getInstance()
 
 constexpr float meter(float centiMeter = 1.0f)
 {

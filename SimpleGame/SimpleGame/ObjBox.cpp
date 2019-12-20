@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "ObjBox.h"
 #include "TexMgr.h"
+#include "SoundMgr.h"
 #include "Physics.h"
 #include "Renderer.h"
 
@@ -43,8 +44,9 @@ void ObjBox::init(TEX texID, const Vector& pos)
 	init(pos);
 
 	this->texID.emplace_back(texMgr->getTexture(texID));
+	texType = texID;
 
-	switch (texID)
+	switch (texType)
 	{
 	case TEX::OBJBOX_ROCK:
 		this->texID.emplace_back(texMgr->getTexture(TEX::P_EXPLOSION1));
@@ -63,8 +65,18 @@ void ObjBox::update(float eTime)
 	}
 	else
 	{
-		if (getEnableCollision()) setEnableCollision(false);
-		doAnimCycle(7, 10, 1, 1);
+		if (getEnableCollision())
+		{
+			soundMgr->PlayShortSound(soundMgr->getSound(SOUND::DESTROY_ROCK), false, 0.6f);
+			setEnableCollision(false);
+		}
+
+		switch (texType)
+		{
+		case TEX::OBJBOX_ROCK:
+			doAnimCycle(7, 10, 1, 1);
+			break;
+		}
 	}
 }
 
@@ -80,8 +92,13 @@ void ObjBox::render()
 	else
 	{
 		static const Vector& texVol{ objVol.x * 2.0f, objVol.y * 2.0f, objVol.z };
-		objCol = { 1.0f, 1.0f, 1.0f, 1.0f };
-		renderer->DrawTextureRectAnim(objPos, texVol, objCol, texID[1], 10, 1, currAnimX[1], currAnimY[1]);
+
+		switch (texType)
+		{
+		case TEX::OBJBOX_ROCK:
+			renderer->DrawTextureRectAnim(objPos, texVol, objCol, texID[1], 10, 1, currAnimX[1], currAnimY[1]);
+			break;
+		}
 	}
 }
 

@@ -33,8 +33,8 @@ public:
 	void render();
 
 	bool readTileData(const std::string& fileName);
+	bool setLevel(const std::string& fileName);
 	void tryChangeLevel();
-	void setLevel(const std::string& fileName);
 
 	void keyDownInput(unsigned char key, int x, int y) const;
 	void keyUpInput(unsigned char key, int x, int y) const;

@@ -2,6 +2,7 @@
 #include "ScnMgr.h"
 #include "ObjMgr.h"
 #include "TexMgr.h"
+#include "SoundMgr.h"
 #include "GameController.h"
 #include "Renderer.h"
 #include "ObjectSet.h"
@@ -36,6 +37,8 @@ void ScnMgr::init()
 	texID.emplace_back(texMgr->getTexture(TEX::SCENE_ENDING));
 
 	setLevel("Levels/STAGE" + to_string(levelNameIdx) + ".txt");
+
+	soundMgr->PlayBGSound(soundMgr->getSound(SOUND::TITLE), true, 1.0f);
 }
 
 void ScnMgr::update(float eTime)
@@ -43,7 +46,12 @@ void ScnMgr::update(float eTime)
 	switch (scene)
 	{
 	case SCENE::TITLE:
-		if (gameCon->isInputSpaceBar()) scene = SCENE::IN_GAME;
+		if (gameCon->isInputSpaceBar())
+		{
+			soundMgr->StopBGSound(soundMgr->getSound(SOUND::TITLE));
+			soundMgr->PlayBGSound(soundMgr->getSound(SOUND::IN_GAME), true, 1.0f);
+			scene = SCENE::IN_GAME;
+		}
 		break;
 	case SCENE::IN_GAME:
 	{
@@ -53,23 +61,31 @@ void ScnMgr::update(float eTime)
 		{
 			if (onChangeLevel)
 			{
-				player->setPos({ 0.0f, meter(-3.0f), 0.0f });
-				setLevel("Levels/STAGE" + to_string(++levelNameIdx) + ".txt");
 				onChangeLevel = false;
+				player->setPos({ 0.0f, meter(-3.0f), 0.0f });
+
+				if (!setLevel("Levels/STAGE" + to_string(++levelNameIdx) + ".txt"))
+				{
+					objMgr->deleteAllObject();
+					scene = SCENE::ENDING;
+				}
 			}
 		}
 		else
 		{
-			levelNameIdx = 0;
+			soundMgr->PlayBGSound(soundMgr->getSound(SOUND::IN_GAME), true, 1.0f);
 			objMgr->resetNumOfEnemy();
+			levelNameIdx = 0;
 			setLevel("Levels/STAGE0.txt");
 		}
 		objMgr->update(eTime);
 		break;
 	}
 	case SCENE::ENDING:
-		if (!(++sceneCnt % 800))
+		if (!(++sceneCnt % 1000))
 		{
+			soundMgr->StopBGSound(soundMgr->getSound(SOUND::IN_GAME));
+			soundMgr->PlayBGSound(soundMgr->getSound(SOUND::TITLE), true, 1.0f);
 			scene = SCENE::TITLE;
 			sceneCnt = 0;
 		}
@@ -90,7 +106,7 @@ void ScnMgr::render()
 		objMgr->render();
 		break;
 	case SCENE::ENDING:
-		renderer->DrawGround({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, sceneCnt / 500.0f }, texID[3], 0.0f);
+		renderer->DrawGround({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, sceneCnt / 1000.0f }, texID[3], 0.0f);
 		break;
 	}
 }
@@ -111,8 +127,7 @@ bool ScnMgr::readTileData(const string& fileName)
 	}
 	else
 	{
-		objMgr->deleteAllObject();
-		scene = SCENE::ENDING;
+		cout << "readTileData:: File name is not founded.";
 		return false;
 	}
 }
@@ -122,7 +137,7 @@ void ScnMgr::tryChangeLevel()
 	if (!objMgr->getNumOfEnemy()) onChangeLevel = true;
 }
 
-void ScnMgr::setLevel(const string& fileName)
+bool ScnMgr::setLevel(const string& fileName)
 {
 	if (readTileData(fileName))
 	{
@@ -131,9 +146,9 @@ void ScnMgr::setLevel(const string& fileName)
 		for (int i = 0; i < column; ++i)
 			for (int j = 0; j < row; ++j)
 			{
-				const Vector& tilePos{ 
-					meter(static_cast<float>(j - row / 2)), 
-					meter(static_cast<float>(i - (column / 2))), 
+				const Vector& tilePos{
+					meter(static_cast<float>(j - row / 2)),
+					meter(static_cast<float>(i - (column / 2))),
 					0.0f };
 
 				switch (hashCode(levelTile[i][j].c_str()))
@@ -167,7 +182,11 @@ void ScnMgr::setLevel(const string& fileName)
 					break;
 				}
 			}
+
+		return true;
 	}
+
+	return false;
 }
 
 void ScnMgr::keyDownInput(unsigned char key, int x, int y) const

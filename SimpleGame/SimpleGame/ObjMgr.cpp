@@ -2,7 +2,6 @@
 #include "ObjMgr.h"
 #include "Physics.h"
 #include "Renderer.h"
-#include "Sound.h"
 #include "ObjectSet.h"
 
 using namespace std;
@@ -28,7 +27,6 @@ void ObjMgr::init()
 {
 	physics = make_shared<Physics>();
 	renderer = make_shared<Renderer>(wndSizeX, wndSizeY);
-	sound = make_shared<Sound>();
 	obj = make_unique<multimap<OBJ, unique_ptr<GameObj>, greater<>>>();
 }
 
@@ -153,9 +151,4 @@ shared_ptr<Physics> ObjMgr::getPhysics() const
 shared_ptr<Renderer> ObjMgr::getRenderer() const
 {
 	return renderer;
-}
-
-shared_ptr<Sound> ObjMgr::getSound() const
-{
-	return sound;
 }

@@ -3,6 +3,7 @@
 #include "Physics.h"
 #include "Renderer.h"
 #include "TexMgr.h"
+#include "SoundMgr.h"
 
 using namespace std;
 

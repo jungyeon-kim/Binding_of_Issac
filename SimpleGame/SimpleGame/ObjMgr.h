@@ -13,7 +13,6 @@ private:
 	static ObjMgr* instance;
 	std::shared_ptr<class Physics> physics{};
 	std::shared_ptr<class Renderer> renderer{};
-	std::shared_ptr<class Sound> sound{};
 	ObjContainer<std::unique_ptr<class GameObj>> obj{};
 private:
 	ObjMgr();
@@ -41,7 +40,6 @@ public:
 
 	std::shared_ptr<class Physics> getPhysics() const;
 	std::shared_ptr<class Renderer> getRenderer() const;
-	std::shared_ptr<class Sound> getSound() const;
 };
 
 #include "ObjMgr.hpp"

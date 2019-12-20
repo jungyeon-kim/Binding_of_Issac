@@ -5,6 +5,7 @@
 class ObjBox : public GameActor
 {
 private:
+	TEX texType{};
 	std::uniform_real_distribution<float> urdCol{ 0.0f, 1.0f };
 public:
 	ObjBox(const Vector& pos);

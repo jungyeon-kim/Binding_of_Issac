@@ -1,19 +1,57 @@
 #include "stdafx.h"
-#include "Sound.h"
+#include "SoundMgr.h"
 
 #define MAX_SOUND 100
 
-Sound::Sound()
-{
-	m_engine = createIrrKlangDevice();
+using namespace std;
 
-	if (!m_engine)
-	{
-		std::cout << "Sound Initialization failed. \n";
-	}
+SoundMgr* SoundMgr::instance{};
+
+SoundMgr::SoundMgr()
+{
+	init();
 }
 
-int Sound::CreateBGSound(char* filePath)
+SoundMgr::~SoundMgr()
+{
+	m_bgSoundList.clear();
+	m_shortSoundList.clear();
+
+	delete m_engine;
+}
+
+SoundMgr* SoundMgr::getInstance()
+{
+	if (!instance) instance = new SoundMgr{};
+	return instance;
+}
+
+void SoundMgr::init()
+{
+	m_engine = createIrrKlangDevice();
+	sound = make_unique<map<SOUND, int>>();
+
+	if (!m_engine) cout << "Sound Initialization failed. \n";
+
+	sound->emplace(SOUND::DAMAGED_PLAYER, CreateShortSound("./Sounds/DAMAGED_PLAYER.mp3"));
+	sound->emplace(SOUND::FIRE_BULLET, CreateShortSound("./Sounds/FIRE_BULLET.mp3"));
+	sound->emplace(SOUND::DESTROY_PLAYER, CreateShortSound("./Sounds/DESTROY_PLAYER.mp3"));
+	sound->emplace(SOUND::DESTROY_ROCK, CreateShortSound("./Sounds/DESTROY_ROCK.mp3"));
+	sound->emplace(SOUND::DESTROY_ENEMY1, CreateShortSound("./Sounds/DESTROY_ENEMY1.mp3"));
+	sound->emplace(SOUND::DESTROY_ENEMY2, CreateShortSound("./Sounds/DESTROY_ENEMY2.mp3"));
+	sound->emplace(SOUND::DESTROY_ENEMY3, CreateShortSound("./Sounds/DESTROY_ENEMY3.mp3"));
+	sound->emplace(SOUND::DESTROY_ENEMY4, CreateShortSound("./Sounds/DESTROY_ENEMY4.mp3"));
+	sound->emplace(SOUND::DESTROY_ENEMY5, CreateShortSound("./Sounds/DESTROY_ENEMY5.mp3"));
+	sound->emplace(SOUND::YELL_ENEMY1, CreateShortSound("./Sounds/YELL_ENEMY1.mp3"));
+	sound->emplace(SOUND::YELL_ENEMY2, CreateShortSound("./Sounds/YELL_ENEMY2.mp3"));
+	sound->emplace(SOUND::YELL_ENEMY3, CreateShortSound("./Sounds/YELL_ENEMY3.mp3"));
+	sound->emplace(SOUND::YELL_ENEMY4, CreateShortSound("./Sounds/YELL_ENEMY4.mp3"));
+
+	sound->emplace(SOUND::TITLE, CreateBGSound("./Sounds/TITLE.mp3"));
+	sound->emplace(SOUND::IN_GAME, CreateBGSound("./Sounds/IN_GAME.mp3"));
+}
+
+int SoundMgr::CreateBGSound(char* filePath)
 {
 	int index = 0;
 
@@ -36,7 +74,7 @@ int Sound::CreateBGSound(char* filePath)
 	return index;
 }
 
-void Sound::DeleteBGSound(int index)
+void SoundMgr::DeleteBGSound(int index)
 {
 	std::map<int, ISound*>::iterator iter;
 
@@ -51,7 +89,7 @@ void Sound::DeleteBGSound(int index)
 	m_bgSoundList.erase(index);
 }
 
-void Sound::PlayBGSound(int index, bool bLoop, float volume)
+void SoundMgr::PlayBGSound(int index, bool bLoop, float volume)
 {
 	std::map<int, ISound*>::iterator iter;
 
@@ -68,7 +106,7 @@ void Sound::PlayBGSound(int index, bool bLoop, float volume)
 	(*iter).second->setIsLooped(bLoop);
 }
 
-void Sound::StopBGSound(int index)
+void SoundMgr::StopBGSound(int index)
 {
 	std::map<int, ISound*>::iterator iter;
 
@@ -82,7 +120,7 @@ void Sound::StopBGSound(int index)
 	(*iter).second->setIsPaused(true);
 }
 
-int Sound::CreateShortSound(char* filePath)
+int SoundMgr::CreateShortSound(char* filePath)
 {
 	int index = 0;
 
@@ -105,7 +143,7 @@ int Sound::CreateShortSound(char* filePath)
 	return index;
 }
 
-void Sound::DeleteShortSound(int index)
+void SoundMgr::DeleteShortSound(int index)
 {
 	std::map<int, ISoundSource*>::iterator iter;
 
@@ -119,7 +157,7 @@ void Sound::DeleteShortSound(int index)
 	m_shortSoundList.erase(index);
 }
 
-void Sound::PlayShortSound(int index, bool bLoop, float volume)
+void SoundMgr::PlayShortSound(int index, bool bLoop, float volume)
 {
 	std::map<int, ISoundSource*>::iterator iter;
 
@@ -134,10 +172,7 @@ void Sound::PlayShortSound(int index, bool bLoop, float volume)
 	m_engine->play2D((*iter).second, bLoop);
 }
 
-Sound::~Sound()
+int SoundMgr::getSound(SOUND name) const
 {
-	m_bgSoundList.clear();
-	m_shortSoundList.clear();
-
-	delete m_engine;
+	return (*sound)[name];
 }

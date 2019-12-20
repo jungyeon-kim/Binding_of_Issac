@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Fly.h"
 #include "TexMgr.h"
+#include "SoundMgr.h"
 #include "ObjMgr.h"
 #include "Physics.h"
 #include "Renderer.h"
@@ -47,7 +48,11 @@ void Fly::update(float eTime)
 	}
 	else
 	{
-		if (getEnableCollision()) setEnableCollision(false);
+		if (getEnableCollision())
+		{
+			soundMgr->PlayShortSound(soundMgr->getSound(SOUND::DESTROY_ENEMY4), false, 0.6f);
+			setEnableCollision(false);
+		}
 		doAnimCycle(5, 6, 1, 1);
 	}
 }

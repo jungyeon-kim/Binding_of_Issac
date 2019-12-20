@@ -3,6 +3,7 @@
 #include "Physics.h"
 #include "Renderer.h"
 #include "TexMgr.h"
+#include "SoundMgr.h"
 
 MomsHand::MomsHand(const Vector& pos)
 {
@@ -59,7 +60,11 @@ void MomsHand::update(float eTime)
 	}
 	else
 	{
-		if (getEnableCollision()) setEnableCollision(false);
+		if (getEnableCollision())
+		{
+			soundMgr->PlayShortSound(soundMgr->getSound(SOUND::DESTROY_ENEMY1), false, 0.8f);
+			setEnableCollision(false);
+		}
 		doAnimCycle(5, 4, 4, 1);
 	}
 }

@@ -3,6 +3,7 @@
 #include "GameController.h"
 #include "ObjMgr.h"
 #include "TexMgr.h"
+#include "SoundMgr.h"
 #include "Physics.h"
 #include "Renderer.h"
 #include "Bullet.h"
@@ -56,6 +57,7 @@ void Player::update(float eTime)
 		// Decide whether to spawn a Bullet from Player
 		if (gameCon->isShoot() && isEndCoolTime(Skill::SHOOT))
 		{
+			soundMgr->PlayShortSound(soundMgr->getSound(SOUND::FIRE_BULLET), false, 0.6f);
 			createBullet();
 			resetCoolTime(Skill::SHOOT);
 		}
@@ -80,7 +82,11 @@ void Player::update(float eTime)
 	}
 	else
 	{
-		if (getEnableCollision()) setEnableCollision(false);
+		if (getEnableCollision())
+		{
+			soundMgr->PlayShortSound(soundMgr->getSound(SOUND::DESTROY_PLAYER), false, 1.0f);
+			setEnableCollision(false);
+		}
 		++destroyCnt;
 	}
 }
@@ -134,6 +140,7 @@ void Player::takeDamage(float damage, OBJ attackerType, const GameActor& attacke
 	{
 		if (canDamaged)
 		{
+			soundMgr->PlayShortSound(soundMgr->getSound(SOUND::DAMAGED_PLAYER), false, 0.6f);
 			currHP -= damage;
 			objCol.a = 0.3f;
 			canDamaged = false;

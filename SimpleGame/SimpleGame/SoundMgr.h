@@ -5,11 +5,23 @@
 
 using namespace irrklang;
 
-class Sound
+class SoundMgr
 {
+private:
+	using SoundContainer = std::unique_ptr<std::map<SOUND, int>>;
+private:
+	static SoundMgr* instance;
+	ISoundEngine* m_engine = NULL;
+	std::map<int, ISound*> m_bgSoundList;
+	std::map<int, ISoundSource*> m_shortSoundList;
+	SoundContainer sound{};
+private:
+	SoundMgr();
+	~SoundMgr();
 public:
-	Sound();
-	~Sound();
+	static SoundMgr* getInstance();
+
+	void init();
 
 	int CreateBGSound(char* filePath);
 	void DeleteBGSound(int index);
@@ -20,10 +32,6 @@ public:
 	void DeleteShortSound(int index);
 	void PlayShortSound(int index, bool bLoop, float volume);		
 
-private:
-	ISoundEngine* m_engine = NULL;
-
-	std::map<int, ISound*> m_bgSoundList;
-	std::map<int, ISoundSource*> m_shortSoundList;
+	int getSound(SOUND name) const;
 };
 
