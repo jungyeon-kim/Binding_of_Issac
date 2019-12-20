@@ -90,8 +90,7 @@ void ScnMgr::render()
 		objMgr->render();
 		break;
 	case SCENE::ENDING:
-		//renderer->DrawGround({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, sceneCnt / 500.0f }, texID[3], 0.0f);
-		renderer->DrawTextureRect({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, sceneCnt / 500.0f }, texID[3], 0.0f);
+		renderer->DrawGround({ 0.0f, 0.0f, 0.0f }, { wndSizeX, wndSizeY, 0.0f }, { 1.0f, 1.0f, 1.0f, sceneCnt / 500.0f }, texID[3], 0.0f);
 		break;
 	}
 }
